@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Tour Itinerary & Booking | Renan Tina Travel</title>
+    <meta name="description" content="View the complete tour details, daily itineraries, and premium inclusions. Book your next unforgettable vacation with Renan Tina Travel and Tours.">
+    <meta name="keywords" content="Tour details, travel itinerary, book vacation, travel package inclusions, tour highlights, travel agency Philippines, affordable luxury travel">
+    
+    <meta property="og:title" content="Tour Itinerary & Details | Renan Tina Travel">
+    <meta property="og:description" content="Check out the full itinerary, inclusions, and stunning destinations for this tour package. Book your slot today!">
+    <meta property="og:type" content="website">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Branding Colors */
+            --primary: #0a192f; 
+            --accent-neon: #ac2311;
+            --white: #ffffff;
+            --bg-light: #f9fafb; 
+            --text-dark: #111827;
+            --text-muted: #6b7280;
+            --border-light: #e5e7eb;
+            --footer-bg: #051129;
+            
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --nav-text: var(--primary);
+            --nav-pill-bg: transparent;
+            --nav-pill-text: #555;
+            --nav-border: var(--border-light);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Times New Roman', serif; }
+        
+        html, body { scroll-behavior: smooth; max-width: 100vw; overflow-x: hidden; }
+        body { background: var(--white); color: var(--text-dark); width: 100%; padding-top: 100px; }
+
+       
+        /* =========================================
+           1. GLASSMORPHISM SMART NAVBAR
+           ========================================= */
+        .hero-nav { 
+            position: fixed; top: 0; left: 0; right: 0; width: 100%; 
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.4s ease, padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; 
+        }
+        .hero-nav.scrolled { 
+            padding: 12px 5%; background: rgba(255, 255, 255, 0.95); 
+            box-shadow: 0 4px 30px rgba(0,0,0,0.05); border-bottom: 1px solid var(--border-light);
+        }
+        .hero-nav.hidden { transform: translateY(-100%); }
+        
+        .logo { 
+            font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; 
+            color: var(--primary); text-decoration: none; 
+            display: flex; align-items: center; gap: 12px; white-space: nowrap;
+        }
+        .logo-img { height: 38px; width: 38px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border-light); transition: 0.3s; }
+        .logo:hover .logo-img { transform: scale(1.05) rotate(5deg); }
+
+.nav-pills { 
+    /* ETO YUNG MAGIC TRICK PARA PERFECT CENTER */
+    position: absolute;
+    left: 53%;
+    transform: translateX(-50%);
+    
+    /* Ito na yung mga dati mong code */
+    background: var(--white); 
+    padding: 3px; 
+    border-radius: 50px; 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    border: 1px solid var(--border-light); 
+}
+        .nav-pills a { text-decoration: none; color: #555; font-size: 0.9rem; font-weight: 500; padding: 13px 18px; border-radius: 50px; transition: 0.3s; font-family: 'Inter', sans-serif;}
+        .nav-pills a.active, .nav-pills a:hover { background: var(--primary); color: var(--white); }
+
+        .book-now-nav { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--primary); font-weight: 600; font-size: 0.9rem; border: 1px solid var(--border-light); padding: 6px 6px 6px 20px; border-radius: 50px; transition: 0.3s; background: var(--white); white-space: nowrap; font-family: 'Inter', sans-serif;}
+        .book-now-nav:hover { border-color: var(--primary); }
+
+        .book-now-nav span { background: var(--primary); color: var(--white); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;}
+
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--primary); cursor: pointer; z-index: 1002; transition: 0.3s; }
+
+        /* --- DROPDOWN HOVER LIST --- */
+        .dropdown { position: relative; display: flex; align-items: center; }
+        .dropdown-content {
+            visibility: hidden; opacity: 0; position: absolute;
+            top: 100%; left: 50%; transform: translate(-50%, 10px);
+            background-color: var(--white); min-width: 180px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.15); border-radius: 16px;
+            padding: 10px 0; z-index: 1001; transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid var(--border-light); margin-top: 10px;
+        }
+        .dropdown-content::before { content: ''; position: absolute; top: -15px; left: 0; right: 0; height: 15px; background: transparent; }
+        .dropdown:hover .dropdown-content { visibility: visible; opacity: 1; transform: translate(-50%, 0); }
+        .dropdown-content a { color: var(--text-dark) !important; padding: 10px 20px !important; text-decoration: none; display: block; border-radius: 0 !important; background: transparent !important; font-weight: 500; font-size: 0.9rem; text-align: left; transition: 0.3s; }
+        .dropdown-content a:hover { color: var(--accent-neon) !important; background-color: var(--bg-light) !important; padding-left: 25px !important; }
+
+        /* =========================================
+           TOUR HEADER INFO
+           ========================================= */
+        .tour-header { padding: 40px 5% 20px; max-width: 1400px; margin: 0 auto; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-size: 0.95rem; margin-bottom: 20px; transition: 0.3s; }
+        .back-link:hover { color: var(--primary); transform: translateX(-5px); }
+        
+        .tour-title-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px; }
+        .tour-title-row h1 { font-family: 'Times New Roman', serif; font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 500; color: var(--primary); letter-spacing: -1px; line-height: 1.1; margin-bottom: 10px;}
+        
+        .tour-nav-arrows { display: flex; gap: 10px; }
+        .t-arrow { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border-light); background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; color: var(--text-dark);}
+        .t-arrow:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .tour-meta { display: flex; gap: 25px; flex-wrap: wrap; color: var(--text-muted); font-size: 0.95rem; align-items: center;}
+        .tour-meta span { display: flex; align-items: center; gap: 8px; }
+
+        /* =========================================
+           FIXED IMAGE GALLERY LAYOUT
+           ========================================= */
+        .tour-gallery { 
+            padding: 0 5%; 
+            max-width: 1400px; 
+            margin: 30px auto 70px; 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr; 
+            gap: 20px; 
+            height: 500px; 
+        }
+        .gallery-left { height: 100%; width: 100%; border-radius: 24px; overflow: hidden; min-height: 0; }
+        .gallery-right { display: grid; grid-template-rows: 1fr 1fr; gap: 20px; height: 100%; width: 100%; min-height: 0; }
+        .img-wrap { width: 100%; height: 100%; border-radius: 24px; overflow: hidden; background: #f0f0f0; min-height: 0; position: relative; }
+        .gallery-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: 0.5s ease; opacity: 0; }
+        .gallery-img.loaded { opacity: 1; }
+        .gallery-img:hover { transform: scale(1.03); }
+
+        /* =========================================
+           CONTENT SPLIT (DETAILS & FORM)
+           ========================================= */
+        .tour-content-split { padding: 0 5% 100px; max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start; }
+        
+        /* LEFT SIDE: Details */
+        .tour-left h2 { font-size: 1.8rem; font-weight: 600; color: var(--primary); margin-bottom: 20px; }
+        .tour-desc { font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 40px; }
+        
+        .plan-chart { border-top: 1px solid var(--border-light); padding-top: 30px; margin-bottom: 40px; }
+        .plan-list { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+        .plan-list li { font-size: 1rem; color: var(--text-muted); line-height: 1.5; }
+        .plan-list strong { color: var(--text-dark); font-weight: 600; margin-right: 5px; }
+
+        .amenities-section { border-top: 1px solid var(--border-light); padding-top: 30px; margin-bottom: 50px; }
+        .amenities-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px; }
+        .amenity-item { display: flex; align-items: center; gap: 12px; font-size: 0.95rem; color: var(--text-muted); }
+        .amenity-item i { color: var(--primary); font-size: 1.2rem; width: 20px; text-align: center; }
+
+        .review-card { background: var(--footer-bg); color: white; padding: 40px; border-radius: 24px; text-align: center; }
+        .review-card .stars { color: #facc15; font-size: 1.5rem; letter-spacing: 5px; margin-bottom: 20px; }
+        .review-card p { font-family: 'Times New Roman', serif; font-size: 1.4rem; line-height: 1.4; margin-bottom: 20px; }
+        .review-card span { font-size: 0.9rem; opacity: 0.7; }
+
+        /* RIGHT SIDE: Sticky Booking Form */
+        .booking-widget { background: #f9fafb; border: 1px solid var(--border-light); padding: 40px; border-radius: 24px; position: sticky; top: 120px; }
+        .booking-widget .form-group { margin-bottom: 20px; }
+        .booking-widget label { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; letter-spacing: 1px; }
+        .booking-widget input, .booking-widget textarea { width: 100%; padding: 15px 18px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 0.95rem; outline: none; transition: 0.3s; background: var(--white); }
+        .booking-widget input:focus, .booking-widget textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(10, 25, 47, 0.08); }
+        .booking-widget textarea { resize: vertical; min-height: 100px; }
+        .submit-btn { width: 100%; background: var(--primary); color: var(--white); padding: 18px; border: none; border-radius: 50px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .submit-btn:hover { background: #1f2937; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+     /* ==========================================
+   ROHAN AI CHAT WIDGET - FULL STYLES
+   ========================================== */
+
+/* Main Box */
+.chat-window {
+    position: fixed; bottom: 90px; right: 20px; width: 350px; height: 500px;
+    background: white; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    display: none; flex-direction: column; z-index: 10000; overflow: hidden;
+    font-family: Arial, sans-serif; /* Para hindi mukhang luma yung text */
+}
+.chat-window.active { display: flex !important; }
+
+/* Header */
+.chat-header {
+    background: #0a192f; color: white; padding: 15px; display: flex; 
+    justify-content: space-between; align-items: center; border-radius: 15px 15px 0 0;
+}
+.chat-header-info { display: flex; align-items: center; gap: 10px; }
+.chat-header-icon { width: 40px; height: 40px; }
+.chat-header-title { font-weight: bold; font-size: 16px; }
+.chat-header-status { font-size: 12px; color: #4ade80; }
+
+.chat-close-btn { 
+    background: none; border: none; color: white; cursor: pointer; 
+    font-size: 20px; 
+    transition: color 0.3s ease; /* Pinagsama na ang transition dito */
+}
+.chat-close-btn:hover { color: #430606 !important; }
+
+/* Body & Bubbles */
+.chat-body {
+    flex: 1; padding: 15px; background: #f8f9fa; overflow-y: auto; 
+    display: flex; flex-direction: column; gap: 10px;
+}
+.chat-msg { padding: 10px 15px; border-radius: 15px; max-width: 80%; font-size: 14px; line-height: 1.4; }
+.chat-msg.bot { background: white; border: 1px solid #ddd; align-self: flex-start; border-bottom-left-radius: 5px; }
+.chat-msg.user { background: #0a192f; color: white; align-self: flex-end; border-bottom-right-radius: 5px; }
+
+/* Footer / Input Area */
+.chat-footer {
+    padding: 15px; background: white; border-top: 1px solid #eee; 
+    display: flex; gap: 10px; align-items: center; border-radius: 0 0 15px 15px;
+}
+.chat-input {
+    flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 20px; outline: none;
+}
+
+.chat-send {
+    background: #0a192f; color: white; border: none; width: 40px; height: 40px; 
+    border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center;
+    transition: background-color 0.3s ease; /* Pinagsama na ang transition dito */
+}
+.chat-send:hover { background-color: #430606 !important; }
+
+/* Indicators & Floating Button */
+.typing-indicator { display: none; padding: 10px; font-style: italic; font-size: 12px; color: #888; }
+
+.chat-widget-btn {
+    position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
+    border-radius: 50%; background: #0a192f; color: white; border: none; 
+    cursor: pointer; font-size: 24px; z-index: 10000; display: flex; 
+    justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease; /* Pinagsama na ang transition dito */
+}
+.chat-widget-btn:hover {
+    background-color: #410606 !important; 
+    transform: scale(1.1); 
+}
+/* ==========================================
+   UPGRADED HOVER EFFECTS (Lift & Glow)
+   ========================================== */
+
+/* 1. Floating Chat Button - Aangat, lalaki ng konti, at mag-go-glow ng red! */
+.chat-widget-btn {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Medyo bouncy effect */
+}
+.chat-widget-btn:hover {
+    background-color: #430606 !important; 
+    transform: translateY(-5px) scale(1.1); /* Aangat paitaas */
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.4) !important; /* Red Glowing Shadow */
+}
+
+/* 2. Send Button - Aabante ng konti yung icon na parang pinapasa talaga */
+.chat-send {
+    transition: all 0.3s ease;
+}
+.chat-send:hover {
+    background-color: #430606 !important;
+    transform: translateX(3px) scale(1.05); /* Aabante pakanan */
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+}
+
+/* 3. Close (X) Button - Iikot ng slight para cute */
+.chat-close-btn {
+    transition: all 0.3s ease;
+}
+.chat-close-btn:hover {
+    color: #ff4444 !important; 
+    transform: rotate(90deg); /* Iikot ang X button */
+}/* ==========================================
+   CLASSIC ELEGANT FOOTER
+   ========================================== */
+.classic-footer {
+    background-color: #0b1120;
+    color: #a0aec0;
+    margin: 20px;
+    border-radius: 30px;
+    padding: 60px 60px 25px 60px;
+    font-family: 'Inter', sans-serif; /* Naka-Inter ang mga normal text at links */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+/* COLUMN 1: Branding */
+.footer-brand-col {
+    flex: 2 1 350px;
+}
+
+.footer-logo-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.footer-logo-img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: white; 
+}
+
+.footer-logo-title h2 {
+    color: white;
+    font-size: 1.3rem;
+    line-height: 1.3;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif; /* Naka-Times New Roman ang main logo header */
+}
+
+.footer-brand-col p {
+    margin-bottom: 35px;
+    line-height: 1.6;
+}
+
+/* Social Icons */
+.footer-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-socials a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #a0aec0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-socials a i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.footer-socials a:hover {
+    color: white;
+}
+.footer-socials a:hover i {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* COLUMNS 2, 3, 4: Links */
+.footer-links-col {
+    flex: 1 1 150px;
+}
+
+.footer-links-col h4 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif; /* Naka-Times New Roman ang column headers */
+}
+
+.footer-links-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links-col ul li {
+    margin-bottom: 16px;
+}
+
+.footer-links-col ul li a {
+    color: #a0aec0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-links-col ul li a:hover {
+    color: white;
+}
+
+/* BOTTOM BAR: Copyright & Designed by */
+.footer-bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08); 
+    padding-top: 25px;
+    font-size: 0.9rem;
+}
+
+/* MOBILE RESPONSIVE SETUP */
+@media (max-width: 768px) {
+    .classic-footer {
+        margin: 10px;
+        padding: 40px 25px 25px 25px;
+        border-radius: 20px;
+    }
+    .footer-content {
+        gap: 30px;
+    }
+    .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+        /* =========================================
+           RESPONSIVE FIXES 
+           ========================================= */
+        @media (max-width: 1024px) {
+            .hero-nav { padding: 15px 5%; }
+            
+            /* Fixed Mobile Menu Accordion */
+            .nav-pills { 
+                position: absolute; top: 80px; left: 5%; width: 90%; 
+                background: var(--white); flex-direction: column; 
+                padding: 15px 15px 25px; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
+                opacity: 0; visibility: hidden; transform: translateY(-20px); 
+                transition: 0.3s ease-in-out; align-items: stretch; border: none; z-index: 999;
+            }
+            .nav-pills.show { opacity: 1; visibility: visible; transform: translateY(0); }
+            
+            .nav-pills > a, .dropdown > .dropbtn { color: var(--text-dark) !important; padding: 15px 20px !important; background: transparent !important; border-radius: 8px !important; text-align: left; font-size: 1rem !important; display: block; width: 100%;}
+            .nav-pills > a:hover, .nav-pills > a.active { background: var(--bg-light) !important; color: var(--primary) !important; }
+            
+            .dropdown { width: 100%; flex-direction: column; align-items: stretch; }
+            .dropdown-content { position: static !important; width: 100% !important; box-shadow: none !important; border: none !important; background: var(--bg-light) !important; transform: none !important; display: none; opacity: 1 !important; visibility: visible !important; padding: 5px 0 !important; margin-top: 0 !important; border-radius: 8px !important;}
+            .dropdown:hover .dropdown-content { display: block; }
+            
+            .mobile-menu-btn { display: block; } 
+            .book-now-nav { display: none; } 
+
+            .tour-content-split { grid-template-columns: 1fr; }
+            .booking-widget { position: relative; top: 0; margin-top: 40px; }
+            .tour-gallery { height: 450px; grid-template-columns: 1fr 1fr; } 
+            .footer-main { grid-template-columns: 1fr 1fr; gap: 40px;}
+        }
+        @media (max-width: 768px) {
+            .tour-gallery { grid-template-columns: 1fr; grid-template-rows: 350px 350px; height: auto; }
+            .gallery-right { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+            .tour-title-row { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .amenities-grid { grid-template-columns: 1fr; }
+            
+            .footer-wrapper { padding: 10px; } 
+            footer { border-radius: 30px; padding: 50px 20px 30px; }
+            .footer-main { grid-template-columns: 1fr; text-align: center; gap: 30px;}
+            .footer-main > div:first-child { grid-column: span 1; margin-bottom: 20px;}
+            .footer-brand { justify-content: center; }
+            .social-link { justify-content: center; }
+            .footer-main p { margin-inline: auto; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            
+            .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
+        }
+        @media (max-width: 480px) {
+            .tour-gallery { grid-template-columns: 1fr; grid-template-rows: 300px auto; height: auto; }
+            .gallery-right { grid-template-columns: 1fr; grid-template-rows: 200px 200px; }
+        }
+        /* ==========================================
+   HAMBURGER MENU & MOBILE RESPONSIVE
+   ========================================== */
+
+/* 1. Itago ang hamburger sa Desktop */
+.hamburger-btn {
+    display: none; 
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #0b1120;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+/* ==========================================
+   UPDATED MOBILE RESPONSIVE (FIXED)
+   ========================================== */
+@media (max-width: 900px) {
+    
+    .hamburger-btn {
+        display: block;
+        z-index: 1001; /* Siguradong nasa taas ng lahat */
+    }
+
+    .book-now-nav {
+        display: none; 
+    }
+
+    .nav-pills {
+        /* I-force natin ang display pag naka-mobile */
+        display: flex; 
+        flex-direction: column;
+        position: absolute;
+        top: 70px; 
+        left: 5%;
+        right: 5%;
+        background: #ffffff; /* Puti ang background */
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+        border: 1px solid #e5e7eb;
+        z-index: 1000;
+
+        /* Default: Nakatago */
+        transform: translateY(-20px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    /* Lilitaw na siya dito */
+    .nav-pills.show {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* 🚨 ETO YUNG FIX PARA SA "WALANG LAMAN" 🚨 */
+    .nav-pills a, 
+    .dropdown .dropbtn {
+        width: 100%;
+        text-align: left;
+        padding: 15px;
+        border-radius: 8px;
+        color: #0b1120 !important; /* Force black/dark text para makita sa white bg */
+        display: block !important; /* Siguradong block element sila */
+        font-size: 1rem;
+        border-bottom: 1px solid #f3f4f6; /* Optional: guide lines */
+    }
+    
+    .nav-pills a:hover {
+        background-color: #f3f4f6;
+    }
+
+    /* About Dropdown Fix for Mobile */
+    .dropdown {
+        width: 100%;
+    }
+
+    /* Sa mobile, mas okay kung naka-display na agad o clickable */
+    .dropdown-content {
+        position: static; 
+        box-shadow: none;
+        padding-left: 20px;
+        background: #f9fafb; /* Light gray para halatang sub-menu */
+        display: none; /* Default hidden */
+    }
+
+    /* Kapag hinover o tinap ang parent, lilitaw ang sub-links */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    
+    .dropdown-content a {
+        font-size: 0.9rem;
+        color: #4b5563 !important;
+    }
+}
+    </style>
+</head>
+<body id="top">
+
+   <nav class="hero-nav">
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Renan Tina Logo" class="logo-img">
+            RENAN TINA TRAVEL AND TOURS
+        </a>
+        
+        <div class="nav-pills">
+            <a href="index.html">Home</a>
+            <a href="packages.html"class="active">Packages</a>
+            <a href="services.html">Services</a>
+            
+            <div class="dropdown">
+                <a href="about.html" class="dropbtn">About <i style="font-size: 0.7rem; margin-left: 4px;"></i></a>
+                <div class="dropdown-content">
+                    <a href="packages.html#faq">FAQs</a>
+                    <a href="team.html">Our Team</a>
+                    <a href="reviews.html">Traveler Stories</a>
+                    <a href="licenses.html">Licenses</a>
+                    <a href="privacy-policy.html">Privacy and Policy</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+
+        <button id="mobileMenuBtn" class="hamburger-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+        <a href="#" class="book-now-nav" id="openBookingBtn">
+            Connect <span>↗</span>
+        </a>
+    </nav>
+        
+
+    <section class="tour-header">
+        <a href="packages.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Packages</a>
+        
+        <div class="tour-title-row">
+            <h1 id="pkg-title">Loading Package...</h1>
+            <div class="tour-nav-arrows">
+                <button class="t-arrow" onclick="window.history.back()"><i class="fas fa-chevron-left"></i></button>
+            </div>
+        </div>
+
+        <div class="tour-meta">
+            <span id="pkg-availability"><i class="far fa-calendar-alt"></i> Flexible Dates</span>
+            <span id="pkg-duration"><i class="fas fa-clock"></i> -- Days</span>
+            <span id="pkg-group"><i class="fas fa-user-friends"></i> Max 15 People</span>
+            <span id="pkg-reviews"><i class="far fa-star"></i> 4.8 (Top Rated)</span>
+        </div>
+    </section>
+
+    <section class="tour-gallery">
+        <div class="gallery-left">
+            <div class="img-wrap"><img src="" id="img-main" class="gallery-img" alt="Main Tour Image" onload="this.classList.add('loaded')"></div>
+        </div>
+        <div class="gallery-right">
+            <div class="img-wrap"><img src="" id="img-sub1" class="gallery-img" alt="Tour Highlight 1" onload="this.classList.add('loaded')"></div>
+            <div class="img-wrap"><img src="" id="img-sub2" class="gallery-img" alt="Tour Highlight 2" onload="this.classList.add('loaded')"></div>
+        </div>
+    </section>
+
+    <section class="tour-content-split">
+        
+        <div class="tour-left">
+            <h2>Tour Details</h2>
+            <p class="tour-desc" id="pkg-desc">Loading description from CMS...</p>
+
+            <div class="plan-chart">
+                <h2>Plan Chart</h2>
+                <ul class="plan-list" id="pkg-itinerary">
+                    <li><strong>Notice:</strong> Detailed itinerary will be sent to your email upon inquiry!</li>
+                </ul>
+            </div>
+
+            <div class="amenities-section">
+                <h2>Amenities</h2>
+                <div class="amenities-grid" id="pkg-amenities">
+                    <div class="amenity-item"><i class="fas fa-star"></i> <span>Premium inclusions to be announced</span></div>
+                    <div class="amenity-item"><i class="fas fa-camera"></i> <span>Guided Tours</span></div>
+                </div>
+            </div>
+
+          <div class="review-card" id="pkg-review-container" style="display: none;">
+                <div class="stars" id="pkg-review-stars">★★★★★</div>
+                <h3 id="pkg-review-title" style="font-size: 1.2rem; margin-bottom: 10px; color: var(--star-gold);">"Amazing!"</h3>
+                <p id="pkg-review-text" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 15px;">"The team didn't just plan a trip..."</p>
+                <span id="pkg-review-author">- Happy Traveler</span>
+            </div>
+        </div>
+
+        <div class="tour-right">
+            <div class="booking-widget" id="booking-form">
+                <form class="booking-form" id="packageBookingForm">
+                    <input type="hidden" name="inquiry" id="hidden-pkg-name" value="Custom Tour">
+
+                    <div class="form-group">
+                        <label>NAME</label>
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>EMAIL</label>
+                        <input type="email" name="email" placeholder="name@email.com" required>
+                    </div>
+                    <div class="form-group">
+                       <label>PHONE NUMBER</label>
+                       <input type="tel" name="number" placeholder="09xxxxxxxxx" required>
+                    </div>
+                    <div class="form-group">
+                        <label>NUMBER OF GUESTS</label>
+                        <input type="number" name="guests" placeholder="e.g., 2" required min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>CHECK-IN DATE</label>
+                        <input type="date" id="checkInDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CHECK-OUT DATE</label>
+                        <input type="date" id="checkOutDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>SPECIAL NOTES</label>
+                        <textarea id="specialNotesInput" placeholder="Write your message here..."></textarea>
+                    </div>
+                    
+                    <input type="hidden" name="message" id="finalMessageOutput">
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">Book This Tour</button>
+                </form>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="footer-wrapper" id="contact">
+       <footer class="classic-footer">
+    <div class="footer-content">
+        
+        <div class="footer-brand-col">
+            <div class="footer-logo-title">
+                <img src="logo.png" alt="Renan-Tina Logo" class="footer-logo-img">
+                <h2>RENAN TINA TRAVEL AND<br>TOURS</h2>
+            </div>
+            <p>Explore the world with confidence, comfort &<br>crafted experiences.</p>
+            <div class="footer-socials">
+                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            </div>
+        </div>
+
+        <div class="footer-links-col">
+            <h4>Main Pages</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="packages.html#faqs">FAQ</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-links-col">
+            <h4>More Pages</h4>
+            <ul>
+                <li><a href="package-details.html">Package Single</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-links-col">
+            <h4>Utility Pages</h4>
+            <ul>
+                <li><a href="#">Help Center</a></li>
+                <li><a href="licenses.html">Licenses</a></li>
+            </ul>
+        </div>
+        
+    </div>
+
+    <div class="footer-bottom-bar">
+        <p>&copy; 2026 Renan-Tina Travel and Tours</p>
+        <p>Designed with K</p>
+    </div>
+</footer>
+    </div>
+
+   <button class="chat-widget-btn" id="chatOpenBtn" title="Chat with our AI Assistant">
+    <i class="fas fa-comment-dots"></i>
+</button>
+
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+        <div class="chat-header-info">
+            <div class="chat-header-icon">
+                <img src="rohan1.png" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div>
+                <div class="chat-header-title">ROHAN AI</div>
+                <div class="chat-header-status">Online Assistant</div>
+            </div>
+        </div>
+        <button class="chat-close-btn" id="chatCloseBtn"><i class="fas fa-times"></i></button>
+    </div>
+    
+    <div class="chat-body" id="chatBody">
+        <div class="chat-msg bot">
+            Hi! Welcome to Renan Tina Travel & Tours. Need help finding the best travel agency packages in the Philippines or visa assistance? Just let me know!
+        </div>
+        <div class="typing-indicator" id="typingIndicator">ROHAN AI is typing...</div>
+    </div>
+
+    <div class="chat-footer">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type your message here..." onkeypress="handleChatEnter(event)">
+        <button class="chat-send" onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+
+    <script>
+        // --- SMART NAVBAR LOGIC ---
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.hero-nav');
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+            
+            if (scrollTop > lastScrollTop && scrollTop > 150) navbar.classList.add('hidden');
+            else navbar.classList.remove('hidden');
+            lastScrollTop = scrollTop;
+        });
+
+        // --- MOBILE MENU TOGGLE ---
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => { navLinks.classList.toggle('show'); });
+
+        // ==========================================
+        // SANITY CMS DYNAMIC FETCH LOGIC (TOTOONG DATA NA!)
+        // ==========================================
+       async function loadSanityPackageDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let slug = urlParams.get('id');
+
+            if (!slug) {
+                document.getElementById('pkg-title').innerText = "Package Not Found";
+                return;
+            }
+
+            const PROJECT_ID = 'e4giu1sx'; 
+            const DATASET = 'production';
+            
+            // PRO MAGIC: Hihigupin ang Package + Yung nakakabit na Review sa kanya!
+            const QUERY = encodeURIComponent(`*[_type == "tourPackage" && slug.current == "${slug}"][0]{
+                _id, title, duration, description, availability, groupSize, rating, itinerary, amenities,
+                "mainImageUrl": mainImage.asset->url,
+                "galleryUrls": gallery[].asset->url,
+                "featuredReview": *[_type == "travelerReview" && references(^._id)][0]{
+                    reviewerName, location, rating, reviewTitle, reviewText
+                }
+            }`);
+            
+            const URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
+
+            try {
+                const response = await fetch(URL);
+                const data = await response.json();
+                const pkg = data.result;
+
+                if (!pkg) return;
+
+                // 1. Ilagay ang Basic Details
+                document.getElementById('hidden-pkg-name').value = pkg.title;
+                document.getElementById('pkg-title').innerText = pkg.title;
+                document.getElementById('pkg-desc').innerText = pkg.description;
+                document.getElementById('pkg-duration').innerHTML = `<i class="fas fa-clock"></i> ${pkg.duration || '-- Days'}`;
+                
+                document.getElementById('pkg-availability').innerHTML = `<i class="far fa-calendar-alt"></i> ${pkg.availability ? pkg.availability : 'Flexible Dates'}`;
+                document.getElementById('pkg-group').innerHTML = `<i class="fas fa-user-friends"></i> ${pkg.groupSize ? pkg.groupSize : 'Varies'}`;
+                document.getElementById('pkg-reviews').innerHTML = `<i class="far fa-star"></i> ${pkg.rating ? pkg.rating : 'No ratings yet'}`;
+
+                // 2. Ilagay ang Images
+                document.getElementById('img-main').src = pkg.mainImageUrl || 'https://via.placeholder.com/1200x800?text=Main+Image';
+                const gallery = pkg.galleryUrls || [];
+                document.getElementById('img-sub1').src = gallery[0] || 'https://via.placeholder.com/600x400?text=Upload+Image+1';
+                document.getElementById('img-sub2').src = gallery[1] || 'https://via.placeholder.com/600x400?text=Upload+Image+2';
+
+                // 3. Ilagay ang Itinerary
+                const itineraryContainer = document.getElementById('pkg-itinerary');
+                itineraryContainer.innerHTML = ''; 
+                if (pkg.itinerary && pkg.itinerary.length > 0) {
+                    pkg.itinerary.forEach((dayItem, index) => {
+                        itineraryContainer.innerHTML += `<li><strong>Day ${index + 1}:</strong> ${dayItem}</li>`;
+                    });
+                } else {
+                    itineraryContainer.innerHTML = '<li>Details to be announced.</li>';
+                }
+
+                // 4. Ilagay ang Amenities
+                const amenitiesContainer = document.getElementById('pkg-amenities');
+                amenitiesContainer.innerHTML = ''; 
+                if (pkg.amenities && pkg.amenities.length > 0) {
+                    pkg.amenities.forEach(amenity => {
+                        amenitiesContainer.innerHTML += `<div class="amenity-item"><i class="fas fa-check-circle"></i> <span>${amenity}</span></div>`;
+                    });
+                } else {
+                    amenitiesContainer.innerHTML = '<div class="amenity-item"><span>Standard inclusions apply.</span></div>';
+                }
+
+                // 5. ILAGAY ANG RELATED REVIEW (KUNG MERON!)
+                if (pkg.featuredReview) {
+                    document.getElementById('pkg-review-container').style.display = 'block'; // Ilitaw ang card
+                    
+                    let starsHTML = '';
+                    for(let i=0; i<(pkg.featuredReview.rating || 5); i++) { starsHTML += '★'; }
+                    
+                    document.getElementById('pkg-review-stars').innerHTML = starsHTML;
+                    document.getElementById('pkg-review-title').innerText = `"${pkg.featuredReview.reviewTitle}"`;
+                    document.getElementById('pkg-review-text').innerText = pkg.featuredReview.reviewText;
+                    document.getElementById('pkg-review-author').innerText = `- ${pkg.featuredReview.reviewerName}, ${pkg.featuredReview.location}`;
+                }
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        // TATAWAGIN AGAD PAGKA-LOAD NG PAGE
+        document.addEventListener('DOMContentLoaded', loadSanityPackageDetails);
+
+
+        // --- AI CHAT WIDGET LOGIC ---
+        const chatOpenBtn = document.getElementById('chatOpenBtn');
+        const chatCloseBtn = document.getElementById('chatCloseBtn');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        chatOpenBtn.addEventListener('click', () => chatWindow.classList.add('active'));
+        chatCloseBtn.addEventListener('click', () => chatWindow.classList.remove('active'));
+
+        function handleChatEnter(event) {
+            if (event.key === 'Enter') sendChatMessage();
+        }
+
+        function sendChatMessage() {
+            const messageText = chatInput.value.trim();
+            if (!messageText) return;
+
+            appendMessage(messageText, 'user');
+            chatInput.value = '';
+
+            typingIndicator.style.display = 'block';
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            setTimeout(() => {
+                typingIndicator.style.display = 'none';
+                let aiResponse = "That sounds exciting! I'm still learning, but if you're ready to book, feel free to fill out the form on this page to connect with our human experts!";
+                const lowerText = messageText.toLowerCase();
+                if (lowerText.includes('price') || lowerText.includes('how much')) {
+                    aiResponse = "Our prices vary per package. You can see the full pricing on our Packages page, or use the form to get a custom quote!";
+                } else if (lowerText.includes('hello') || lowerText.includes('hi')) {
+                    aiResponse = "Hi there! Looking for a beach getaway or an alpine adventure today?";
+                }
+                appendMessage(aiResponse, 'bot');
+            }, 1500); 
+        }
+
+        function appendMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-msg ${sender}`;
+            msgDiv.innerText = text;
+            chatBody.insertBefore(msgDiv, typingIndicator);
+            chatBody.scrollTop = chatBody.scrollHeight; 
+        }
+
+        // ==========================================
+        // BACKEND GOOGLE SCRIPT FORM SUBMISSION
+        // ==========================================
+        const pkgForm = document.getElementById('packageBookingForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwCTMMxQts0wN0B-VzUn-6lEIfoZqHoWTxnrFC_d79wLJSCB7EiHqW7Lr419RS2xVJqDw/exec'; 
+
+        if(pkgForm) {
+            pkgForm.addEventListener('submit', e => {
+                e.preventDefault(); 
+                
+                submitBtn.innerText = 'Sending...';
+                submitBtn.disabled = true;
+
+                const checkIn = document.getElementById('checkInDate').value;
+                const checkOut = document.getElementById('checkOutDate').value;
+                const notes = document.getElementById('specialNotesInput').value;
+                
+                document.getElementById('finalMessageOutput').value = `Check-in: ${checkIn} \nCheck-out: ${checkOut} \n\nNotes: ${notes}`;
+
+                let requestBody = new FormData(pkgForm);
+
+                fetch(scriptURL, { method: 'POST', body: requestBody})
+                    .then(response => {
+                        alert('Success! Your booking request has been sent. We will email you shortly.');
+                        submitBtn.innerText = 'Book This Tour';
+                        submitBtn.disabled = false;
+                        pkgForm.reset(); 
+                    })
+                    .catch(error => {
+                        alert('Error! Something went wrong. Please try again.');
+                        submitBtn.innerText = 'Book This Tour';
+                        submitBtn.disabled = false;
+                    });
+            });
+        }
+    </script>
+    <script src="rohan-ai.js"></script>
+
+<script>
+    // --- OPEN & CLOSE LOGIC ---
+    const btnOpen = document.getElementById('chatOpenBtn');
+    const btnClose = document.getElementById('chatCloseBtn');
+    const windowChat = document.getElementById('chatWindow');
+
+    if (btnOpen) {
+        btnOpen.onclick = function() {
+            windowChat.style.display = 'flex'; 
+            windowChat.classList.add('active');
+        };
+    }
+
+    if (btnClose) {
+        btnClose.onclick = function() {
+            windowChat.style.display = 'none';
+            windowChat.classList.remove('active');
+        };
+    }
+
+    // --- SENDING LOGIC ---
+    function handleChatEnter(e) {
+        if (e.key === 'Enter') sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+        const input = document.getElementById('chatInput');
+        const body = document.getElementById('chatBody');
+        const typing = document.getElementById('typingIndicator');
+        
+        const val = input.value.trim();
+        if (!val) return;
+
+        // User Message
+        appendMsg(val, 'user');
+        input.value = '';
+
+        // Show Typing Indicator
+        typing.style.display = 'block';
+        body.scrollTop = body.scrollHeight;
+
+        try {
+            // Tatawag sa rohan-ai.js API connector
+            const res = await askRohanAI(val); 
+            typing.style.display = 'none';
+            appendMsg(res, 'bot');
+        } catch (err) {
+            console.error("AI Error:", err);
+            typing.style.display = 'none';
+            appendMsg("Sorry, I lost my connection. Please try again!", 'bot');
+        }
+    }
+
+    // --- APPEND MESSAGE LOGIC ---
+    function appendMsg(text, sender) {
+        const body = document.getElementById('chatBody');
+        const typing = document.getElementById('typingIndicator');
+        const div = document.createElement('div');
+        div.className = `chat-msg ${sender}`;
+        div.innerText = text;
+        
+        body.insertBefore(div, typing);
+        body.scrollTop = body.scrollHeight;
+    }
+</script>
+</body>
+</html>

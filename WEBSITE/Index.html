@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renan-Tina Travel & Tours</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ------------------------------------- */
+    /* GLOBAL & THEME STYLES                 */
+    /* ------------------------------------- */
+    svg { z-index: 100; }
+
+    :root {
+      --padding: 10vmin;
+      --color-background: #0077c8; 
+      --color-accent: #fca311; 
+      --color-text-dark: #ffffff; 
+      --color-card-bg: #ffffff;
+      --color-card-text: #1A1A1A;
+      
+      --font-size-large: 7vw;
+      --font-size-medium: 3.5vw;
+      --font-size-normal: 1.5vw;
+    }
+    
+    @media only screen and (min-width: 800px) {
+      :root {
+        --font-size-large: 64px;
+        --font-size-medium: 32px;
+        --font-size-normal: 18px;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    a { color: var(--color-accent); text-decoration: none; font-weight: bold;}
+    ul { margin: 0; padding: 0; list-style: none; }
+    li { margin-top: 10px; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      min-width: 100%;
+      font-family: 'Montserrat', sans-serif; 
+      background: var(--color-background);
+      color: var(--color-text-dark);
+      font-weight: 400;
+      font-size: var(--font-size-normal);
+      overflow-x: hidden;
+    }
+
+    /* ------------------------------------- */
+    /* UPGRADED TOP SPLASH HEADER            */
+    /* ------------------------------------- */
+    .top-splash-header {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 100; 
+    }
+
+    .top-splash-header .header-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 119, 200, 0.4) 100%); 
+      z-index: 1;
+    }
+
+    .top-splash-header .header-content {
+      position: relative;
+      z-index: 2;
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.15); 
+      backdrop-filter: blur(12px); 
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 40px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 900px;
+    }
+
+    .company-logo {
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      margin-bottom: 25px;
+      border-radius: 50%;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+      background-color: white; 
+    }
+
+    .company-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900; 
+      font-size: clamp(30px, 5vw, 65px);
+      margin: 0 0 15px 0;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0px 4px 15px rgba(0, 119, 200, 0.5); 
+    }
+
+    .company-intro {
+      font-size: clamp(16px, 1.8vw, 22px);
+      max-width: 700px;
+      margin: 0 auto;
+      color: #ffffff;
+      font-weight: 600;
+      line-height: 1.6;
+      text-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .scroll-prompt {
+      margin-top: 40px;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #ffffff;
+      background-color: var(--color-accent);
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 800;
+      box-shadow: 0px 10px 20px rgba(252, 163, 17, 0.3);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-15px); }
+      60% { transform: translateY(-7px); }
+    }
+
+    /* ------------------------------------- */
+    /* THE AIRPLANE CANVAS                   */
+    /* ------------------------------------- */
+    canvas {
+      position: fixed;
+      z-index: 50; 
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    /* 3D Parallax Cloud Layers */
+    .cloud-layer {
+      position: absolute;
+      width: 100%;
+      height: 150vh;
+      background-size: cover;
+      background-repeat: repeat-y;
+      pointer-events: none;
+    }
+    .cloud-bg {
+      z-index: 0;
+      background-image: url('https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?q=80&w=2000&auto=format&fit=crop');
+      opacity: 0.3;
+      mix-blend-mode: screen;
+    }
+    .cloud-mid {
+      z-index: 3;
+      background-image: url('https://www.transparenttextures.com/patterns/clouds.png');
+      opacity: 0.6;
+    }
+    .cloud-front {
+      z-index: 60; 
+      background-image: url('https://www.transparenttextures.com/patterns/clouds.png');
+      opacity: 0.3;
+      transform: scale(1.5);
+    }
+
+    .content {
+      position: relative;
+      
+      .trigger {
+        position: absolute;
+        top: 0;
+        height: 100%;
+      }
+      
+      /* HERO INTRO SECTION (Shield Window) */
+      .hero-section {
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 5vh;
+        z-index: 10;
+        overflow: hidden;
+      }
+
+      .shield-window {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90vw;
+        max-width: 1000px;
+        height: 65vh;
+        background: url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=1600&auto=format&fit=crop') center/cover;
+        border-radius: 0 0 400px 400px; 
+        clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+        box-shadow: inset 0 -20px 50px rgba(0,0,0,0.5);
+        z-index: 1;
+      }
+
+      .shield-window::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        box-shadow: inset 0 0 50px rgba(0,0,100,0.3);
+      }
+
+      .hero-content-wrapper {
+        position: relative;
+        width: 85vw;
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        z-index: 20;
+      }
+
+      .hero-text-left h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: clamp(30px, 5vw, 70px);
+        font-weight: 800;
+        line-height: 1.1;
+        margin: 0;
+        text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+      }
+
+      .hero-text-right {
+        max-width: 350px;
+        text-align: left;
+        padding-bottom: 10px;
+      }
+
+      .hero-text-right .badge {
+        border: 1px solid rgba(255,255,255,0.6);
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+
+      .hero-text-right p {
+        font-size: clamp(14px, 1.2vw, 18px);
+        line-height: 1.5;
+        margin: 0;
+        font-weight: 400;
+      }
+
+      @media (max-width: 800px) {
+        .hero-content-wrapper {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 30px;
+        }
+        .hero-text-right { text-align: center; max-width: 90%; }
+        .shield-window { height: 50vh; border-radius: 0 0 200px 200px; }
+      }
+
+      /* STANDARD SECTIONS */
+      .section {
+        position: relative;
+        padding: var(--padding);
+        --pad2: calc(var(--padding) * 2);
+        width: calc(100vw - var(--pad2));
+        height: calc(100vh - var(--pad2));
+        margin: 0 auto;
+        z-index: 5; 
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.3); 
+        
+        &.dark {
+          color: white;
+          background-color: rgba(11, 25, 44, 0.9); 
+          text-shadow: none;
+          h2 { color: var(--color-accent); }
+        }
+        
+        &.right { text-align: right; }
+      }
+      
+      .blueprint {
+        position: relative;
+        background-color: #0b192c; 
+        background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+        background-size: 50px 50px;
+        background-attachment: fixed;
+        z-index: 20;
+        
+        svg {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          stroke: var(--color-accent);
+          pointer-events: none;
+          visibility: hidden;
+          z-index: 60; 
+        }
+        
+        .dark { background-color: transparent; }
+      }
+      
+      .ground-container {
+        position: relative;
+        overflow: hidden;
+        z-index: 5;
+      }
+      
+      .sunset {
+        background: url("https://images.unsplash.com/photo-1512100353392-42b7a42167d4?q=80&w=2000&auto=format&fit=crop") no-repeat bottom center; 
+        background-size: cover;
+        transform-origin: bottom center;
+        z-index: 20;
+        position: relative;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+      }
+      
+      h1, h2 {
+        font-family: 'Libre Baskerville', serif;
+        font-size: var(--font-size-large);
+        margin: 0vmin 0 2vmin 0 ;
+        font-weight: 700;
+        display: inline-block;
+      }
+      
+      h3 { font-size: var(--font-size-medium); font-weight: 400; margin: 0 0 10px 0; }
+      p { font-size: var(--font-size-normal); max-width: 500px; line-height: 1.6; }
+      .right p { margin-left: auto; }
+      .end h2 { margin-bottom: 50vh; }
+      
+      .loading {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-size-medium);
+        color: white;
+        font-weight: bold;
+        background-color: var(--color-background);
+        z-index: 999;
+      }
+    }
+
+    /* STACKING DESTINATION CARDS */
+    .destinations-wrapper {
+      position: relative;
+      z-index: 100; 
+      background: #f4f7f6;
+      padding: 100px 20px;
+      color: var(--color-card-text);
+    }
+
+    .destinations-header {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding-bottom: 64px;
+      text-align: center;
+      
+      .tag {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-accent);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+        display: block;
+      }
+      
+      h2 {
+        font-family: 'Libre Baskerville', serif;
+        font-size: 44px;
+        color: #0b192c;
+        margin-bottom: 24px;
+        display: block;
+      }
+      
+      p { margin: 0 auto; font-size: 18px; line-height: 1.8; color: #555; }
+    }
+
+    .l-cards {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .c-card {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 0;
+      margin-top: 40px;
+      width: 100%;
+      height: 80vh;
+      min-height: 500px;
+      background-color: var(--color-card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      
+      .c-card__description {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px;
+        
+        .c-card__tagline {
+          font-size: 14px;
+          font-weight: 700;
+          text-transform: uppercase;
+          color: var(--color-accent);
+          letter-spacing: 2px;
+          margin-bottom: 15px;
+        }
+        
+        .c-card__title {
+          font-family: 'Libre Baskerville', serif;
+          font-size: 48px;
+          color: #0b192c;
+          margin-top: 0;
+          margin-bottom: 20px;
+        }
+        
+        .c-card__excerpt { font-size: 18px; line-height: 1.8; color: #666; }
+        
+        .c-card__cta {
+          margin-top: 40px;
+          a {
+            display: inline-block;
+            padding: 16px 32px;
+            background-color: var(--color-accent);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            &:hover {
+              background-color: #0b192c;
+              transform: translateY(-3px);
+              box-shadow: 0 10px 20px rgba(11, 25, 44, 0.2);
+            }
+          }
+        }
+      }
+        
+      .c-card__figure {
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+        img {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+        }
+      }
+
+      &:hover .c-card__figure img { transform: scale(1.05); }
+    }
+
+    @media (max-width: 900px) {
+      .c-card {
+        grid-template-columns: 1fr;
+        height: auto;
+        .c-card__figure { height: 300px; order: -1; }
+        .c-card__description { padding: 40px 30px; }
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-splash-header">
+    <div class="header-overlay"></div>
+    <div class="header-content">
+      <img src="Renantina.png" alt="Renan-Tina Logo" class="company-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3125/3125713.png'">
+      <h1 class="company-name">RENAN-TINA TRAVEL AND TOURS</h1>
+      <p class="company-intro">Your premium gateway to the world's most breathtaking destinations. Explore beyond the horizon.</p>
+      <div class="scroll-prompt">Scroll to begin your journey &#8595;</div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="loading">Preparing for Takeoff...</div>
+    <div class="trigger"></div>
+
+    <div class="cloud-layer cloud-bg"></div>
+    <div class="cloud-layer cloud-mid"></div>
+    <div class="cloud-layer cloud-front"></div>
+
+    <div class="hero-section">
+      <div class="shield-window"></div>
+      <div class="hero-content-wrapper hero-content-anim">
+        <div class="hero-text-left">
+          <h1>Unbeatable<br>vacations<br>at the best<br>price!</h1>
+        </div>
+        <div class="hero-text-right">
+          <div class="badge">THE VACATION OF YOUR DREAMS</div>
+          <p>Discover incredible places with our exclusive promotions on airline tickets and tour packages.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section right" style="margin-top: 50vh;">
+      <h2>Seamless Flights...</h2>
+      <p>Partnering with top-tier airlines to ensure your vacation starts the moment you step on board.</p>
+    </div>
+    
+    <div class="ground-container">
+      <div class="section right">
+        <h2>...to your dream destinations.</h2>
+        <p>From tropical beaches to historic cityscapes, the world is yours to discover.</p>
+      </div>
+
+      <div class="section">
+        <h2>Premium Packages.</h2>
+        <p>All-inclusive tours customized specifically for families, couples, and solo adventurers.</p>
+      </div>
+      
+      <div class="section right">
+        <h2>Expert Local Guides.</h2>
+        <p>Don't just visit—experience. Our guides show you the hidden gems physical guidebooks miss.</p>
+      </div>
+    </div>
+    
+    <div class="blueprint">
+      <svg width="100%" height="100%" viewbox="0 0 100 100">
+        <line id="line-length" x1="10" y1="80" x2="90" y2="80" stroke-width="0.5"></line>
+        <path id="line-wingspan" d="M10 50, L40 35, M60 35 L90 50" stroke-width="0.5"></path>
+        <circle id="circle-phalange" cx="60" cy="60" r="15" fill="transparent" stroke-width="0.5"></circle>
+      </svg>
+      <div class="section dark">
+        <h2>Our Modern Fleet.</h2>
+        <p>Safety and comfort are our top priorities.</p>
+      </div>
+      <div class="section dark length">
+        <h2>Spacious Cabins.</h2>
+        <p>Extra legroom and ergonomic seating for long-haul comfort.</p>
+      </div>
+      <div class="section dark wingspan">
+        <h2>Global Reach.</h2>
+        <p>Flying to over 120 international destinations daily.</p>
+      </div>
+      <div class="section dark phalange">
+        <h2>First Class.</h2>
+        <p>Luxury suites available for ultimate privacy.</p>
+      </div>
+      <div class="section dark">
+        <h2>Eco-Friendly.</h2>
+        <p>Next-generation engines reducing our carbon footprint by 20%.</p>
+      </div>
+    </div>
+
+    <div class="destinations-wrapper">
+      <div class="destinations-header">
+        <span class="tag">Explore The World</span>
+        <h2>Trending Destinations</h2>
+        <p>Discover our most popular travel packages this season. From ancient ruins to tropical paradises, find the perfect getaway tailored just for you.</p>
+      </div>
+      
+      <div class="l-cards">
+        <div class="c-card">
+          <div class="c-card__description">
+            <div class="c-card__tagline">Kyoto, Japan</div>
+            <h3 class="c-card__title">Ancient Traditions</h3>
+            <div class="c-card__excerpt">Wander through vibrant torii gates, serene bamboo forests, and historic temples. Experience the magic of traditional tea ceremonies and stunning cherry blossoms.</div>
+            <div class="c-card__cta"><a href="#">View Package</a></div>
+          </div>
+          <figure class="c-card__figure"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop" alt="Kyoto, Japan"></figure>
+        </div>
+        
+        <div class="c-card">
+          <div class="c-card__description">
+            <div class="c-card__tagline">Santorini, Greece</div>
+            <h3 class="c-card__title">Aegean Romance</h3>
+            <div class="c-card__excerpt">Marvel at the iconic blue-domed churches and white-washed cliffs of Oia. Sail the caldera and indulge in world-renowned sunsets over the Mediterranean.</div>
+            <div class="c-card__cta"><a href="#">View Package</a></div>
+          </div>
+          <figure class="c-card__figure"><img src="https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?q=80&w=1200&auto=format&fit=crop" alt="Santorini, Greece"></figure>
+        </div>
+        
+        <div class="c-card">
+          <div class="c-card__description">
+            <div class="c-card__tagline">Paris, France</div>
+            <h3 class="c-card__title">The City of Light</h3>
+            <div class="c-card__excerpt">Stroll along the Seine, ascend the Eiffel Tower, and savor fresh croissants in charming street-side cafés. A timeless destination for lovers of art, fashion, and food.</div>
+            <div class="c-card__cta"><a href="#">View Package</a></div>
+          </div>
+          <figure class="c-card__figure"><img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1200&auto=format&fit=crop" alt="Paris, France"></figure>
+        </div>
+      </div>
+      <div style="height: 100px;"></div>
+    </div>
+
+    <div class="sunset">
+      <div class="section"></div>
+      <div class="section end">
+        <h2>Start Your Journey Today.</h2>
+        <ul class="credits">
+          <li><a href="#" target="_blank">Book Your Flight Today</a></li>
+          <li>Contact: hello@renantinatours.com</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    console.clear();
+
+    class Scene {
+      constructor(model) {
+        this.views = [
+          { bottom: 0, height: 1 },
+          { bottom: 0, height: 0 }
+        ];
+        
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild( this.renderer.domElement );
+        
+        this.scene = new THREE.Scene();
+        
+        for ( var ii = 0; ii < this.views.length; ++ ii ) {
+          var view = this.views[ ii ];
+          var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+          camera.position.fromArray([0, 0, 180] );
+          camera.layers.disableAll();
+          camera.layers.enable( ii );
+          view.camera = camera;
+          camera.lookAt(new THREE.Vector3(0, 5, 0));
+        }
+        
+        this.light = new THREE.PointLight( 0xffffff, 1.2 );
+        this.light.position.set(70, 50, 150);
+        this.scene.add( this.light );
+
+        this.noseLight = new THREE.PointLight( 0xffffff, 0.8 );
+        this.noseLight.position.set(0, 20, 200);
+        this.scene.add( this.noseLight );
+
+        this.softLight = new THREE.AmbientLight( 0xffffff, 1.0 );
+        this.scene.add(this.softLight)
+
+        this.onResize();
+        window.addEventListener( 'resize', this.onResize, false );
+        
+        var edges = new THREE.EdgesGeometry( model.children[ 0 ].geometry );
+        let line = new THREE.LineSegments( edges );
+        line.material.depthTest = false;
+        line.material.opacity = 0.2;
+        line.material.transparent = true;
+        line.position.x = 0.5;
+        line.position.z = -1;
+        line.position.y = 0.2;  
+        
+        this.modelGroup = new THREE.Group();
+        model.layers.set( 0 );
+        line.layers.set( 1 );
+          
+        this.modelGroup.add(model);
+        this.modelGroup.add(line);
+        this.scene.add(this.modelGroup);
+      }
+      
+      render = () => {
+        for ( var ii = 0; ii < this.views.length; ++ ii ) {
+          var view = this.views[ ii ];
+          var camera = view.camera;
+
+          var bottom = Math.floor( this.h * view.bottom );
+          var height = Math.floor( this.h * view.height );
+
+          this.renderer.setViewport( 0, 0, this.w, this.h );
+          this.renderer.setScissor( 0, bottom, this.w, height );
+          this.renderer.setScissorTest( true );
+
+          camera.aspect = this.w / this.h;
+          this.renderer.render( this.scene, camera );
+        }
+      }
+      
+      onResize = () => {
+        this.w = window.innerWidth;
+        this.h = window.innerHeight;
+        for ( var ii = 0; ii < this.views.length; ++ ii ) {
+          var view = this.views[ ii ];
+          var camera = view.camera;
+          camera.aspect = this.w / this.h;
+          let camZ = (screen.width - (this.w * 1)) / 3;
+          camera.position.z = camZ < 180 ? 180 : camZ;
+          camera.updateProjectionMatrix();
+        }
+        this.renderer.setSize( this.w, this.h );    
+        this.render();
+      }
+    }
+
+    function loadModel() {
+      gsap.registerPlugin(ScrollTrigger);
+      
+      function preparePath(selector) {
+        const el = document.querySelector(selector);
+        let length = 0;
+        if (el.tagName.toLowerCase() === 'line') {
+          const x1 = parseFloat(el.getAttribute('x1'));
+          const y1 = parseFloat(el.getAttribute('y1'));
+          const x2 = parseFloat(el.getAttribute('x2'));
+          const y2 = parseFloat(el.getAttribute('y2'));
+          length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        } else {
+          length = el.getTotalLength();
+        }
+        gsap.set(el, { strokeDasharray: length, strokeDashoffset: length });
+        return length;
+      }
+
+      window.lenLength = preparePath('#line-length');
+      window.lenWingspan = preparePath('#line-wingspan');
+      window.lenPhalange = preparePath('#circle-phalange');
+      
+      var object;
+
+      function onModelLoaded() {
+        object.traverse( function ( child ) {
+          let mat = new THREE.MeshPhongMaterial( { 
+              color: 0xffffff, 
+              specular: 0xcccccc, 
+              shininess: 50,
+              flatShading: true 
+          });
+          child.material = mat;
+        });
+
+        setupAnimation(object);
+      }
+
+      var manager = new THREE.LoadingManager( onModelLoaded );
+      var loader = new THREE.OBJLoader( manager );
+      loader.load( 'https://assets.codepen.io/557388/1405+Plane_1.obj', function ( obj ) { object = obj; });
+    }
+
+    function setupAnimation(model) {
+      let scene = new Scene(model);
+      let plane = scene.modelGroup;
+      let tau = Math.PI * 2;
+      
+      gsap.ticker.add(() => scene.render());
+
+      gsap.set(plane.rotation, {x: 0, y: tau * -0.5, z: 0}); 
+      gsap.set(plane.position, {x: 0, y: 15, z: -300}); 
+      
+      gsap.to('canvas', {autoAlpha: 1, duration: 1});
+      gsap.to('.loading', {autoAlpha: 0});
+      gsap.set('svg', {autoAlpha: 1});
+      
+      var sectionDuration = 1;
+
+      /* 1. INTRO SCRUB */
+      gsap.to(plane.position, {
+        x: 0, y: -5, z: 80, 
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top 90%",
+          end: "top top",
+          scrub: 1
+        }
+      });
+
+      gsap.fromTo('.hero-content-anim', 
+        { autoAlpha: 0, y: 50 }, 
+        { autoAlpha: 1, y: 0, 
+          scrollTrigger: {
+            trigger: ".hero-section",
+            start: "top 60%",
+            end: "top 20%",
+            scrub: 1
+          }
+        }
+      );
+
+      /* 2. MAIN SCROLL FLIGHT PATH ANIMATION */
+      gsap.to('.cloud-bg', { y: "20%", scrollTrigger: { trigger: ".content", scrub: true, start: "top top", end: "bottom bottom" } });
+      gsap.to('.cloud-mid', { y: "-30%", scrollTrigger: { trigger: ".content", scrub: true, start: "top top", end: "bottom bottom" } });
+      gsap.to('.cloud-front', { y: "-60%", scrollTrigger: { trigger: ".content", scrub: true, start: "top top", end: "bottom bottom" } });
+
+      gsap.fromTo(scene.views[1], { height: 1, bottom: 0 }, { height: 0, bottom: 1, ease: 'none', scrollTrigger: { trigger: ".blueprint", scrub: true, start: "bottom bottom", end: "bottom top" }})
+      gsap.fromTo(scene.views[1], { height: 0, bottom: 0 }, { height: 1, bottom: 0, ease: 'none', scrollTrigger: { trigger: ".blueprint", scrub: true, start: "top bottom", end: "top top" }})
+      
+      gsap.to('#line-length', { strokeDashoffset: 0, scrollTrigger: { trigger: ".length", scrub: true, start: "top bottom", end: "top top" }})
+      gsap.to('#line-wingspan', { strokeDashoffset: 0, scrollTrigger: { trigger: ".wingspan", scrub: true, start: "top 25%", end: "bottom 50%" }})  
+      gsap.to('#circle-phalange', { strokeDashoffset: 0, scrollTrigger: { trigger: ".phalange", scrub: true, start: "top 50%", end: "bottom 100%" }})
+      gsap.to('#line-length', { opacity: 0, strokeDashoffset: window.lenLength, scrollTrigger: { trigger: ".length", scrub: true, start: "top top", end: "bottom top" }})
+      gsap.to('#line-wingspan', { opacity: 0, strokeDashoffset: window.lenWingspan, scrollTrigger: { trigger: ".wingspan", scrub: true, start: "top top", end: "bottom top" }})  
+      gsap.to('#circle-phalange', { opacity: 0, strokeDashoffset: window.lenPhalange, scrollTrigger: { trigger: ".phalange", scrub: true, start: "top top", end: "bottom top" }})
+      
+      let tl = new gsap.timeline(
+      {
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top top",
+          endTrigger: ".sunset",
+          end: "top center",
+          scrub: 1
+        },
+        defaults: {duration: sectionDuration, ease: 'power2.inOut'}
+      });
+      
+      let delay = 0;
+      
+      tl.to(plane.rotation, {x: 0, y: tau * -.25, z: 0, ease: 'power2.inOut'}, delay);
+      tl.to(plane.position, {x: 80, y: -32, z: -60, ease: 'power2.inOut'}, delay);
+      delay += sectionDuration;
+
+      tl.to(plane.position, {x: -10, ease: 'power1.in'}, delay)
+      delay += sectionDuration;
+      
+      tl.to(plane.rotation, {x: tau * .25, y: 0, z: -tau * 0.05, ease: 'power1.inOut'}, delay)
+      tl.to(plane.position, {x: -40, y: 0, z: -60, ease: 'power1.inOut'}, delay)
+      delay += sectionDuration;
+      
+      tl.to(plane.rotation, {x: tau * .25, y: 0,  z: tau * 0.05, ease: 'power3.inOut'}, delay)
+      tl.to(plane.position, {x: 40, y: 0, z: -60, ease: 'power2.inOut'}, delay)
+      delay += sectionDuration;
+      
+      tl.to(plane.rotation, {x: tau * .2, y: 0, z: -tau * 0.1, ease: 'power3.inOut'}, delay)
+      tl.to(plane.position, {x: -40, y: 0, z: -30, ease: 'power2.inOut'}, delay)
+      delay += sectionDuration;
+      
+      tl.to(plane.rotation, { x: 0, z: 0, y: tau * .25}, delay)
+      tl.to(plane.position, { x: 0, y: -10, z: 50}, delay)
+      delay += sectionDuration;
+      delay += sectionDuration;
+      
+      tl.to(plane.rotation, {x: tau * 0.25, y: tau *.5, z: 0, ease:'power4.inOut'}, delay)
+      tl.to(plane.position, {z: 30, ease:'power4.inOut'}, delay)
+      delay += sectionDuration;
+      
+      tl.to(plane.rotation, {x: tau * 0.25, y: tau *.5, z: 0, ease:'power4.inOut'}, delay)
+      tl.to(plane.position, {z: 60, x: 30, ease:'power4.inOut'}, delay)
+      delay += sectionDuration;
+      
+      tl.to(plane.rotation, {x: tau * 0.35, y: tau *.75, z: tau * 0.6, ease:'power4.inOut'}, delay)
+      tl.to(plane.position, {z: 100, x: 20, y: 0, ease:'power4.inOut'}, delay)
+      delay += sectionDuration;
+      
+      tl.to(plane.rotation, {x: tau * 0.15, y: tau *.85, z: -tau * 0, ease: 'power1.in'}, delay)
+      tl.to(plane.position, {z: -150, x: 0, y: 0, ease: 'power1.inOut'}, delay)
+      delay += sectionDuration;
+      
+      /* FIXED TYPO HERE! sectionDuration instead of section felt */
+      tl.to(plane.rotation, {duration: sectionDuration, x: -tau * 0.05, y: tau, z: -tau * 0.1, ease: 'none'}, delay)
+      tl.to(plane.position, {duration: sectionDuration, x: 0, y: 30, z: 320, ease: 'power1.in'}, delay)
+      
+      tl.to(scene.light.position, {duration: sectionDuration, x: 0, y: 0, z: 0}, delay)
+
+
+      /* ---------------------------------------------------- */
+      /* STACKING DESTINATION CARDS SCROLLTRIGGER LOGIC       */
+      /* ---------------------------------------------------- */
+      const cards = gsap.utils.toArray(".c-card");
+      if (cards.length > 0) {
+        const lastCardIndex = cards.length - 1;
+        const firstCardST = ScrollTrigger.create({ trigger: cards[0], start: "center center" });
+        const lastCardST = ScrollTrigger.create({ trigger: cards[lastCardIndex], start: "center center" });
+
+        cards.forEach((card, index) => {
+          const scale = index === lastCardIndex ? 1 : 0.85; 
+          const scaleDown = gsap.to(card, {
+            scale: scale,
+            opacity: index === lastCardIndex ? 1 : 0.6, 
+            transformOrigin: "top center"
+          });
+
+          ScrollTrigger.create({
+            trigger: card,
+            start: "top 15%", 
+            end: () => lastCardST.start,
+            pin: true,
+            pinSpacing: false,
+            scrub: 0.5,
+            ease: "none",
+            animation: scaleDown,
+            toggleActions: "restart none none reverse"
+          });
+        });
+      }
+    }
+
+    loadModel();
+  </script>
+</body>
+</html>

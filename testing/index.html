@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Top Travel Agency in the Philippines - Laguna | Renan Tina Travel</title>
+    <meta name="description" content="Looking for a trusted travel agency in the Philippines? Renan Tina Travel & Tours in San Pedro, Laguna offers affordable tour packages, flights, and expert visa assistance.">
+    <meta name="keywords" content="Legit Travel Agency Philippines, travel agency in Laguna, San Pedro Laguna travel tours, affordable tour packages, visa assistance Philippines, Boracay tour package, Japan visa processing">
+    
+    <meta property="og:title" content="Your Trusted Travel Agency in the Philippines | Renan Tina Travel">
+    <meta property="og:description" content="Stress-free vacations start here. Get affordable tour packages and expert visa processing in Laguna.">
+    <meta property="og:type" content="website">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Branding Colors */
+            --primary: #0a192f; /* Solid Dark Blue for Titles */
+            --accent-neon: #ac2311; /* Red Accent */
+            --white: #ffffff;
+            --bg-light: #f9fafb; 
+            --text-dark: #111827;
+            --text-muted: #6b7280;
+            --border-light: #e5e7eb;
+            --footer-bg: #051129;
+            
+            /* Dynamic Navbar Variables */
+            --nav-bg: transparent;
+            --nav-text: #ffffff;
+        }
+
+        /* --- Global Reset & Scroll Fix --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Times New Roman', serif; }
+        h1, h2, h3, h4, h5, h6, a, span, button, p, label, input, select, textarea, .nav-pills { font-family: 'Inter', sans-serif; } 
+        
+        html, body { scroll-behavior: smooth; scroll-padding-top: 110px; max-width: 100vw; overflow-x: hidden; }
+        body { background: var(--bg-light); color: var(--text-dark); width: 100%; }
+
+        /* Smooth Reveal Animations */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* =========================================
+           SMART DYNAMIC NAVBAR & DROPDOWN
+           ========================================= */
+        .hero-nav {
+            position: fixed; top: 0; left: 0; right: 0; width: 100%; 
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; transition: all 0.4s ease-in-out;
+            background: var(--nav-bg); border-bottom: 1px solid transparent;
+        }
+        .hero-nav.scrolled {
+            --nav-bg: rgba(255, 255, 255, 0.98);
+            --nav-text: var(--primary);
+            padding: 15px 5%; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light);
+        }
+        .hero-nav.hidden { transform: translateY(-100%); }
+        
+        .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; color: var(--nav-text); text-decoration: none; display: flex; align-items: center; gap: 10px; transition: color 0.3s; font-family: 'Times New Roman', serif; z-index: 1002;}
+        .logo-img { height: 35px; width: 35px; object-fit: cover; border-radius: 50%; border: 2px solid transparent; background-color: var(--white); transition: 0.3s; }
+        .hero-nav.scrolled .logo-img { border-color: var(--border-light); }
+
+        /* Center Glassy Nav Pills */
+        .nav-pills { 
+            position: absolute; left: 50%; transform: translateX(-50%);
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); 
+            padding: 5px 10px; border-radius: 50px; display: flex; align-items: center; gap: 5px; 
+            border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; 
+        }
+        .hero-nav.scrolled .nav-pills { background: var(--bg-light); border-color: var(--border-light); }
+        
+        .nav-pills > a, .dropdown > .dropbtn { 
+            text-decoration: none; color: var(--white); font-size: 0.9rem; font-weight: 500; 
+            padding: 8px 18px; border-radius: 50px; transition: 0.3s; cursor: pointer;
+        }
+        .hero-nav.scrolled .nav-pills > a, .hero-nav.scrolled .dropdown > .dropbtn { color: var(--text-dark); }
+        
+        .nav-pills > a:hover, .nav-pills > a.active, .dropdown:hover .dropbtn { background: rgba(255,255,255,0.25); color: var(--white); }
+        .hero-nav.scrolled .nav-pills > a:hover, .hero-nav.scrolled .nav-pills > a.active, .hero-nav.scrolled .dropdown:hover .dropbtn { background: var(--primary); color: var(--white) !important; }
+
+        /* Dropdown Setup */
+        .dropdown { position: relative; display: flex; align-items: center; height: 100%;}
+        .dropdown-content {
+            visibility: hidden; opacity: 0; position: absolute;
+            top: 100%; left: 50%; transform: translate(-50%, 15px);
+            background-color: var(--white); min-width: 200px;
+            box-shadow: 0px 15px 40px rgba(0,0,0,0.15); border-radius: 16px;
+            padding: 10px 0; z-index: 1001; transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid var(--border-light); margin-top: 5px;
+        }
+        .dropdown-content::before { content: ''; position: absolute; top: -15px; left: 0; right: 0; height: 15px; background: transparent; }
+        .dropdown:hover .dropdown-content { visibility: visible; opacity: 1; transform: translate(-50%, 0); }
+        .dropdown-content a {
+            color: var(--text-dark) !important; padding: 12px 20px !important;
+            text-decoration: none; display: block; border-radius: 0 !important;
+            background: transparent !important; font-weight: 500; font-size: 0.9rem; text-align: left;
+            transition: 0.3s;
+        }
+        .dropdown-content a:hover { color: var(--accent-neon) !important; background-color: var(--bg-light) !important; padding-left: 25px !important; }
+
+        /* Desktop "Connect" Button */
+        .book-now-nav { 
+            display: flex; align-items: center; gap: 12px; text-decoration: none; 
+            color: var(--white); font-weight: 600; font-size: 0.9rem; 
+            border: 1px solid rgba(255,255,255,0.3); padding: 6px 6px 6px 20px; 
+            border-radius: 50px; transition: 0.3s; background: rgba(255,255,255,0.1); 
+            cursor: pointer; z-index: 1002;
+        }
+        .hero-nav.scrolled .book-now-nav { background: var(--white); color: var(--primary); border-color: var(--border-light); box-shadow: 0 4px 10px rgba(0,0,0,0.05);}
+        .book-now-nav:hover { background: var(--white); color: var(--primary); transform: translateY(-2px); }
+        
+        .book-now-nav span { 
+            background: var(--white); color: var(--primary); border-radius: 50%; 
+            width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; 
+            font-size: 0.85rem; font-weight: bold; transition: 0.3s;
+        }
+        .hero-nav.scrolled .book-now-nav span { background: var(--primary); color: var(--white); }
+        .book-now-nav:hover span { background: var(--primary); color: var(--white); }
+
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--nav-text); cursor: pointer; z-index: 1002; transition: 0.3s; }
+        .mobile-connect-btn { display: none; }
+
+        /* =========================================
+           HOME HERO SECTION (CLEAN, NO OVERLAP)
+           ========================================= */
+        .hero {
+            position: relative; min-height: 100vh; width: 100%;
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 140px 5% 60px; color: var(--white);
+        }
+        
+        .hero-content { 
+            text-align: center; max-width: 8000px;
+            display: flex; flex-direction: column; align-items: center;
+            margin-bottom: 50px; 
+        }
+        .hero-content h1 { font-family: 'Times New Roman', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 500; margin-bottom: 20px; letter-spacing: -1px; line-height: 1.1; }
+        .hero-content p { font-size: 1.15rem; font-weight: 400; margin-bottom: 35px; opacity: 0.9; line-height: 1.6; max-width: 600px;}
+        
+        .btn-main { 
+            background: var(--white); color: var(--text-dark); 
+            padding: 8px 8px 8px 30px; border-radius: 100px; 
+            text-decoration: none; font-weight: 700; font-size: 1.05rem; 
+            display: inline-flex; align-items: center; gap: 20px; 
+            transition: 0.3s; cursor: pointer; border: 2px solid transparent;
+        }
+        .circle-btn { 
+            background: var(--accent-neon); width: 45px; height: 45px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 1.1rem; color: white; transition: 0.3s;
+        }
+        .btn-main:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .btn-main:hover .circle-btn { transform: rotate(45deg); }
+
+        /* CARDS IN NORMAL FLOW */
+        .hero-cards-container {
+            position: relative; width: 100%; max-width: 1400px;
+            display: flex; gap: 20px; align-items: stretch;
+            overflow-x: auto; padding-bottom: 10px;
+            scroll-snap-type: x mandatory; -ms-overflow-style: none; scrollbar-width: none;
+        }
+        .hero-cards-container::-webkit-scrollbar { display: none; }
+
+        .review-card {
+            background: rgba(30, 40, 35, 0.75); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 25px; border-radius: 24px; width: 240px; flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .review-card-title { font-weight: 800; font-size: 1rem; letter-spacing: 1px; color: var(--white); margin-bottom: 10px; font-family: 'Inter', sans-serif;}
+        .review-card-stars { color: var(--accent-neon); font-size: 1.2rem; letter-spacing: 3px; margin-bottom: 10px; }
+        .review-card-sub { font-size: 0.85rem; color: rgba(255,255,255,0.7); font-family: 'Times New Roman', serif; }
+
+        .dest-card { 
+            background: var(--white); border-radius: 24px; width: 280px; flex-shrink: 0; 
+            scroll-snap-align: start; display: flex; flex-direction: column; 
+            color: var(--text-dark); overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+            text-decoration: none; transition: 0.4s ease; border: 1px solid transparent;
+        }
+        .dest-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .dest-card img { height: 160px; width: 100%; object-fit: cover; transition: 0.5s ease; }
+        .dest-card:hover img { transform: scale(1.05); }
+        .card-info-hero { padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; background: var(--white); z-index: 2;}
+        .card-info-hero p { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem; margin: 0; color: var(--text-dark); }
+        .card-info-hero span { font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+
+        /* =========================================
+           SALES COPY SECTION (BLUE TITLES)
+           ========================================= */
+        .activities-section { padding: 100px 5% 60px; background: var(--white); text-align: center; overflow: hidden; width: 100%;}
+        .section-header-common { max-width: 900px; margin: 0 auto 60px; text-align: center; }
+        
+        .sub-badge { border: 1px solid var(--primary); padding: 8px 20px; border-radius: 50px; display: inline-block; font-size: 0.85rem; font-weight: 600; margin-bottom: 25px; color: var(--primary); background: rgba(10, 25, 47, 0.05);}
+        .section-header-common h2 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; line-height: 1.1; color: var(--primary); margin-bottom: 25px; letter-spacing: -1px; font-family: 'Times New Roman', serif;}
+        .section-header-common p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.7; max-width: 750px; margin: 0 auto; }
+
+        .carousel-wrapper { width: 100%; display: flex; margin-top: 40px; }
+        .carousel-track { display: flex; gap: 20px; animation: scroll-activities 40s linear infinite; width: fit-content; transition: 0.4s ease; }
+        .img-card { width: 320px; height: 220px; flex-shrink: 0; border-radius: 25px; overflow: hidden; position: relative; cursor: pointer; transition: 0.4s ease; }
+        .img-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
+        .card-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.4s ease; }
+        .btn-book-mini { background: var(--white); color: var(--primary); padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transform: translateY(20px); transition: 0.4s ease; cursor: pointer; }
+        .img-card:hover .card-overlay { opacity: 1; }
+        .img-card:hover .btn-book-mini { transform: translateY(0); }
+        .img-card:hover img { transform: scale(1.1); }
+        .btn-book-mini:hover { background: var(--accent-neon); color: white; }
+        .carousel-track:hover { animation-play-state: paused; }
+
+        /* =========================================
+           TRAVEL PACKAGES SECTION
+           ========================================= */
+        .packages-section { padding: 80px 5% 120px; background: var(--bg-light); text-align: center; width: 100%;}
+        .filter-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 60px; max-width: 1200px; margin-inline: auto;}
+        .filter-pill { padding: 12px 28px; border-radius: 50px; background: var(--white); border: 1px solid var(--border-light); font-size: 0.95rem; color: var(--text-dark); cursor: pointer; transition: 0.3s; font-weight: 500; box-shadow: 0 4px 10px rgba(0,0,0,0.02);}
+        .filter-pill:hover { background: var(--border-light); }
+        .filter-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; text-align: left; max-width: 1400px; margin: 0 auto;}
+        .new-pkg-card { background: var(--white); display: flex; flex-direction: column; transition: 0.4s ease; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid var(--border-light);}
+        .new-pkg-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); border-color: var(--primary); }
+        
+        .new-pkg-img-wrap { position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
+        .new-pkg-img-wrap img { width: 100%; height: 300px; object-fit: cover; transition: 0.7s ease; }
+        .new-pkg-card:hover .new-pkg-img-wrap img { transform: scale(1.05); }
+        
+        .booking-badge { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; opacity: 0; transform: translateY(-10px); transition: 0.4s ease; text-decoration: none;}
+        .booking-badge:hover { background: var(--accent-neon); }
+        .new-pkg-card:hover .booking-badge { opacity: 1; transform: translateY(0); }
+
+        .new-pkg-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; padding: 0 25px; }
+        .new-pkg-title { font-family: 'Times New Roman', serif; font-size: 1.8rem; font-weight: 600; color: var(--primary); line-height: 1.2; letter-spacing: -0.5px; }
+        .new-pkg-price { font-size: 1rem; font-weight: 600; color: var(--text-muted); border: 1px solid var(--border-light); padding: 8px 16px; border-radius: 50px; white-space: nowrap; }
+        
+        .new-pkg-desc { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px; padding: 0 25px; flex-grow: 1;}
+        
+        .btn-outline-new { margin-left: 25px; margin-bottom: 25px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border-light); color: var(--text-dark); padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; width: fit-content; cursor: pointer; }
+        .btn-outline-new:hover { border-color: var(--primary); background: var(--primary); color: var(--white); }
+
+        /* =========================================
+           ANIMATED ADVISORY SECTION 
+           ========================================= */
+        .advisory-section { padding: 100px 5% 60px; background: var(--white); text-align: center; width: 100%;}
+        .advisory-section h2 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; line-height: 1.1; color: var(--primary); margin-bottom: 50px; letter-spacing: -1px; font-family: 'Times New Roman', serif;}
+
+        .advisory-slider { display: grid; max-width: 1100px; margin: 0 auto; overflow: hidden; position: relative; min-height: 400px; }
+        .advisory-slide {
+            grid-area: 1 / 1; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+            opacity: 0; visibility: hidden; transform: translateX(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .advisory-slide.active { opacity: 1; visibility: visible; transform: translateX(0); z-index: 2; }
+
+        .advisory-visual .new-pkg-card { margin-bottom: 0; cursor: default; }
+        .advisory-visual .new-pkg-card:hover { transform: none; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-color: var(--border-light);} 
+        .advisory-visual .booking-badge { background: var(--accent-neon); opacity: 1; transform: translateY(0); pointer-events: none;}
+
+        .advisory-text { text-align: left; }
+        .advisory-text h3 { font-size: 2.2rem; color: var(--primary); margin-bottom: 20px; line-height: 1.2; letter-spacing: -0.5px; font-weight: 700; font-family: 'Inter', sans-serif;}
+        .advisory-text p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; margin-bottom: 30px; }
+        .advisory-list { list-style: none; }
+        .advisory-list li { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 18px; color: var(--text-dark); font-weight: 500; font-size: 1.05rem; }
+        .advisory-list i { color: var(--primary); font-size: 1.2rem; margin-top: 3px; }
+
+        .advisory-dots { display: flex; justify-content: center; gap: 10px; margin-top: 50px; }
+        .advisory-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border-light); cursor: pointer; transition: 0.4s ease; }
+        .advisory-dot.active { background: var(--primary); width: 35px; border-radius: 10px; }
+
+        /* =========================================
+           AIRLINE PARTNERS SECTION
+           ========================================= */
+        .partners-section { padding: 60px 0; background: var(--bg-light); border-top: 1px solid var(--border-light); overflow: hidden; width: 100%;}
+        .partners-title { text-align: center; font-size: 0.85rem; font-weight: 700; color: #888; letter-spacing: 2px; margin-bottom: 40px; text-transform: uppercase; }
+        .partners-carousel { width: 100%; display: flex; overflow: hidden; position: relative; }
+        .partners-carousel::before, .partners-carousel::after { content: ""; position: absolute; top: 0; width: 150px; height: 100%; z-index: 2; pointer-events: none;}
+        .partners-carousel::before { left: 0; background: linear-gradient(to right, var(--bg-light), transparent); }
+        .partners-carousel::after { right: 0; background: linear-gradient(to left, var(--bg-light), transparent); }
+        
+        .partners-track { display: flex; gap: 80px; align-items: center; width: max-content; animation: scroll-partners 45s linear infinite; }
+        .partners-track:hover { animation-play-state: paused; }
+        .partner-img { height: 45px; max-width: 150px; object-fit: contain; filter: grayscale(100%) opacity(60%); transition: all 0.3s ease; cursor: pointer; }
+        .partner-img:hover { filter: grayscale(0%) opacity(100%); transform: scale(1.1); }
+
+       /* ==========================================
+   CLASSIC ELEGANT FOOTER
+   ========================================== */
+.classic-footer {
+    background-color: #0b1120;
+    color: #a0aec0;
+    margin: 20px;
+    border-radius: 30px;
+    padding: 60px 60px 25px 60px;
+    font-family: 'Inter', sans-serif; /* Naka-Inter ang mga normal text at links */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+/* COLUMN 1: Branding */
+.footer-brand-col {
+    flex: 2 1 350px;
+}
+
+.footer-logo-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.footer-logo-img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: white; 
+}
+
+.footer-logo-title h2 {
+    color: white;
+    font-size: 1.3rem;
+    line-height: 1.3;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif; /* Naka-Times New Roman ang main logo header */
+}
+
+.footer-brand-col p {
+    margin-bottom: 35px;
+    line-height: 1.6;
+}
+
+/* Social Icons */
+.footer-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-socials a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #a0aec0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-socials a i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.footer-socials a:hover {
+    color: white;
+}
+.footer-socials a:hover i {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* COLUMNS 2, 3, 4: Links */
+.footer-links-col {
+    flex: 1 1 150px;
+}
+
+.footer-links-col h4 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif; /* Naka-Times New Roman ang column headers */
+}
+
+.footer-links-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links-col ul li {
+    margin-bottom: 16px;
+}
+
+.footer-links-col ul li a {
+    color: #a0aec0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-links-col ul li a:hover {
+    color: white;
+}
+
+/* BOTTOM BAR: Copyright & Designed by */
+.footer-bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08); 
+    padding-top: 25px;
+    font-size: 0.9rem;
+}
+
+/* MOBILE RESPONSIVE SETUP */
+@media (max-width: 768px) {
+    .classic-footer {
+        margin: 10px;
+        padding: 40px 25px 25px 25px;
+        border-radius: 20px;
+    }
+    .footer-content {
+        gap: 30px;
+    }
+    .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+        /* =========================================
+           CONNECT POPUP SIDEBAR
+           ========================================= */
+        .booking-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.6); z-index: 2000; opacity: 0; visibility: hidden; transition: 0.4s ease; backdrop-filter: blur(5px); }
+        .booking-overlay.active { opacity: 1; visibility: visible; }
+        .booking-sidebar { position: fixed; top: 0; right: -500px; width: 100%; max-width: 450px; height: 100vh; background: var(--white); z-index: 2001; box-shadow: -10px 0 40px rgba(0,0,0,0.15); padding: 40px 35px; overflow-y: auto; transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); display: flex; flex-direction: column; }
+        .booking-sidebar.active { right: 0; }
+        .close-btn { position: absolute; top: 25px; right: 25px; background: none; border: none; font-size: 1.5rem; color: var(--primary); cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: var(--accent-neon); transform: scale(1.1) rotate(90deg); }
+        .booking-header { text-align: center; margin-bottom: 35px; margin-top: 15px;}
+        .booking-header h2 { font-size: 1.9rem; line-height: 1.2; color: var(--primary); font-weight: 700; margin-bottom: 8px;}
+        .booking-form .form-group { margin-bottom: 22px; text-align: left; }
+        .booking-form label { display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; letter-spacing: 0.5px; }
+        .booking-form input, .booking-form select, .booking-form textarea { width: 100%; padding: 14px 16px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 0.95rem; outline: none; transition: 0.3s; background: #ffffff; }
+        .booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(10, 25, 47, 0.08); }
+        .booking-form textarea { resize: vertical; min-height: 120px; }
+        .submit-btn { width: 100%; background: var(--primary); color: var(--white); padding: 16px; border: none; border-radius: 50px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+
+         /* ==========================================
+   ROHAN AI CHAT WIDGET - FULL STYLES
+   ========================================== */
+
+/* Main Box */
+.chat-window {
+    position: fixed; bottom: 90px; right: 20px; width: 350px; height: 500px;
+    background: white; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    display: none; flex-direction: column; z-index: 10000; overflow: hidden;
+    font-family: Arial, sans-serif; /* Para hindi mukhang luma yung text */
+}
+.chat-window.active { display: flex !important; }
+
+/* Header */
+.chat-header {
+    background: #0a192f; color: white; padding: 15px; display: flex; 
+    justify-content: space-between; align-items: center; border-radius: 15px 15px 0 0;
+}
+.chat-header-info { display: flex; align-items: center; gap: 10px; }
+.chat-header-icon { width: 40px; height: 40px; }
+.chat-header-title { font-weight: bold; font-size: 16px; }
+.chat-header-status { font-size: 12px; color: #4ade80; }
+
+.chat-close-btn { 
+    background: none; border: none; color: white; cursor: pointer; 
+    font-size: 20px; 
+    transition: color 0.3s ease; /* Pinagsama na ang transition dito */
+}
+.chat-close-btn:hover { color: #430606 !important; }
+
+/* Body & Bubbles */
+.chat-body {
+    flex: 1; padding: 15px; background: #f8f9fa; overflow-y: auto; 
+    display: flex; flex-direction: column; gap: 10px;
+}
+.chat-msg { padding: 10px 15px; border-radius: 15px; max-width: 80%; font-size: 14px; line-height: 1.4; }
+.chat-msg.bot { background: white; border: 1px solid #ddd; align-self: flex-start; border-bottom-left-radius: 5px; }
+.chat-msg.user { background: #0a192f; color: white; align-self: flex-end; border-bottom-right-radius: 5px; }
+
+/* Footer / Input Area */
+.chat-footer {
+    padding: 15px; background: white; border-top: 1px solid #eee; 
+    display: flex; gap: 10px; align-items: center; border-radius: 0 0 15px 15px;
+}
+.chat-input {
+    flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 20px; outline: none;
+}
+
+.chat-send {
+    background: #0a192f; color: white; border: none; width: 40px; height: 40px; 
+    border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center;
+    transition: background-color 0.3s ease; /* Pinagsama na ang transition dito */
+}
+.chat-send:hover { background-color: #430606 !important; }
+
+/* Indicators & Floating Button */
+.typing-indicator { display: none; padding: 10px; font-style: italic; font-size: 12px; color: #888; }
+
+.chat-widget-btn {
+    position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
+    border-radius: 50%; background: #0a192f; color: white; border: none; 
+    cursor: pointer; font-size: 24px; z-index: 10000; display: flex; 
+    justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease; /* Pinagsama na ang transition dito */
+}
+.chat-widget-btn:hover {
+    background-color: #410606 !important; 
+    transform: scale(1.1); 
+}
+/* ==========================================
+   UPGRADED HOVER EFFECTS (Lift & Glow)
+   ========================================== */
+
+/* 1. Floating Chat Button - Aangat, lalaki ng konti, at mag-go-glow ng red! */
+.chat-widget-btn {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Medyo bouncy effect */
+}
+.chat-widget-btn:hover {
+    background-color: #430606 !important; 
+    transform: translateY(-5px) scale(1.1); /* Aangat paitaas */
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.4) !important; /* Red Glowing Shadow */
+}
+
+/* 2. Send Button - Aabante ng konti yung icon na parang pinapasa talaga */
+.chat-send {
+    transition: all 0.3s ease;
+}
+.chat-send:hover {
+    background-color: #430606 !important;
+    transform: translateX(3px) scale(1.05); /* Aabante pakanan */
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+}
+
+/* 3. Close (X) Button - Iikot ng slight para cute */
+.chat-close-btn {
+    transition: all 0.3s ease;
+}
+.chat-close-btn:hover {
+    color: #ff4444 !important; 
+    transform: rotate(90deg); /* Iikot ang X button */
+}
+        /* =========================================
+           RESPONSIVE MEDIA QUERIES (MOBILE FIXES)
+           ========================================= */
+        @keyframes scroll-activities { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-320px * 5 - 100px)); } }
+        @keyframes scroll-partners { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Tablet View (768px to 1024px) */
+        @media (max-width: 1024px) {
+            .hero-nav { padding: 15px 5%; }
+            
+            /* FIXED MOBILE MENU (TINANGGAL YUNG OVERLAP/WHITE BOX) */
+            .nav-pills { 
+                position: absolute; top: 80px; left: 5%; width: 90%; 
+                background: var(--white); flex-direction: column; 
+                padding: 15px 15px 25px; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
+                opacity: 0; visibility: hidden; transform: translateY(-20px); 
+                transition: 0.3s ease-in-out; align-items: stretch; border: none; z-index: 999;
+            }
+            .nav-pills.show { opacity: 1; visibility: visible; transform: translateY(0); }
+            
+            .nav-pills > a, .dropdown > .dropbtn { 
+                color: var(--text-dark) !important; padding: 15px 20px !important; 
+                background: transparent !important; border-radius: 8px !important; 
+                text-align: left; font-size: 1rem !important; display: block; width: 100%;
+            }
+            .nav-pills > a:hover, .nav-pills > a.active { background: var(--bg-light) !important; color: var(--primary) !important; }
+            
+            /* DROPDOWN ACCORDION FIX FOR MOBILE */
+            .dropdown { width: 100%; flex-direction: column; align-items: stretch; }
+            .dropdown-content { 
+                position: static !important; width: 100% !important; box-shadow: none !important; border: none !important; 
+                background: var(--bg-light) !important; transform: none !important; display: none; 
+                opacity: 1 !important; visibility: visible !important; padding: 5px 0 !important; margin-top: 0 !important; border-radius: 8px !important;
+            }
+            .dropdown:hover .dropdown-content { display: block; }
+            .dropdown-content a { padding: 12px 20px 12px 40px !important; font-size: 0.95rem !important; }
+            
+            /* RED CONNECT BUTTON IN MOBILE MENU */
+            .mobile-connect-btn { 
+                display: flex !important; align-items: center; gap: 10px; 
+                color: var(--accent-neon) !important; font-weight: 700 !important; 
+                padding: 20px 20px 0 !important; margin-top: 10px; 
+                border-top: 1px solid var(--border-light); border-radius: 0 !important;
+            }
+            .mobile-connect-btn:hover { background: transparent !important; }
+            
+            .mobile-menu-btn { display: block; } 
+            .book-now-nav { display: none; } 
+
+            .hero-content { margin-top: -60px; }
+            .packages-grid { grid-template-columns: 1fr 1fr; }
+            .advisory-slide { grid-template-columns: 1fr; gap: 30px; text-align: center;}
+            .advisory-text { text-align: center; }
+            .advisory-list li { justify-content: center; }
+            .advisory-visual .new-pkg-card { max-width: 500px; margin: 0 auto; }
+            .footer-main { grid-template-columns: 1fr 1fr; gap: 40px;}
+        }
+
+        /* Mobile View (Under 768px) */
+        @media (max-width: 768px) {
+            .hero { padding-top: 130px; justify-content: flex-start; height: auto; min-height: 85vh; padding-bottom: 80px;}
+            .hero-content { margin-top: 20px; align-items: flex-start; text-align: left; max-width: 100%;}
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-content p { font-size: 1rem; max-width: 90%;}
+            
+            .packages-grid { grid-template-columns: minmax(250px, 1fr); }
+            .advisory-section { padding: 60px 5%; }
+            .advisory-text h3 { font-size: 1.6rem; }
+            .section-header-common h2 { font-size: 1.8rem; }
+            
+            .footer-wrapper { padding: 10px; } 
+            footer { border-radius: 30px; padding: 50px 20px 30px; }
+            .footer-main { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            .footer-main > div:first-child { grid-column: span 1; text-align: center; margin-bottom: 20px;}
+            .footer-brand { justify-content: center; }
+            .social-link { justify-content: center; }
+            .footer-main p { margin-inline: auto; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            
+            .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <nav class="hero-nav">
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Renan Tina Logo" class="logo-img">
+            RENAN TINA TRAVEL AND TOURS
+        </a>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-pills" id="navLinks">
+            <a href="index.html" class="active">Home</a>
+            <a href="packages.html">Packages</a>
+            <a href="services.html">Services</a>
+            
+            <div class="dropdown">
+                <a href="about.html" class="dropbtn">About <i style="font-size: 0.7rem; float: right; margin-top: 5px;"></i></a>
+                <div class="dropdown-content">
+                    <a href="index.html#faq">FAQs</a>
+                    <a href="team.html">Our Team</a>
+                    <a href="reviews.html">Traveler Stories</a>
+                    <a href="licenses.html">Licenses</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+            
+            <a href="#" class="booking-trigger mobile-connect-btn" id="mobileConnectBtn">
+                <i class="fas fa-paper-plane"></i> Connect With Us
+            </a>
+        </div>
+
+        <a href="#" class="book-now-nav booking-trigger" id="openBookingBtn">
+            Connect <span>↗</span>
+        </a>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="reveal">Your Dream Vacation,</br> Fully Handled.</h1>
+            <p class="reveal delay-1">Top-rated travel agency in the Philippines offering affordable tour packages, flights, and hassle-free visa processing in Laguna.</p>
+            <a href="packages.html" class="btn-main reveal delay-2">
+                Start Your Journey 
+                <div class="circle-btn"><i class="fas fa-arrow-right" style="transform: rotate(-45deg);"></i></div>
+            </a>
+        </div>
+
+    
+    </section>
+
+    <section class="activities-section reveal" id="activities">
+        <div class="section-header-common">
+            <div class="sub-badge">✦ Why Choose Renan Tina Travel and Tours?</div>
+            <h2>Planning a trip shouldn't feel like a full-time job. Let the experts handle the details.</h2>
+            <p>From stressful visa applications to confusing flight bookings, DIY travel can ruin the excitement. As a trusted travel agency in San Pedro, Laguna, we provide seamless local and international packages so you can just pack your bags and enjoy.</p>
+        </div>
+
+        <div class="carousel-wrapper">
+            <div class="carousel-track">
+                <div class="img-card"><img src="https://images.unsplash.com/photo-1493246507139-91e8bef99c02?w=600" alt="Affordable Europe Tour Packages"><div class="card-overlay"><a href="#" class="btn-book-mini booking-trigger">Connect ↗</a></div></div>
+                <div class="img-card"><img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600" alt="Palawan Travel Agency Packages"><div class="card-overlay"><a href="#" class="btn-book-mini booking-trigger">Connect ↗</a></div></div>
+                <div class="img-card"><img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600" alt="Bali Tour Agency Philippines"><div class="card-overlay"><a href="#" class="btn-book-mini booking-trigger">Connect ↗</a></div></div>
+                <div class="img-card"><img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600" alt="Greece Travel Packages"><div class="card-overlay"><a href="#" class="btn-book-mini booking-trigger">Connect ↗</a></div></div>
+                <div class="img-card"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600" alt="Japan Visa Processing Laguna"><div class="card-overlay"><a href="#" class="btn-book-mini booking-trigger">Connect ↗</a></div></div>
+                
+                <div class="img-card"><img src="https://images.unsplash.com/photo-1493246507139-91e8bef99c02?w=600" alt="Affordable Europe Tour Packages"><div class="card-overlay"><a href="#" class="btn-book-mini booking-trigger">Connect ↗</a></div></div>
+                <div class="img-card"><img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=600" alt="Palawan Travel Agency Packages"><div class="card-overlay"><a href="#" class="btn-book-mini booking-trigger">Connect ↗</a></div></div>
+                <div class="img-card"><img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600" alt="Bali Tour Agency Philippines"><div class="card-overlay"><a href="#" class="btn-book-mini booking-trigger">Connect ↗</a></div></div>
+                <div class="img-card"><img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600" alt="Greece Travel Packages"><div class="card-overlay"><a href="#" class="btn-book-mini booking-trigger">Connect ↗</a></div></div>
+                <div class="img-card"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600" alt="Japan Visa Processing Laguna"><div class="card-overlay"><a href="#" class="btn-book-mini booking-trigger">Connect ↗</a></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="packages-section reveal" id="packages">
+        <div class="section-header-common">
+            <div class="sub-badge">✦ Travel Packages</div>
+            <h2>Affordable Local & International Tour Packages</h2>
+            
+            <div class="filter-container">
+                <span class="filter-pill active" data-filter="all">All</span>
+                <span class="filter-pill" data-filter="domestic">Domestic</span>
+                <span class="filter-pill" data-filter="asia">Asia</span>
+                <span class="filter-pill" data-filter="europe">Europe</span>
+                <span class="filter-pill" data-filter="historical">Historical</span>
+            </div>
+        </div>
+        
+        <div class="packages-grid" id="sanityIndexPackages">
+            <p style="text-align: center; width: 100%; color: var(--text-muted);">Loading featured packages from Sanity...</p>
+        </div>
+    </section>
+
+    <section class="advisory-section reveal" id="advisory">
+        <div class="sub-badge">✦ Travel Advisory</div>
+        <h2 class="delay-1">Travel Smart: Visa & Travel Guidelines</h2>
+        
+        <div class="advisory-slider delay-2" id="sanityAdvisoryContainer">
+            <p style="text-align: center; width: 100%; color: var(--text-muted);">Loading travel advisories...</p>
+        </div>
+
+        <div class="advisory-dots delay-3" id="sanityAdvisoryDots">
+            </div>
+    </section>
+
+    <section class="partners-section reveal">
+        <p class="partners-title">Official Airline Partners</p>
+        <div class="partners-carousel">
+            <div class="partners-track">
+                <img src="Philippine Airlines Logo.jpg" alt="Philippine Airlines" class="partner-img" onerror="this.src='https://via.placeholder.com/150x50.png?text=PAL'">
+                <img src="CEBU PAC.jpg" alt="Cebu Pacific" class="partner-img" onerror="this.src='https://via.placeholder.com/150x50.png?text=CEBU+PAC'">
+                <img src="CHINA AIR.jpg" alt="China Airlines" class="partner-img" onerror="this.src='https://via.placeholder.com/150x50.png?text=CHINA+AIR'">
+                <img src="JETSTAR.jpg" alt="Jetstar" class="partner-img" onerror="this.src='https://via.placeholder.com/150x50.png?text=JETSTAR'">
+                <img src="MALAYSIA AIR.jpg" alt="Malaysia Airlines" class="partner-img" onerror="this.src='https://via.placeholder.com/150x50.png?text=MALAYSIA'">
+                
+                <img src="Philippine Airlines Logo.jpg" alt="Philippine Airlines" class="partner-img" onerror="this.src='https://via.placeholder.com/150x50.png?text=PAL'">
+                <img src="CEBU PAC.jpg" alt="Cebu Pacific" class="partner-img" onerror="this.src='https://via.placeholder.com/150x50.png?text=CEBU+PAC'">
+                <img src="CHINA AIR.jpg" alt="China Airlines" class="partner-img" onerror="this.src='https://via.placeholder.com/150x50.png?text=CHINA+AIR'">
+                <img src="JETSTAR.jpg" alt="Jetstar" class="partner-img" onerror="this.src='https://via.placeholder.com/150x50.png?text=JETSTAR'">
+                <img src="MALAYSIA AIR.jpg" alt="Malaysia Airlines" class="partner-img" onerror="this.src='https://via.placeholder.com/150x50.png?text=MALAYSIA'">
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-wrapper" id="contact">
+       <footer class="classic-footer">
+    <div class="footer-content">
+        
+        <div class="footer-brand-col">
+            <div class="footer-logo-title">
+                <img src="logo.png" alt="Renan-Tina Logo" class="footer-logo-img">
+                <h2>RENAN TINA TRAVEL AND<br>TOURS</h2>
+            </div>
+            <p>Explore the world with confidence, comfort &<br>crafted experiences.</p>
+            <div class="footer-socials">
+                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            </div>
+        </div>
+
+        <div class="footer-links-col">
+            <h4>Main Pages</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="packages.html#faqs">FAQ</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-links-col">
+            <h4>More Pages</h4>
+            <ul>
+                <li><a href="package-details.html">Package Single</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-links-col">
+            <h4>Utility Pages</h4>
+            <ul>
+                <li><a href="contact.html">Help Center</a></li>
+                <li><a href="licenses.html">Licenses</a></li>
+            </ul>
+        </div>
+        
+    </div>
+
+    <div class="footer-bottom-bar">
+        <p>&copy; 2026 Renan-Tina Travel and Tours</p>
+        <p>Designed with K</p>
+    </div>
+</footer>
+    </div>
+
+    <div class="booking-overlay" id="bookingOverlay"></div>
+    <div class="booking-sidebar" id="bookingSidebar">
+        <button class="close-btn" id="closeSidebar"><i class="fas fa-times"></i></button>
+        <div class="booking-header">
+            <h2 style="font-size: 1.9rem; line-height: 1.2;">Connect with our Representatives</h2>
+            <p>We'll get back to you as soon as possible.</p>
+        </div>
+        
+        <form class="booking-form" id="bookingForm">
+            <div class="form-group">
+                <label>NAME</label>
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label>EMAIL</label>
+                <input type="email" name="email" placeholder="name@email.com" required>
+            </div>
+             <div class="form-group">
+                <label>PHONE NUMBER</label>
+                <input type="tel" name="phone" placeholder="09XX-XXX-XXXX" required>
+            </div>
+            <div class="form-group">
+                <label>NUMBER OF GUESTS</label>
+                <input type="text" name="guests" placeholder="3 Person" required>
+            </div>
+            <div class="form-group">
+                <label>SELECT YOUR INQUIRY</label>
+                <select name="inquiry" required>
+                    <option value="" disabled selected>Select Inquiry Type</option>
+                    <option value="TOUR PACKAGES">Tour Packages</option>
+                    <option value="VISA">Visa / Passport Assistance</option>
+                    <option value="TICKETING">Airline Ticketing</option>
+                    <option value="J&T">J&T</option>
+                    <option value="MLUILLIER SERVICES">M Lhuillier Services</option>                    
+                    <option value="OTHER">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>SPECIAL NOTES / INQUIRY</label>
+                <textarea name="message" placeholder="Write your message here" rows="4"></textarea>
+            </div>
+            <button type="submit" class="submit-btn" id="submitBtn">Connect Now</button>
+        </form>
+    </div>
+
+   <button class="chat-widget-btn" id="chatOpenBtn" title="Chat with our AI Assistant">
+    <i class="fas fa-comment-dots"></i>
+</button>
+
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+        <div class="chat-header-info">
+            <div class="chat-header-icon">
+                <img src="rohan1.png" 
+                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div>
+                <div class="chat-header-title">ROHAN AI</div>
+                <div class="chat-header-status">Online Assistant</div>
+            </div>
+        </div>
+        <button class="chat-close-btn" id="chatCloseBtn"><i class="fas fa-times"></i></button>
+    </div>
+    
+    <div class="chat-body" id="chatBody">
+        <div class="chat-msg bot">
+            Hello! I am ROHAN AI, your customer support assistant for Renan-Tina Travel and Tours. How may I help you today?
+        </div>
+        <div class="typing-indicator" id="typingIndicator" style="display: none;">
+            ROHAN AI is typing...
+        </div>
+    </div>
+
+    <div class="chat-footer">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type your message here..." onkeypress="handleChatEnter(event)">
+        <button class="chat-send" onclick="sendChatMessage()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+    <script src="rohan-ai.js"></script>
+    <script>
+        
+        // ==========================================
+        // SANITY CMS DYNAMIC FETCH PARA SA HOMEPAGE
+        // ==========================================
+        async function loadHomepageData() {
+            const PROJECT_ID = 'e4giu1sx'; 
+            const DATASET = 'production';
+            
+            // 1. HIGUPIN ANG TOP 3 PACKAGES
+            const packagesQuery = encodeURIComponent('*[_type == "tourPackage"][0...3]{title, "slug": slug.current, category, duration, description, "imageUrl": mainImage.asset->url}');
+            const packagesURL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${packagesQuery}`;
+
+            // 2. HIGUPIN ANG LATEST 3 TRAVEL ADVISORIES 
+            const advisoryQuery = encodeURIComponent('*[_type == "travelAdvisory"] | order(_createdAt desc)[0...3]{title, badge, description, bullets, "imageUrl": image.asset->url}');
+            const advisoryURL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${advisoryQuery}`;
+
+            try {
+                // --- RENDER PACKAGES ---
+                const pkgRes = await fetch(packagesURL);
+                const pkgData = await pkgRes.json();
+                const pkgContainer = document.getElementById('sanityIndexPackages');
+                
+                if (pkgContainer && pkgData.result.length > 0) {
+                    pkgContainer.innerHTML = ''; 
+                    pkgData.result.forEach((pkg, index) => {
+                        const delayClass = `delay-${index + 1}`; 
+                        const pkgCategory = pkg.category ? pkg.category.toLowerCase() : 'all'; 
+                        
+                        const cardHTML = `
+                            <div class="new-pkg-card ${delayClass} reveal active" data-category="${pkgCategory}">
+                                <div class="new-pkg-img-wrap">
+                                    <img src="${pkg.imageUrl || 'https://via.placeholder.com/600x400'}" alt="${pkg.title}">
+                                    <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
+                                </div>
+                                <div class="new-pkg-header">
+                                    <h3 class="new-pkg-title">${pkg.title}</h3>
+                                    <span class="new-pkg-price">${pkg.duration}</span>
+                                </div>
+                                <p class="new-pkg-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${pkg.description}</p>
+                                <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details ↗</a>
+                                <a href="package-details.html?id=${pkg.slug}" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 10;"></a>
+                            </div>
+                        `;
+                        pkgContainer.innerHTML += cardHTML;
+                    });
+                }
+
+                // --- RENDER ADVISORIES & RESTART SLIDER ---
+                const advRes = await fetch(advisoryURL);
+                const advData = await advRes.json();
+                const advContainer = document.getElementById('sanityAdvisoryContainer');
+                const dotsContainer = document.getElementById('sanityAdvisoryDots');
+
+                if (advContainer && advData.result.length > 0) {
+                    advContainer.innerHTML = '';
+                    dotsContainer.innerHTML = '';
+
+                    advData.result.forEach((adv, index) => {
+                        // Setup Bullets
+                        let bulletsHTML = '';
+                        if (adv.bullets) {
+                            adv.bullets.forEach(b => bulletsHTML += `<li><i class="fas fa-check-circle"></i> ${b}</li>`);
+                        }
+
+                        // Setup Badge Colors
+                        const badgeColor = (adv.badge && adv.badge.toLowerCase() === 'update') ? 'background:var(--accent-neon);' : '';
+                        const isActive = index === 0 ? 'active' : '';
+
+                        advContainer.innerHTML += `
+                            <div class="advisory-slide ${isActive}">
+                                <div class="advisory-visual">
+                                    <div class="new-pkg-card">
+                                        <div class="new-pkg-img-wrap" style="margin-bottom:0;">
+                                            <img src="${adv.imageUrl || 'https://via.placeholder.com/800x600'}" alt="Travel Advisory">
+                                            <div class="booking-badge" style="${badgeColor}">${adv.badge || 'Notice'}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="advisory-text">
+                                    <h3>${adv.title}</h3>
+                                    <p>${adv.description}</p>
+                                    <ul class="advisory-list">
+                                        ${bulletsHTML}
+                                    </ul>
+                                </div>
+                            </div>
+                        `;
+
+                        dotsContainer.innerHTML += `<div class="advisory-dot ${isActive}" data-slide="${index}"></div>`;
+                    });
+
+                    initAdvisorySlider();
+                }
+
+            } catch (error) {
+                console.error("Error fetching homepage data:", error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadHomepageData);
+
+        // --- IN-UPDATE NA SLIDER LOGIC ---
+        function initAdvisorySlider() {
+            let currentAdvisory = 0;
+            const advisorySlides = document.querySelectorAll('.advisory-slide');
+            const advisoryDots = document.querySelectorAll('.advisory-dot');
+            let advisoryInterval;
+
+            if (advisorySlides.length === 0) return; 
+
+            function showAdvisory(index) {
+                advisorySlides.forEach(slide => slide.classList.remove('active'));
+                advisoryDots.forEach(dot => dot.classList.remove('active'));
+                advisorySlides[index].classList.add('active');
+                advisoryDots[index].classList.add('active');
+                currentAdvisory = index;
+            }
+
+            function startAdvisoryTimer() {
+                advisoryInterval = setInterval(() => {
+                    let next = (currentAdvisory + 1) % advisorySlides.length;
+                    showAdvisory(next);
+                }, 10000); 
+            }
+
+            advisoryDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    clearInterval(advisoryInterval); 
+                    showAdvisory(index);
+                    startAdvisoryTimer(); 
+                });
+            });
+            
+            startAdvisoryTimer();
+        }
+
+        // Navbar Logic
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.hero-nav');
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+            if (scrollTop > 100 && scrollTop > lastScrollTop) navbar.classList.add('hidden');
+            else navbar.classList.remove('hidden');
+            lastScrollTop = scrollTop;
+        });
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+        // Filter Pills Logic (In-update para sa dynamic cards)
+        const filterPills = document.querySelectorAll('.filter-pill');
+        filterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const packageCards = document.querySelectorAll('#sanityIndexPackages .new-pkg-card'); // Hanapin ulit yung fresh cards
+                const currentActive = document.querySelector('.filter-pill.active');
+                if(currentActive) currentActive.classList.remove('active');
+                pill.classList.add('active');
+
+                const filterValue = pill.getAttribute('data-filter');
+                packageCards.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.style.display = 'flex';
+                    } else {
+                        const categories = card.getAttribute('data-category').split(' ');
+                        if (categories.includes(filterValue)) card.style.display = 'flex';
+                        else card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Booking Sidebar Logic
+        const openBtn = document.getElementById('openBookingBtn');
+        const secondaryBtns = document.querySelectorAll('.booking-trigger'); 
+        const closeSidebarBtn = document.getElementById('closeSidebar');
+        const sidebar = document.getElementById('bookingSidebar');
+        const overlay = document.getElementById('bookingOverlay');
+
+        function openBooking(e) {
+            if(e) e.preventDefault();
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+            navLinks.classList.remove('show'); 
+        }
+        function closeBooking() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        }
+        
+        if(openBtn) openBtn.addEventListener('click', openBooking);
+        secondaryBtns.forEach(btn => btn.addEventListener('click', openBooking));
+        closeSidebarBtn.addEventListener('click', closeBooking);
+        overlay.addEventListener('click', closeBooking);
+
+       // Siguraduhin na ang buong logic ay nakabalot dito:
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ==========================================
+    // AI CHAT SUPPORT LOGIC (UI CONTROL)
+    // ==========================================
+    const chatOpenBtn = document.getElementById('chatOpenBtn');
+    const chatCloseBtn = document.getElementById('chatCloseBtn');
+    const chatWindow = document.getElementById('chatWindow');
+
+    // TESTER: Pag-click mo, dapat may lalabas sa F12 Console
+    if (chatOpenBtn) {
+        chatOpenBtn.addEventListener('click', () => {
+            console.log("Chat Opening...");
+            chatWindow.classList.add('active');
+        });
+    }
+
+    if (chatCloseBtn) {
+        chatCloseBtn.addEventListener('click', () => {
+            console.log("Chat Closing...");
+            chatWindow.classList.remove('active');
+        });
+    }
+});
+
+// PAALALA: Itong functions na ito ay dapat nasa LABAS ng DOMContentLoaded 
+// para matawag sila ng "onclick" at "onkeypress" sa HTML mo.
+// 1. SELECT ELEMENTS
+    const btnOpen = document.getElementById('chatOpenBtn');
+    const btnClose = document.getElementById('chatCloseBtn');
+    const windowChat = document.getElementById('chatWindow');
+
+    // 2. OPEN LOGIC
+    if (btnOpen) {
+        btnOpen.onclick = function() {
+            console.log("Opening chat window...");
+            // Pinipilit natin yung display flex para lumitaw agad
+            windowChat.style.display = 'flex'; 
+            windowChat.classList.add('active');
+        };
+    }
+
+    // 3. CLOSE LOGIC
+    if (btnClose) {
+        btnClose.onclick = function() {
+            console.log("Closing chat window...");
+            windowChat.style.display = 'none';
+            windowChat.classList.remove('active');
+        };
+    }
+
+    // 4. SEND LOGIC
+    function handleChatEnter(e) {
+        if (e.key === 'Enter') sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+        const input = document.getElementById('chatInput');
+        const body = document.getElementById('chatBody');
+        const typing = document.getElementById('typingIndicator');
+        
+        const val = input.value.trim();
+        if (!val) return;
+
+        // User side
+        appendMsg(val, 'user');
+        input.value = '';
+
+        // Show typing indicator
+        typing.style.display = 'block';
+        body.scrollTop = body.scrollHeight;
+
+        try {
+            // Tatawag sa rohan-ai.js
+            const res = await askRohanAI(val); 
+            typing.style.display = 'none';
+            appendMsg(res, 'bot');
+        } catch (err) {
+            typing.style.display = 'none';
+            appendMsg("Sorry, I lost my connection. Please try again!", 'bot');
+        }
+    }
+
+    function appendMsg(text, sender) {
+        const body = document.getElementById('chatBody');
+        const typing = document.getElementById('typingIndicator');
+        const div = document.createElement('div');
+        div.className = `chat-msg ${sender}`;
+        div.innerText = text;
+        body.insertBefore(div, typing);
+        body.scrollTop = body.scrollHeight;
+    }
+function handleChatEnter(event) {
+    if (event.key === 'Enter') {
+        sendChatMessage();
+    }
+}
+
+async function sendChatMessage() {
+    const chatInput = document.getElementById('chatInput');
+    const chatBody = document.getElementById('chatBody');
+    const typingIndicator = document.getElementById('typingIndicator');
+    
+    const messageText = chatInput.value.trim();
+    if (!messageText) return;
+
+    appendMessage(messageText, 'user');
+    chatInput.value = '';
+
+    typingIndicator.style.display = 'block';
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    try {
+        // Tatawagin ang askRohanAI mula sa rohan-ai.js
+        const aiResponse = await askRohanAI(messageText);
+        typingIndicator.style.display = 'none';
+        appendMessage(aiResponse, 'bot');
+    } catch (error) {
+        console.error(error);
+        typingIndicator.style.display = 'none';
+        appendMessage("Sorry, Captain Rohan is having some signal issues. Please try again!", 'bot');
+    }
+}
+
+function appendMessage(text, sender) {
+    const chatBody = document.getElementById('chatBody');
+    const typingIndicator = document.getElementById('typingIndicator');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chat-msg ${sender}`;
+    msgDiv.innerText = text;
+    
+    chatBody.insertBefore(msgDiv, typingIndicator);
+    chatBody.scrollTop = chatBody.scrollHeight; 
+}
+        // Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, { root: null, threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ==========================================
+        // BACKEND GOOGLE SCRIPT FORM SUBMISSION
+        // ==========================================
+        const gSheetForm = document.getElementById('bookingForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwCTMMxQts0wN0B-VzUn-6lEIfoZqHoWTxnrFC_d79wLJSCB7EiHqW7Lr419RS2xVJqDw/exec'; // ⚠️ I-PASTE MO DITO YUNG URL GALING SA GOOGLE APPS SCRIPT MO PARA GUMANA YUNG EMAIL
+
+        if(gSheetForm){
+            gSheetForm.addEventListener('submit', e => {
+                e.preventDefault(); 
+                
+                submitBtn.innerText = 'Sending...';
+                submitBtn.disabled = true;
+
+                let requestBody = new FormData(gSheetForm);
+
+                fetch(scriptURL, { method: 'POST', body: requestBody})
+                    .then(response => {
+                        alert('Success! Your inquiry has been sent. We will email you shortly.');
+                        submitBtn.innerText = 'Connect Now';
+                        submitBtn.disabled = false;
+                        gSheetForm.reset(); 
+                        document.getElementById('closeSidebar').click(); 
+                    })
+                    .catch(error => {
+                        alert('Error! Something went wrong. Please try again.');
+                        submitBtn.innerText = 'Connect Now';
+                        submitBtn.disabled = false;
+                    });
+            });
+        }
+        
+    </script>
+</body>
+<script>
+    // 1. Siguraduhin na ang UI elements ay nag-eexist
+    const cOpen = document.getElementById('chatOpenBtn');
+    const cClose = document.getElementById('chatCloseBtn');
+    const cWindow = document.getElementById('chatWindow');
+
+    // 2. Direct Function para sa pag-open (No more Event Listeners para iwas null)
+    if (cOpen) {
+        cOpen.onclick = function() {
+            console.log("Sinusubukang buksan ang chat...");
+            cWindow.style.setProperty('display', 'flex', 'important');
+            cWindow.classList.add('active');
+        };
+    }
+
+    if (cClose) {
+        cClose.onclick = function() {
+            console.log("Sinusubukang isara ang chat...");
+            cWindow.style.setProperty('display', 'none', 'important');
+            cWindow.classList.remove('active');
+        };
+    }
+
+    // 3. Ang Send Function (Dapat Match sa onclick sa HTML mo)
+    async function sendChatMessage() {
+        const input = document.getElementById('chatInput');
+        const body = document.getElementById('chatBody');
+        const typing = document.getElementById('typingIndicator');
+        
+        if (!input.value.trim()) return;
+
+        // Display User Message
+        appendMessage(input.value, 'user');
+        const savedMsg = input.value;
+        input.value = '';
+
+        // Show Loading
+        typing.style.display = 'block';
+        body.scrollTop = body.scrollHeight;
+
+        try {
+            // TAWAG SA rohan-ai.js
+            const response = await askRohanAI(savedMsg);
+            typing.style.display = 'none';
+            appendMessage(response, 'bot');
+        } catch (e) {
+            console.error("AI Error:", e);
+            typing.style.display = 'none';
+            appendMessage("Signal error. Try again!", 'bot');
+        }
+    }
+
+    function appendMessage(text, sender) {
+        const body = document.getElementById('chatBody');
+        const typing = document.getElementById('typingIndicator');
+        const div = document.createElement('div');
+        div.className = `chat-msg ${sender}`;
+        div.innerText = text;
+        body.insertBefore(div, typing);
+        body.scrollTop = body.scrollHeight;
+    }
+    
+    function handleChatEnter(e) {
+        if (e.key === 'Enter') sendChatMessage();
+    }
+</script>
+
+    <script src="master.js"></script>
+</body>
+</html>

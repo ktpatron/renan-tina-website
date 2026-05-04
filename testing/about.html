@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Renan Tina Travel & Tours</title>
+    <meta name="title" content="About Us | Renan-Tina Travel & Tours">
+    <meta name="description" content="Discover the story behind Renan-Tina Travel & Tours. Based in San Pedro, Laguna, we are your global journey managers specializing in personalized itineraries, curated destinations, and seamless travel experiences.">
+    <meta name="keywords" content="about Renan Tina Travel, trusted travel agency Laguna, San Pedro travel agency, personalized tour itineraries, travel agency Philippines, corporate travel, family vacation planner">
+    <meta name="author" content="Renan-Tina Travel and Tours">
+    <meta name="robots" content="index, follow">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0a192f; 
+            --accent-neon: #ac2311;
+            --white: #ffffff;
+            --bg-light: #f9fafb; 
+            --text-dark: #111827;
+            --text-muted: #6b7280;
+            --border-light: #e5e7eb;
+            --footer-bg: #051129;
+            
+            /* DYNAMIC NAVBAR VARIABLES */
+            --nav-bg: transparent;
+            --nav-text: #ffffff;
+            --nav-pill-bg: rgba(255,255,255,0.1);
+            --nav-pill-text: #ffffff;
+            --nav-border: rgba(255,255,255,0.2);
+        }
+
+        /* --- Global Reset & Anti-Scroll Gilid Fix --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Times New Roman', Times, serif; }
+        h1, h2, h3, h4, h5, h6, a, span, button, p, label, input, select, textarea, .nav-pills { font-family: 'Inter', sans-serif; } 
+        
+        html, body { scroll-behavior: smooth; scroll-padding-top: 110px; max-width: 100vw; overflow-x: hidden; }
+        body { background: var(--bg-light); color: var(--text-dark); width: 100%; }
+
+        /* =========================================
+           SMOOTH SCROLL REVEAL ANIMATIONS
+           ========================================= */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+    /* =========================================
+           SMART DYNAMIC NAVBAR & DROPDOWN
+           ========================================= */
+        .hero-nav {
+            position: fixed; top: 0; left: 0; right: 0; width: 100%; 
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; transition: all 0.4s ease-in-out;
+            background: var(--nav-bg); border-bottom: 1px solid transparent;
+        }
+        .hero-nav.scrolled {
+            --nav-bg: rgba(255, 255, 255, 0.98);
+            --nav-text: var(--primary);
+            padding: 15px 5%; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light);
+        }
+        .hero-nav.hidden { transform: translateY(-100%); }
+        
+        .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; color: var(--nav-text); text-decoration: none; display: flex; align-items: center; gap: 10px; transition: color 0.3s; font-family: 'Times New Roman', serif; z-index: 1002;}
+        .logo-img { height: 35px; width: 35px; object-fit: cover; border-radius: 50%; border: 2px solid transparent; background-color: var(--white); transition: 0.3s; }
+        .hero-nav.scrolled .logo-img { border-color: var(--border-light); }
+
+        /* Center Glassy Nav Pills */
+        .nav-pills { 
+            position: absolute; left: 50%; transform: translateX(-50%);
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); 
+            padding: 5px 10px; border-radius: 50px; display: flex; align-items: center; gap: 5px; 
+            border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; 
+        }
+        .hero-nav.scrolled .nav-pills { background: var(--bg-light); border-color: var(--border-light); }
+        
+        .nav-pills > a, .dropdown > .dropbtn { 
+            text-decoration: none; color: var(--white); font-size: 0.9rem; font-weight: 500; 
+            padding: 8px 18px; border-radius: 50px; transition: 0.3s; cursor: pointer;
+        }
+        .hero-nav.scrolled .nav-pills > a, .hero-nav.scrolled .dropdown > .dropbtn { color: var(--text-dark); }
+        
+        .nav-pills > a:hover, .nav-pills > a.active, .dropdown:hover .dropbtn { background: rgba(255,255,255,0.25); color: var(--white); }
+        .hero-nav.scrolled .nav-pills > a:hover, .hero-nav.scrolled .nav-pills > a.active, .hero-nav.scrolled .dropdown:hover .dropbtn { background: var(--primary); color: var(--white) !important; }
+
+        /* Dropdown Setup */
+        .dropdown { position: relative; display: flex; align-items: center; height: 100%;}
+        .dropdown-content {
+            visibility: hidden; opacity: 0; position: absolute;
+            top: 100%; left: 50%; transform: translate(-50%, 15px);
+            background-color: var(--white); min-width: 200px;
+            box-shadow: 0px 15px 40px rgba(0,0,0,0.15); border-radius: 16px;
+            padding: 10px 0; z-index: 1001; transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid var(--border-light); margin-top: 5px;
+        }
+        .dropdown-content::before { content: ''; position: absolute; top: -15px; left: 0; right: 0; height: 15px; background: transparent; }
+        .dropdown:hover .dropdown-content { visibility: visible; opacity: 1; transform: translate(-50%, 0); }
+        .dropdown-content a {
+            color: var(--text-dark) !important; padding: 12px 20px !important;
+            text-decoration: none; display: block; border-radius: 0 !important;
+            background: transparent !important; font-weight: 500; font-size: 0.9rem; text-align: left;
+            transition: 0.3s;
+        }
+        .dropdown-content a:hover { color: var(--accent-neon) !important; background-color: var(--bg-light) !important; padding-left: 25px !important; }
+
+        /* Desktop "Connect" Button */
+        .book-now-nav { 
+            display: flex; align-items: center; gap: 12px; text-decoration: none; 
+            color: var(--white); font-weight: 600; font-size: 0.9rem; 
+            border: 1px solid rgba(255,255,255,0.3); padding: 6px 6px 6px 20px; 
+            border-radius: 50px; transition: 0.3s; background: rgba(255,255,255,0.1); 
+            cursor: pointer; z-index: 1002;
+        }
+        .hero-nav.scrolled .book-now-nav { background: var(--white); color: var(--primary); border-color: var(--border-light); box-shadow: 0 4px 10px rgba(0,0,0,0.05);}
+        .book-now-nav:hover { background: var(--white); color: var(--primary); transform: translateY(-2px); }
+        
+        .book-now-nav span { 
+            background: var(--white); color: var(--primary); border-radius: 50%; 
+            width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; 
+            font-size: 0.85rem; font-weight: bold; transition: 0.3s;
+        }
+        .hero-nav.scrolled .book-now-nav span { background: var(--primary); color: var(--white); }
+        .book-now-nav:hover span { background: var(--primary); color: var(--white); }
+
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--nav-text); cursor: pointer; z-index: 1002; transition: 0.3s; }
+        .mobile-connect-btn { display: none; }
+
+        /* =========================================
+           CONNECT POPUP SIDEBAR (SA GILID)
+           ========================================= */
+        .booking-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 25, 47, 0.6); z-index: 2000;
+            opacity: 0; visibility: hidden; transition: 0.4s ease;
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+        }
+        .booking-overlay.active { opacity: 1; visibility: visible; }
+
+        .booking-sidebar {
+            position: fixed; top: 0; right: -500px; width: 100%; max-width: 450px; height: 100vh;
+            background: var(--white); z-index: 2001;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+            padding: 40px 35px; overflow-y: auto;
+            transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex; flex-direction: column;
+        }
+        .booking-sidebar.active { right: 0; }
+
+        .close-btn {
+            position: absolute; top: 25px; right: 25px;
+            background: none; border: none; font-size: 1.5rem;
+            color: var(--primary); cursor: pointer; transition: 0.3s;
+        }
+        .close-btn:hover { color: var(--accent-neon); transform: scale(1.1) rotate(90deg); }
+
+        .booking-header { text-align: center; margin-bottom: 35px; margin-top: 15px;}
+        .booking-header h2 { font-size: 1.9rem; line-height: 1.2; color: var(--primary); font-weight: 700; margin-bottom: 8px;}
+        .booking-header p { font-size: 0.95rem; color: #6b7280; font-weight: 400;}
+
+        .booking-form .form-group { margin-bottom: 22px; text-align: left; }
+        .booking-form label { display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; letter-spacing: 0.5px; }
+        .booking-form input, .booking-form select, .booking-form textarea {
+            width: 100%; padding: 14px 16px; border: 1px solid #e5e7eb;
+            border-radius: 8px; font-size: 0.95rem; outline: none; transition: 0.3s; background: #ffffff;
+        }
+        .booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(10, 25, 47, 0.08); }
+        .booking-form textarea { resize: vertical; min-height: 120px; }
+        .submit-btn { width: 100%; background: var(--primary); color: var(--white); padding: 16px; border: none; border-radius: 50px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .submit-btn:hover { background: #1f2937; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* =========================================
+           AI CHAT ASSISTANT WIDGET
+           ========================================= */
+        .chat-widget-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 65px; height: 65px; border-radius: 50%;
+            background: var(--primary); color: white; border: none;
+            font-size: 1.8rem; cursor: pointer; box-shadow: 0 10px 25px rgba(10, 25, 47, 0.3);
+            z-index: 9999; transition: 0.3s ease; display: flex; align-items: center; justify-content: center;
+        }
+        .chat-widget-btn:hover { transform: scale(1.1) rotate(-10deg); background: var(--accent-neon); }
+        
+        .chat-window {
+            position: fixed; bottom: 110px; right: 30px;
+            width: 360px; height: 520px; background: white;
+            border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            z-index: 9999; display: flex; flex-direction: column; overflow: hidden;
+            opacity: 0; pointer-events: none; transform: translateY(20px); transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid var(--border-light); font-family: 'Inter', sans-serif;
+        }
+        .chat-window.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        
+        .chat-header {
+            background: var(--primary); color: white; padding: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .chat-header-info { display: flex; align-items: center; gap: 12px; }
+        .chat-header-icon { background: rgba(255,255,255,0.2); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; }
+        .chat-header-title { font-weight: 600; font-size: 1.1rem; line-height: 1.2; margin-bottom: 3px; text-transform: uppercase;}
+        .chat-header-status { font-size: 0.75rem; color: #a3ff33; font-weight: 500; display: flex; align-items: center; gap: 5px; }
+        .chat-header-status::before { content: ''; width: 8px; height: 8px; background: #a3ff33; border-radius: 50%; display: inline-block; }
+        .chat-close-btn { background: none; border: none; color: white; font-size: 1.3rem; cursor: pointer; transition: 0.3s; opacity: 0.8; }
+        .chat-close-btn:hover { opacity: 1; transform: rotate(90deg); color: var(--accent-neon); }
+        
+        .chat-body {
+            flex-grow: 1; padding: 20px; overflow-y: auto; background: #f4f6f8;
+            display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth;
+        }
+        .chat-msg { max-width: 85%; padding: 12px 16px; font-size: 0.95rem; line-height: 1.5; border-radius: 18px; position: relative; word-wrap: break-word; }
+        .chat-msg.bot { background: white; color: var(--text-dark); border: 1px solid var(--border-light); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);}
+        .chat-msg.user { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: 0 2px 10px rgba(10,25,47,0.1); }
+        
+        .chat-footer {
+            padding: 15px; background: white; border-top: 1px solid var(--border-light);
+            display: flex; gap: 10px; align-items: center;
+        }
+        .chat-input {
+            flex-grow: 1; border: 1px solid var(--border-light); border-radius: 50px;
+            padding: 12px 18px; font-size: 0.95rem; outline: none; transition: 0.3s; background: #f9fafb;
+        }
+        .chat-input:focus { border-color: var(--primary); background: white; }
+        .chat-send {
+            width: 45px; height: 45px; border-radius: 50%; background: var(--primary);
+            color: white; border: none; font-size: 1.1rem; cursor: pointer; transition: 0.3s; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .chat-send:hover { background: var(--accent-neon); transform: translateX(3px); }
+        .typing-indicator { font-size: 0.85rem; color: var(--text-muted); font-style: italic; display: none; align-self: flex-start; padding-left: 15px; margin-top: -5px; }
+
+
+        /* =========================================
+           ABOUT HERO SECTION
+           ========================================= */
+        .about-hero {
+            height: 100vh; width: 100%;
+            background: linear-gradient(to bottom, rgba(10, 25, 47, 0.4), rgba(10, 25, 47, 0.1)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; align-items: center; justify-content: center; flex-direction: column; color: var(--white); text-align: center; padding: 0 5%;
+        }
+        .about-hero h1 { font-family: 'Times New Roman', serif; font-size: clamp(3rem, 6vw, 6rem); font-weight: 500; line-height: 1.1; margin-bottom: 20px; max-width: 900px; letter-spacing: -1px; }
+        .about-hero p { font-size: 1.1rem; font-weight: 400; max-width: 650px; line-height: 1.6; opacity: 0.9; }
+
+        /* =========================================
+           DYNAMIC FEATURED STAYS (CENTERED CAROUSEL)
+           ========================================= */
+        .stays-section { padding: 120px 0; background: var(--white); text-align: center; overflow: hidden; position: relative; width: 100%; }
+        .stays-section .sub-badge { border: 1px solid var(--border-light); padding: 8px 20px; border-radius: 50px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; margin-bottom: 25px; color: var(--text-dark); background: var(--bg-light); }
+        .stays-section h2 { padding: 0 5%; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 600; color: var(--primary); margin-bottom: 60px; max-width: 800px; margin-inline: auto; line-height: 1.2; letter-spacing: -1px;}
+
+        .arch-slider-wrapper { position: relative; width: 100%; overflow: visible; padding: 20px 0 50px; }
+        .arch-track { display: flex; gap: 40px; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); width: max-content; align-items: center; }
+        
+        .arch-card { 
+            width: clamp(300px, 30vw, 420px); 
+            flex-shrink: 0; position: relative; overflow: hidden; 
+            border-top-left-radius: 200px; border-top-right-radius: 200px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; 
+            cursor: pointer; aspect-ratio: 3/4; 
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 0.4; transform: scale(0.9);
+        }
+        
+        .arch-card.highlighted { opacity: 1; transform: scale(1); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+        .arch-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
+        .arch-card.highlighted:hover img { transform: scale(1.05); }
+
+        .arch-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); display: flex; align-items: flex-end; justify-content: center; padding: 25px 15px; transition: 0.3s; opacity: 0; }
+        .arch-card.highlighted .arch-overlay { opacity: 1; }
+        .amenities-list { display: flex; gap: 15px; color: var(--white); font-size: 0.9rem; font-weight: 500;}
+        .amenities-list span { display: flex; align-items: center; gap: 5px; }
+        .amenities-list i { color: #a3ff33; }
+
+        .stay-controls-row { display: flex; align-items: center; justify-content: space-between; max-width: 900px; margin: 0 auto; padding: 0 5%; gap: 20px;}
+        .stay-nav-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--bg-light); border: 1px solid var(--border-light); color: var(--text-dark); font-size: 1.1rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); flex-shrink: 0;}
+        .stay-nav-btn:hover { background: var(--primary); color: white; transform: scale(1.1); }
+
+        .stay-details { flex-grow: 1; text-align: center; transition: opacity 0.4s ease; min-height: 150px; display: flex; flex-direction: column; justify-content: center;}
+        .stay-details h3 { font-family: 'Times New Roman', serif; font-size: 2.2rem; font-weight: 500; color: var(--primary); margin-bottom: 15px; letter-spacing: -0.5px;}
+        .stay-details p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px; max-width: 600px; margin-inline: auto;}
+        
+        .stay-actions { display: flex; align-items: center; justify-content: center; gap: 20px; }
+        .btn-dark { background: var(--primary); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: 0.3s; cursor:pointer; }
+        .btn-dark:hover { background: #1f2937; }
+        .view-details { color: var(--text-dark); text-decoration: underline; font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
+        .view-details:hover { color: var(--accent-neon); }
+
+        /* =========================================
+           DARK ABOUT & ACCORDION SECTION
+           ========================================= */
+        .dark-split-section { background: var(--primary); color: var(--white); padding: 120px 10%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+        .dark-badge { border: 1px solid rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 50px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; margin-bottom: 30px; color: var(--white); }
+        .dark-split-left h2 { font-family: 'Times New Roman', serif; font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 500; line-height: 1.1; margin-bottom: 30px; letter-spacing: -1px; }
+        .dark-split-left p { font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 25px; max-width: 500px; }
+        
+        .founder-profile { display: flex; align-items: center; gap: 15px; margin-top: 40px; }
+        .founder-profile img { width: 60px; height: 60px; border-radius: 12px; object-fit: cover; }
+        .founder-info h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 2px; }
+        .founder-info span { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+
+        .dark-accordion-wrapper { display: flex; flex-direction: column; gap: 15px;}
+        .dark-acc-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 25px 30px; display: flex; flex-direction: column; cursor: pointer; transition: 0.3s; }
+        .dark-acc-item:hover { background: rgba(255,255,255,0.06); }
+        
+        .dark-acc-header { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .dark-acc-title { font-size: 1.15rem; font-weight: 600; color: var(--white); }
+        .dark-acc-icon { font-size: 1.5rem; color: rgba(255,255,255,0.5); font-weight: 300; transition: transform 0.4s ease; }
+        .dark-acc-item.open .dark-acc-icon { transform: rotate(180deg); color: var(--white); }
+        
+        .dark-acc-content { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.4s ease; }
+        .dark-acc-item.open .dark-acc-content { max-height: 400px; opacity: 1; padding-top: 15px; }
+        .dark-acc-content p { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+        .dark-acc-content img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; }
+
+        /* =========================================
+           VIDEO BANNER SECTION
+           ========================================= */
+        .video-section { position: relative; height: 70vh; width: 100%; background: url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&w=1920&q=80') center/cover; display: flex; align-items: center; justify-content: center; z-index: 10; }
+        .play-btn { width: 90px; height: 90px; border-radius: 50%; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--primary); cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5);}
+        .play-btn:hover { transform: scale(1.1); background: var(--white); }
+
+        /* =========================================
+           CURVED MISSION/VISION SECTION 
+           ========================================= */
+        .quote-slider-section { 
+            background: var(--primary); color: var(--white); 
+            padding: 120px 10% 180px; position: relative; overflow: visible; 
+            z-index: 5;
+            border-bottom-left-radius: 10vw; border-bottom-right-radius: 10vw; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
+        }
+        .quote-slider-container { position: relative; max-width: 1200px; margin: 0 auto; min-height: 250px; display: flex; align-items: center; z-index: 10; }
+
+        .quote-slide { 
+            position: absolute; top: 0; left: 0; width: 100%; 
+            display: grid; grid-template-columns: 250px 1fr; gap: 40px; align-items: start;
+            opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+        }
+        .quote-slide.active { opacity: 1; visibility: visible; transform: translateY(0); position: relative; z-index: 2; }
+
+        .quote-badge-col { display: flex; justify-content: flex-start; margin-top: 10px; }
+        .quote-badge { border: 1px solid rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; color: var(--white); }
+
+        .quote-text { font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.3; font-weight: 500; margin-bottom: 30px; letter-spacing: -0.5px; }
+        .quote-author { font-size: 1.1rem; font-weight: 600; }
+        .quote-sub { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 5px; display: block;}
+
+        .quote-dots { display: flex; justify-content: center; gap: 10px; margin-top: 80px; position: relative; z-index: 10;}
+        .q-dot { width: 10px; height: 10px; background: rgba(255,255,255,0.2); border-radius: 50%; cursor: pointer; transition: 0.4s ease; }
+        .q-dot.active { background: var(--white); width: 35px; border-radius: 10px; }
+
+        /* =========================================
+           INFINITE TEAM CAROUSEL ANIMATION (FIXED SIZE)
+           ========================================= */
+        .team-section { 
+            text-align: center; /* Ise-center ulit yung text! */
+            padding: 80px 5%; 
+            overflow: hidden; 
+        }
+        
+        .team-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            border: 1px solid var(--border-light); 
+            padding: 8px 20px; 
+            border-radius: 50px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            margin-bottom: 20px; 
+            color: var(--text-dark); 
+            background: var(--white); 
+        }
+        
+        .team-heading { 
+            font-family: 'Inter', sans-serif; 
+            font-size: clamp(1.8rem, 4vw, 2.5rem); 
+            color: var(--primary); 
+            font-weight: 600; 
+            line-height: 1.2; 
+            margin: 0 auto 50px; /* Gitnang-gitna na ulit */
+            max-width: 800px; 
+            text-align: center; 
+            letter-spacing: -1px; 
+        }
+
+        .team-carousel-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .team-track {
+            display: flex;
+            gap: 25px; /* Tamang agwat lang */
+            width: max-content; 
+            animation: scrollTeam 30s linear infinite; /* Medyo binagalan ko para chill lang basahin */
+        }
+
+        .team-carousel-container:hover .team-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollTeam {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 12.5px)); } 
+        }
+
+        /* IBINALIK SA DATING SIZE (SAKTO LANG) AT WALANG CROP */
+        .team-card {
+            width: 280px; /* Binalik natin sa maliit na size! */
+            flex-shrink: 0; 
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-light);
+            transition: 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            text-align: left; /* Para yung pangalan sa loob ng card ay pantay pa rin */
+        }
+
+        .team-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
+            border-color: var(--primary);
+        }
+        
+        .team-card img { 
+            width: 100%; 
+            height: auto; /* HINDI NA MA-CROP YUNG ID NIYO */
+            display: block; 
+        } 
+        /* =========================================
+           HOVER OVERLAY & BUTTON PARA SA TEAM CARD
+           ========================================= */
+        .team-card {
+            position: relative; /* Kailangan ito para kumapit yung overlay sa loob ng card */
+        }
+
+        .team-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.75); /* Dark blue na transparent */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0; /* Nakatago sa umpisa */
+            transition: all 0.4s ease;
+            z-index: 10;
+        }
+
+        /* Pag hinover ang card, lilitaw ang overlay */
+        .team-card:hover .team-card-overlay {
+            opacity: 1;
+        }
+
+        .btn-view-team {
+            background: var(--accent-neon); /* Yung red accent color ninyo */
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transform: translateY(20px); /* Nakababa ng onti sa umpisa */
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Pag hinover ang card, aangat yung button pataas */
+        .team-card:hover .btn-view-team {
+            transform: translateY(0);
+        }
+
+        .btn-view-team:hover {
+            background: var(--white);
+            color: var(--primary);
+            transform: scale(1.05); /* Lalaki ng onti pag tinapatan mismo yung button */
+        }
+        
+        .team-info { padding: 15px; display: flex; justify-content: space-between; align-items: flex-end; background: var(--white); }
+        .team-text h4 { font-family: 'Times New Roman', serif; font-size: 1.1rem; color: var(--primary); margin-bottom: 4px; font-weight: 600;}
+        .team-text p { font-size: 0.8rem; color: var(--text-muted); font-weight: 500;}
+        /* ==========================================
+   CLASSIC ELEGANT FOOTER
+   ========================================== */
+.classic-footer {
+    background-color: #0b1120;
+    color: #a0aec0;
+    margin: 20px;
+    border-radius: 30px;
+    padding: 60px 60px 25px 60px;
+    font-family: 'Inter', sans-serif; /* Naka-Inter ang mga normal text at links */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+/* COLUMN 1: Branding */
+.footer-brand-col {
+    flex: 2 1 350px;
+}
+
+.footer-logo-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.footer-logo-img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: white; 
+}
+
+.footer-logo-title h2 {
+    color: white;
+    font-size: 1.3rem;
+    line-height: 1.3;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif; /* Naka-Times New Roman ang main logo header */
+}
+
+.footer-brand-col p {
+    margin-bottom: 35px;
+    line-height: 1.6;
+}
+
+/* Social Icons */
+.footer-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-socials a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #a0aec0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-socials a i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.footer-socials a:hover {
+    color: white;
+}
+.footer-socials a:hover i {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* COLUMNS 2, 3, 4: Links */
+.footer-links-col {
+    flex: 1 1 150px;
+}
+
+.footer-links-col h4 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif; /* Naka-Times New Roman ang column headers */
+}
+
+.footer-links-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links-col ul li {
+    margin-bottom: 16px;
+}
+
+.footer-links-col ul li a {
+    color: #a0aec0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-links-col ul li a:hover {
+    color: white;
+}
+
+/* BOTTOM BAR: Copyright & Designed by */
+.footer-bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08); 
+    padding-top: 25px;
+    font-size: 0.9rem;
+}
+
+/* MOBILE RESPONSIVE SETUP */
+@media (max-width: 768px) {
+    .classic-footer {
+        margin: 10px;
+        padding: 40px 25px 25px 25px;
+        border-radius: 20px;
+    }
+    .footer-content {
+        gap: 30px;
+    }
+    .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+        /* =========================================
+           ANIMATIONS & RESPONSIVE
+           ========================================= */
+        /* Exact scroll calculation: 5 cards (280px) + 5 gaps (30px) = 1550px shift to loop perfectly */
+        @keyframes scroll-team { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(-1550px); } 
+        }
+
+        @media (max-width: 1024px) {
+            .hero-nav .nav-pills { display: none; }
+            .dark-split-section { grid-template-columns: 1fr; gap: 50px; padding: 80px 5%; }
+            .quote-slide { grid-template-columns: 1fr; gap: 20px; text-align: center; }
+            .quote-badge-col { justify-content: center; }
+            .footer-main { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .stay-controls-row { gap: 15px; }
+            .stay-nav-btn { width: 40px; height: 40px; }
+            .footer-main { grid-template-columns: 1fr; text-align: center; }
+            .social-link { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 20px; }
+            .footer-brand { justify-content: center; }
+            .footer-main p { margin-inline: auto; }
+            .quote-slider-section { border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; padding-bottom: 120px; }
+            .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body id="top">
+
+     <nav class="hero-nav">
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Renan Tina Logo" class="logo-img">
+            RENAN TINA TRAVEL AND TOURS
+        </a>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-pills" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="packages.html">Packages</a>
+            <a href="services.html">Services</a>
+            
+            <div class="dropdown">
+                <a href="about.html" class="dropbtn" class="active">About <i style="font-size: 0.7rem; float: right; margin-top: 5px;"></i></a>
+                <div class="dropdown-content">
+                    <a href="index.html#faq">FAQs</a>
+                    <a href="team.html">Our Team</a>
+                    <a href="reviews.html">Traveler Stories</a>
+                    <a href="licenses.html">Licenses</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+            
+            <a href="#" class="booking-trigger mobile-connect-btn" id="mobileConnectBtn">
+                <i class="fas fa-paper-plane"></i> Connect With Us
+            </a>
+        </div>
+
+        <a href="#" class="book-now-nav booking-trigger" id="openBookingBtn">
+            Connect <span>↗</span>
+        </a>
+    </nav>
+
+    <section class="about-hero" id="home">
+        <h1 class="reveal">We design intentional travel experiences</h1>
+        <p class="reveal delay-1">From handpicked destinations to seamless logistics, our mission is to make every journey personal, meaningful, and unforgettable.</p>
+    </section>
+
+    <section class="stays-section">
+        <div class="sub-badge reveal"><i class="fas fa-sparkles" style="font-size:12px;"></i> Featured Stays</div>
+        <h2 class="reveal delay-1">Stay where comfort meets character. Each hotel for its style, service, and sense of place.</h2>
+        
+        <div class="arch-slider-wrapper reveal delay-2">
+            <div class="arch-track" id="arch-track">
+                <p style="text-align: center; width: 100%; padding: 40px; color: var(--text-muted);">Loading featured stays...</p>
+            </div>
+        </div>
+
+        <div class="stay-controls-row reveal delay-3">
+            <button class="stay-nav-btn prev-stay" id="prevStayBtn"><i class="fas fa-chevron-left"></i></button>
+            
+            <div class="stay-details" id="stay-details-container">
+                <h3 id="stay-title">Loading...</h3>
+                <p id="stay-desc">Loading description...</p>
+                <div class="stay-actions">
+                    <button class="btn-dark booking-trigger" id="stay-price">From...</button>
+                    <a href="packages.html" class="view-details">View Details</a>
+                </div>
+            </div>
+
+            <button class="stay-nav-btn next-stay" id="nextStayBtn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <section class="dark-split-section">
+        <div class="dark-split-left reveal">
+            <div class="dark-badge">✦ About Renan Tina</div>
+            <h2>More than a travel company — we're your global journey managers.</h2>
+            
+            <p>We founded <strong>Renan Tina Travel & Tours</strong>, alongside my partner Renan, driven by our shared love for exploration and adventure. We believe that travel is the ultimate way to discover the world's beauty and create lasting memories.</p>
+            <p>Our passion led us to curate personalized travel packages, ensuring that every journey is unique and unforgettable. With a team of seasoned travelers, we're dedicated to providing the best advice and support for your dream trip.</p>
+            <p>So, if your're ready to relax, explore and live your best travel life, Let's make your travel dreams come true!</p>
+            <div class="founder-profile">
+                <img src="logo.png" alt="Founder">
+                <div class="founder-info">
+                    <h4>Renan Tina Team</h4>
+                    <span>Founders and Tour-experts</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dark-accordion-wrapper reveal delay-2">
+            <div class="dark-acc-item open">
+                <div class="dark-acc-header">
+                    <div class="dark-acc-title">Personalized Itineraries</div>
+                    <div class="dark-acc-icon">−</div>
+                </div>
+                <div class="dark-acc-content">
+                    <p>Every trip is custom-crafted around your interests, pace, and preferences — no cookie-cutter tours.</p>
+                    <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=600&q=80" alt="Personalized Trip">
+                </div>
+            </div>
+
+            <div class="dark-acc-item">
+                <div class="dark-acc-header">
+                    <div class="dark-acc-title">24/7 Concierge Support</div>
+                    <div class="dark-acc-icon">+</div>
+                </div>
+                <div class="dark-acc-content" style="display:none;">
+                    <p>Our dedicated team is available around the clock to assist you with any concerns, sudden changes, or emergencies during your trip.</p>
+                </div>
+            </div>
+
+            <div class="dark-acc-item">
+                <div class="dark-acc-header">
+                    <div class="dark-acc-title">Curated Destinations</div>
+                    <div class="dark-acc-icon">+</div>
+                </div>
+                <div class="dark-acc-content" style="display:none;">
+                    <p>We handpick the best locations, from popular hotspots to hidden local gems, ensuring top-tier quality and safety.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="quote-slider-section reveal" id="core-values">
+        <div class="quote-slider-container">
+            
+            <div class="quote-slide active">
+                <div class="quote-badge-col">
+                    <div class="quote-badge">✦ Our Mission</div>
+                </div>
+                <div class="quote-content">
+                    <p class="quote-text">"To serve our clients with stress free travel experence by providing quality services that addresses their travel needs, providing efficient travel arrangements which will result to customer, loyalty and satisfaction.."</p>
+                    <div class="quote-author">Renan Tina Travel & Tours</div>
+                    <span class="quote-sub">San Pedro City, Laguna, Philippines</span>
+                </div>
+            </div>
+
+            <div class="quote-slide">
+                <div class="quote-badge-col">
+                    <div class="quote-badge">✦ Our Vision</div>
+                </div>
+                <div class="quote-content">
+                    <p class="quote-text">" <strong>Renan-Tina Travel and Tours</strong> ensure that our clients live memorable experiences and fulfill their dreams and goals through travel. We want our clients to remember their trips with us all their lives."</p>
+                    <div class="quote-author">Renan Tina Travel & Tours</div>
+                    <span class="quote-sub">San Pedro City, Laguna, Philippines</span>
+                </div>
+            </div>
+
+            <div class="quote-slide">
+                <div class="quote-badge-col">
+                    <div class="quote-badge">✦ Our Goals </div>
+                </div>
+                <div class="quote-content">
+                    <p class="quote-text">"To provide a high-quality services and experiences that meet or exceed clients' expectations while ensuring the business remains profitable and sustainable."</p>
+                    <div class="quote-author">Renan Tina Travel & Tours</div>
+                    <span class="quote-sub">San Pedro City, Laguna, Philippines</span>
+                </div>
+            </div>
+        </div>
+        <div class="quote-slide">
+                <div class="quote-badge-col">
+                    <div class="quote-badge">✦ Our Objectives</div>
+                </div>
+                <div class="quote-content">
+                    <p class="quote-text">"To enhance it's reputation, build lasting relationships with clients and achieve long-term success in the travel industry."</p>
+                    <div class="quote-author">Renan Tina Travel & Tours</div>
+                    <span class="quote-sub">San Pedro City, Laguna, Philippines</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote-dots delay-3">
+            <div class="q-dot active" data-slide="0"></div>
+            <div class="q-dot" data-slide="1"></div>
+            <div class="q-dot" data-slide="2"></div>
+            <div class="q-dot" data-slide="3"></div>
+
+        </div>
+    </section>
+
+   <section class="team-section reveal" id="team">
+        <div class="team-badge">✦ Meet The Team</div>
+        <h2 class="team-heading">Our team is a blend of seasoned travelers, cultural insiders, and meticulous planners.</h2>
+        
+        <div class="team-carousel-container">
+            <div class="team-track" id="sanityTeamCarouselTrack">
+                <p style="text-align: center; width: 100%; color: var(--text-muted);">Loading Core Team...</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-wrapper" id="contact">
+        <footer class="classic-footer">
+    <div class="footer-content">
+        
+        <div class="footer-brand-col">
+            <div class="footer-logo-title">
+                <img src="logo.png" alt="Renan-Tina Logo" class="footer-logo-img">
+                <h2>RENAN TINA TRAVEL AND<br>TOURS</h2>
+            </div>
+            <p>Explore the world with confidence, comfort &<br>crafted experiences.</p>
+            <div class="footer-socials">
+                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            </div>
+        </div>
+
+        <div class="footer-links-col">
+            <h4>Main Pages</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="packages.html#faqs">FAQ</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-links-col">
+            <h4>More Pages</h4>
+            <ul>
+                <li><a href="package-details.html">Package Single</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-links-col">
+            <h4>Utility Pages</h4>
+            <ul>
+                <li><a href="#">Help Center</a></li>
+                <li><a href="licenses.html">Licenses</a></li>
+            </ul>
+        </div>
+        
+    </div>
+
+    <div class="footer-bottom-bar">
+        <p>&copy; 2026 Renan-Tina Travel and Tours</p>
+        <p>Designed with K</p>
+    </div>
+</footer>
+    </div>
+
+    <div class="booking-overlay" id="bookingOverlay"></div>
+    <div class="booking-sidebar" id="bookingSidebar" style="background: white; position: fixed; right: -500px; width: 100%; max-width: 450px; height: 100vh; z-index: 2001; padding: 40px 35px; transition: 0.5s;">
+        <button class="close-btn" id="closeSidebar">✖</button>
+        <h2>Connect With Us</h2>
+        <form>
+            </form>
+    </div>
+    <div class="booking-overlay" id="bookingOverlay"></div>
+    <div class="booking-sidebar" id="bookingSidebar">
+        <button class="close-btn" id="closeSidebar"><i class="fas fa-times"></i></button>
+        <div class="booking-header">
+            <h2 style="font-size: 1.9rem; line-height: 1.2;">Connect with our Representatives</h2>
+            <p>We'll get back to you within 24h.</p>
+        </div>
+        <form class="booking-form" onsubmit="event.preventDefault(); alert('Your request to connect has been submitted successfully!'); document.getElementById('closeSidebar').click();">
+            <div class="form-group"><label>NAME</label><input type="text" placeholder="Your Name" required></div>
+            <div class="form-group"><label>EMAIL</label><input type="email" placeholder="name@email.com" required></div>
+            <div class="form-group"><label>NUMBER OF GUESTS</label><input type="text" placeholder="3 Person" required></div>
+            <div class="form-group">
+                <label>SELECT YOUR INQUIRY</label>
+                <select required>
+                    <option value="" disabled selected>Select Inquiry Type</option>
+                    <option value="TOUR PACKAGES">Tour Packages</option>
+                    <option value="VISA">Visa / Passport Assistance</option>
+                    <option value="TICKETING">Airline Ticketing</option>
+                    <option value="OTHER">Other</option>
+                </select>
+            </div>
+            <div class="form-group"><label>SPECIAL NOTES / INQUIRY</label><textarea placeholder="Write your message here" rows="4"></textarea></div>
+            <button type="submit" class="submit-btn">Connect Now</button>
+        </form>
+    </div>
+
+    <button class="chat-widget-btn" id="chatOpenBtn" title="Chat with our AI Assistant">
+    <i class="fas fa-comment-dots"></i>
+</button>
+
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+        <div class="chat-header-info">
+            <div class="chat-header-icon">
+                <img src="rohan1.png" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div>
+                <div class="chat-header-title">ROHAN AI</div>
+                <div class="chat-header-status">Online Assistant</div>
+            </div>
+        </div>
+        <button class="chat-close-btn" id="chatCloseBtn"><i class="fas fa-times"></i></button>
+    </div>
+    
+    <div class="chat-body" id="chatBody">
+        <div class="chat-msg bot">
+            Hi! Welcome to Renan Tina Travel & Tours. Need help finding the best travel agency packages in the Philippines or visa assistance? Just let me know!
+        </div>
+        <div class="typing-indicator" id="typingIndicator">ROHAN AI is typing...</div>
+    </div>
+
+    <div class="chat-footer">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type your message here..." onkeypress="handleChatEnter(event)">
+        <button class="chat-send" onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+   <script>
+        // ==========================================
+        // 1. SANITY CMS DYNAMIC FETCH (PACKAGES + TEAM)
+        // ==========================================
+        async function loadAboutData() {
+            const PROJECT_ID = 'e4giu1sx'; 
+            const DATASET = 'production';
+            
+           // A. MAGIC HIGOP: Naka-filter na! Kukunin lang yung mga "isFeatured == true"
+            const staysQuery = encodeURIComponent('*[_type == "tourPackage" && isFeatured == true] | order(_createdAt desc)[0...6] {title, description, duration, "imageUrl": mainImage.asset->url, "slug": slug.current, featuredBadge}');
+            const staysURL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${staysQuery}`;
+
+            // B. Query para sa Core Team (Yung category == 'main' lang ang kukunin!)
+            const teamQuery = encodeURIComponent('*[_type == "teamMember" && category == "main"] | order(_createdAt asc) {name, position, "imageUrl": image.asset->url}');
+            const teamURL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${teamQuery}`;
+
+            try {
+                // --- HIGUPIN ANG FEATURED STAYS (Mula sa Packages) ---
+                const staysRes = await fetch(staysURL);
+                const staysData = await staysRes.json();
+                const staysContainer = document.getElementById('arch-track'); 
+                
+                if (staysContainer && staysData.result.length > 0) {
+                    staysContainer.innerHTML = ''; 
+                    staysData.result.forEach((pkg) => {
+                        // Kukunin natin yung badge text galing Sanity. Kung walang nilagay, "Featured Tour" ang default.
+                        const badgeText = pkg.featuredBadge ? pkg.featuredBadge : 'Featured Tour';
+
+                        const cardHTML = `
+                            <div class="arch-card" data-title="${pkg.title}" data-desc="${pkg.description}" data-price="${pkg.duration || 'Premium Tour'}" data-slug="${pkg.slug}">
+                                <img src="${pkg.imageUrl || 'https://via.placeholder.com/600x800'}" alt="${pkg.title}">
+                                
+                                <div class="arch-overlay">
+                                    <div class="amenities-list">
+                                        <span><i class="fas fa-star"></i> ${badgeText}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        staysContainer.innerHTML += cardHTML;
+                    });
+                    initCenteredCarousel();
+                } else {
+                    initCenteredCarousel(); 
+                }
+
+               // --- HIGUPIN ANG CORE TEAM ---
+                const teamRes = await fetch(teamURL);
+                const teamData = await teamRes.json();
+                const teamContainer = document.getElementById('sanityTeamCarouselTrack');
+
+                if (teamContainer && teamData.result.length > 0) {
+                    let singleSetHTML = ''; 
+                    
+                   teamData.result.forEach(member => {
+                        singleSetHTML += `
+                            <div class="team-card">
+                                <img src="${member.imageUrl || 'https://via.placeholder.com/400x500?text=No+Image'}" alt="${member.name}">
+                                <div class="team-info">
+                                    <div class="team-text">
+                                        <h4>${member.name}</h4>
+                                        <p>${member.position}</p>
+                                    </div>
+                                    <div class="team-socials" style="color:var(--text-muted); cursor:pointer;">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="team-card-overlay">
+                                    <a href="team.html" class="btn-view-team">View Full Team ↗</a>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    // MAGIC TRICK: Idodoble natin yung laman ng singleSetHTML para sa infinite scroll!
+                    teamContainer.innerHTML = singleSetHTML + singleSetHTML;
+
+                } else if (teamContainer) {
+                    teamContainer.innerHTML = '<p style="text-align: center; width: 100%; color: var(--text-muted);">No core team members found.</p>';
+                }
+
+            } catch (error) {
+                console.error("Error fetching about page data:", error);
+                initCenteredCarousel(); 
+            }
+        }
+
+        // Tawagin ang Sanity Fetch pagka-load ng page
+        document.addEventListener('DOMContentLoaded', loadAboutData);
+
+
+        // ==========================================
+        // 2. PERFECT CENTERED CAROUSEL LOGIC
+        // ==========================================
+        let currentStayIndex = 0; 
+        let stayTimer;
+
+        function initCenteredCarousel() {
+            const stayCards = document.querySelectorAll('.arch-card');
+            const stayTrack = document.getElementById('arch-track');
+            const stayDetailsContainer = document.getElementById('stay-details-container');
+            const sTitle = document.getElementById('stay-title');
+            const sDesc = document.getElementById('stay-desc');
+            const sPrice = document.getElementById('stay-price');
+            const viewDetailsBtn = document.querySelector('.view-details'); // Ito yung link sa View Details button!
+            
+            if(stayCards.length === 0) return;
+
+            currentStayIndex = Math.floor(stayCards.length / 2);
+
+            function updateStayCarousel(index) {
+                if(index < 0) index = stayCards.length - 1;
+                if(index >= stayCards.length) index = 0;
+                currentStayIndex = index;
+
+                const wrapper = document.querySelector('.arch-slider-wrapper');
+                const wrapperCenter = wrapper.offsetWidth / 2;
+                const activeCard = stayCards[currentStayIndex];
+                
+                const cardCenter = activeCard.offsetLeft + (activeCard.offsetWidth / 2);
+                const translateValue = wrapperCenter - cardCenter;
+
+                stayTrack.style.transform = `translateX(${translateValue}px)`;
+
+                stayCards.forEach((card, i) => {
+                    if(i === currentStayIndex) card.classList.add('highlighted');
+                    else card.classList.remove('highlighted');
+                });
+
+                stayDetailsContainer.style.opacity = '0';
+                setTimeout(() => {
+                    const data = stayCards[currentStayIndex].dataset;
+                    sTitle.innerText = data.title;
+                    
+                    // Puputulin natin yung text para hindi humaba nang sobra yung layout
+                    let shortDesc = data.desc ? data.desc.substring(0, 110) + '...' : 'Explore this wonderful journey with us.';
+                    sDesc.innerText = shortDesc;
+                    
+                    sPrice.innerText = data.price;
+
+                    // I-update ang link papunta sa package-details!
+                    if (viewDetailsBtn && data.slug) {
+                        viewDetailsBtn.href = `package-details.html?id=${data.slug}`;
+                    }
+                    
+                    stayDetailsContainer.style.opacity = '1';
+                }, 300);
+            }
+
+            document.querySelector('.prev-stay').onclick = () => {
+                clearInterval(stayTimer);
+                updateStayCarousel(currentStayIndex - 1);
+                startStayAutoSlide();
+            };
+            document.querySelector('.next-stay').onclick = () => {
+                clearInterval(stayTimer);
+                updateStayCarousel(currentStayIndex + 1);
+                startStayAutoSlide();
+            };
+
+            stayCards.forEach((card, index) => {
+                card.onclick = () => {
+                    clearInterval(stayTimer);
+                    updateStayCarousel(index);
+                    startStayAutoSlide();
+                };
+            });
+
+            function startStayAutoSlide() {
+                clearInterval(stayTimer);
+                stayTimer = setInterval(() => {
+                    updateStayCarousel(currentStayIndex + 1);
+                }, 6000);
+            }
+
+            updateStayCarousel(currentStayIndex); 
+            startStayAutoSlide();
+            
+            window.addEventListener('resize', () => updateStayCarousel(currentStayIndex));
+        }
+
+
+        // ==========================================
+        // 3. ORIGINAL LOGIC (Walang binago)
+        // ==========================================
+
+        // --- Smart Dynamic Navbar Logic ---
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.hero-nav');
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+            if (scrollTop > lastScrollTop && scrollTop > 150) navbar.classList.add('hidden');
+            else navbar.classList.remove('hidden');
+            lastScrollTop = scrollTop;
+        });
+
+        // --- BOOKING SIDEBAR LOGIC ---
+        const openBtn = document.getElementById('openBookingBtn');
+        const secondaryBtns = document.querySelectorAll('.booking-trigger'); 
+        const closeSidebarBtn = document.getElementById('closeSidebar');
+        const sidebar = document.getElementById('bookingSidebar');
+        const overlay = document.getElementById('bookingOverlay');
+
+        function openBooking(e) {
+            if(e) e.preventDefault();
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeBooking() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        openBtn.addEventListener('click', openBooking);
+        secondaryBtns.forEach(btn => btn.addEventListener('click', openBooking));
+        closeSidebarBtn.addEventListener('click', closeBooking);
+        overlay.addEventListener('click', closeBooking);
+
+        // --- Dark Accordion Logic ---
+        const darkAccItems = document.querySelectorAll('.dark-acc-item');
+        darkAccItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                darkAccItems.forEach(acc => {
+                    acc.classList.remove('open');
+                    acc.querySelector('.dark-acc-icon').innerText = '+';
+                });
+                if (!isOpen) {
+                    item.classList.add('open');
+                    item.querySelector('.dark-acc-icon').innerText = '−';
+                }
+            });
+        });
+
+        // --- Mission/Vision/Goals Quote Auto-Slider Logic ---
+        let currentQuote = 0;
+        const quoteSlides = document.querySelectorAll('.quote-slide');
+        const quoteDots = document.querySelectorAll('.q-dot');
+        let quoteInterval;
+
+        function showQuote(index) {
+            quoteSlides.forEach(slide => slide.classList.remove('active'));
+            quoteDots.forEach(dot => dot.classList.remove('active'));
+            quoteSlides[index].classList.add('active');
+            quoteDots[index].classList.add('active');
+            currentQuote = index;
+        }
+
+        function startQuoteTimer() {
+            quoteInterval = setInterval(() => {
+                let next = (currentQuote + 1) % quoteSlides.length;
+                showQuote(next);
+            }, 10000); 
+        }
+
+        quoteDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                clearInterval(quoteInterval);
+                showQuote(index);
+                startQuoteTimer(); 
+            });
+        });
+        startQuoteTimer(); 
+
+        // --- AI Chat Support Logic ---
+        const chatOpenBtn = document.getElementById('chatOpenBtn');
+        const chatCloseBtn = document.getElementById('chatCloseBtn');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        chatOpenBtn.addEventListener('click', () => chatWindow.classList.add('active'));
+        chatCloseBtn.addEventListener('click', () => chatWindow.classList.remove('active'));
+
+        function handleChatEnter(event) {
+            if (event.key === 'Enter') sendChatMessage();
+        }
+
+        function sendChatMessage() {
+            const messageText = chatInput.value.trim();
+            if (!messageText) return;
+
+            appendMessage(messageText, 'user');
+            chatInput.value = '';
+
+            typingIndicator.style.display = 'block';
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            setTimeout(() => {
+                typingIndicator.style.display = 'none';
+                let aiResponse = "That sounds exciting! I'm still learning, but if you're ready to book, feel free to fill out the form or click on a package to connect with our human experts!";
+                
+                const lowerText = messageText.toLowerCase();
+                if (lowerText.includes('price') || lowerText.includes('how much')) {
+                    aiResponse = "Our prices vary per package. You can browse our available packages here and click 'View Details' to see the full pricing!";
+                } else if (lowerText.includes('hello') || lowerText.includes('hi')) {
+                    aiResponse = "Hi there! Looking for a beach getaway or an alpine adventure today?";
+                }
+
+                appendMessage(aiResponse, 'bot');
+            }, 1500); 
+        }
+
+        function appendMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-msg ${sender}`;
+            msgDiv.innerText = text;
+            chatBody.insertBefore(msgDiv, typingIndicator);
+            chatBody.scrollTop = chatBody.scrollHeight; 
+        }
+
+        // --- SCROLL REVEAL ANIMATION OBSERVER ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, { root: null, threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- GOOGLE APPS SCRIPT (GAS) FORM SUBMISSION ---
+        const gSheetForm = document.getElementById('bookingForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbw6bELcksTQQDs_YSjcH9P9S_l1CvVfQG5yUlMrp4N-qkrc1-ZoAr2M6-_sX_3Ybu4UmQ/exec'; 
+
+        gSheetForm.addEventListener('submit', e => {
+            e.preventDefault(); 
+            
+            submitBtn.innerText = 'Sending...';
+            submitBtn.disabled = true;
+
+            let requestBody = new FormData(gSheetForm);
+
+            fetch(scriptURL, { method: 'POST', body: requestBody})
+                .then(response => {
+                    alert('Success! Your inquiry has been sent. We will email you shortly.');
+                    submitBtn.innerText = 'Connect Now';
+                    submitBtn.disabled = false;
+                    gSheetForm.reset(); 
+                    document.getElementById('closeSidebar').click(); 
+                })
+                .catch(error => {
+                    alert('Error! Something went wrong. Please try again.');
+                    submitBtn.innerText = 'Connect Now';
+                    submitBtn.disabled = false;
+                });
+        });
+    </script>
+    <script src="rohan-ai.js"></script>
+
+<script>
+    // --- OPEN & CLOSE LOGIC ---
+    const btnOpen = document.getElementById('chatOpenBtn');
+    const btnClose = document.getElementById('chatCloseBtn');
+    const windowChat = document.getElementById('chatWindow');
+
+    if (btnOpen) {
+        btnOpen.onclick = function() {
+            windowChat.style.display = 'flex'; 
+            windowChat.classList.add('active');
+        };
+    }
+
+    if (btnClose) {
+        btnClose.onclick = function() {
+            windowChat.style.display = 'none';
+            windowChat.classList.remove('active');
+        };
+    }
+
+    // --- SENDING LOGIC ---
+    function handleChatEnter(e) {
+        if (e.key === 'Enter') sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+        const input = document.getElementById('chatInput');
+        const body = document.getElementById('chatBody');
+        const typing = document.getElementById('typingIndicator');
+        
+        const val = input.value.trim();
+        if (!val) return;
+
+        // User Message
+        appendMsg(val, 'user');
+        input.value = '';
+
+        // Show Typing Indicator
+        typing.style.display = 'block';
+        body.scrollTop = body.scrollHeight;
+
+        try {
+            // Tatawag sa rohan-ai.js API connector
+            const res = await askRohanAI(val); 
+            typing.style.display = 'none';
+            appendMsg(res, 'bot');
+        } catch (err) {
+            console.error("AI Error:", err);
+            typing.style.display = 'none';
+            appendMsg("Sorry, I lost my connection. Please try again!", 'bot');
+        }
+    }
+
+    // --- APPEND MESSAGE LOGIC ---
+    function appendMsg(text, sender) {
+        const body = document.getElementById('chatBody');
+        const typing = document.getElementById('typingIndicator');
+        const div = document.createElement('div');
+        div.className = `chat-msg ${sender}`;
+        div.innerText = text;
+        
+        body.insertBefore(div, typing);
+        body.scrollTop = body.scrollHeight;
+    }
+</script>
+</body>
+</html>
