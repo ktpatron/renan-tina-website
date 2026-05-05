@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Home Page -->
+  <url>
+    <loc>https://renantinatravelandtours.com/</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://renantinatravelandtours.com/about.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Our Team Page -->
+  <url>
+    <loc>https://renantinatravelandtours.com/team.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Services Page -->
+  <url>
+    <loc>https://renantinatravelandtours.com/services.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Licenses Page -->
+  <url>
+    <loc>https://renantinatravelandtours.com/licenses.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Packages List Page -->
+  <url>
+    <loc>https://renantinatravelandtours.com/packages.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Package Details Page -->
+  <url>
+    <loc>https://renantinatravelandtours.com/package-details.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Reviews Page -->
+  <url>
+    <loc>https://renantinatravelandtours.com/reviews.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact Us Page -->
+  <url>
+    <loc>https://renantinatravelandtours.com/contact-us.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://renantinatravelandtours.com/privacy-policy.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.5</priority>
+  </url>
+</urlset>
