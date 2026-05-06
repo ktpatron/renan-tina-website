@@ -65,7 +65,7 @@
         }
         .hero-nav.hidden { transform: translateY(-100%); }
         
-        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; color: var(--nav-text); text-decoration: none; display: flex; align-items: center; gap: 12px; transition: color 0.3s; font-family: 'Times New Roman', serif; }
+        .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; color: var(--nav-text); text-decoration: none; display: flex; align-items: center; gap: 12px; transition: color 0.3s; font-family: 'Times New Roman', serif; }
         .logo-img { height: 40px; width: 40px; object-fit: cover; border-radius: 50%; border: 2px solid var(--nav-border); background-color: var(--white); transition: 0.3s; }
         .logo:hover .logo-img { transform: scale(1.05) rotate(5deg); }
 
@@ -418,6 +418,24 @@
         gap: 15px;
     }
 }  
+        /* =========================================
+           CONNECT POPUP SIDEBAR
+           ========================================= */
+        .booking-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.6); z-index: 2000; opacity: 0; visibility: hidden; transition: 0.4s ease; backdrop-filter: blur(5px); }
+        .booking-overlay.active { opacity: 1; visibility: visible; }
+        .booking-sidebar { position: fixed; top: 0; right: -500px; width: 100%; max-width: 450px; height: 100vh; background: var(--white); z-index: 2001; box-shadow: -10px 0 40px rgba(0,0,0,0.15); padding: 40px 35px; overflow-y: auto; transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); display: flex; flex-direction: column; }
+        .booking-sidebar.active { right: 0; }
+        .close-btn { position: absolute; top: 25px; right: 25px; background: none; border: none; font-size: 1.5rem; color: var(--primary); cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: var(--accent-neon); transform: scale(1.1) rotate(90deg); }
+        .booking-header { text-align: center; margin-bottom: 35px; margin-top: 15px;}
+        .booking-header h2 { font-size: 1.9rem; line-height: 1.2; color: var(--primary); font-weight: 700; margin-bottom: 8px;}
+        .booking-form .form-group { margin-bottom: 22px; text-align: left; }
+        .booking-form label { display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; letter-spacing: 0.5px; }
+        .booking-form input, .booking-form select, .booking-form textarea { width: 100%; padding: 14px 16px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 0.95rem; outline: none; transition: 0.3s; background: #ffffff; }
+        .booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(10, 25, 47, 0.08); }
+        .booking-form textarea { resize: vertical; min-height: 120px; }
+        .submit-btn { width: 100%; background: var(--primary); color: var(--white); padding: 16px; border: none; border-radius: 50px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+
 /* ==========================================
    ROHAN AI CHAT WIDGET - FULL STYLES
    ========================================== */
@@ -519,28 +537,106 @@
     color: #ff4444 !important; 
     transform: rotate(90deg); /* Iikot ang X button */
 }
-        /* =========================================
-           RESPONSIVE
+/* =========================================
+           BASE DESKTOP STYLES (ITAGO ANG PANG-MOBILE)
            ========================================= */
-        @media (max-width: 1024px) {
-            .hero-nav .nav-pills { display: none; }
-            .info-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-main { grid-template-columns: 1fr 1fr; }
+        .mobile-menu-btn { 
+            display: none; /* Nakatago sa laptop */
+            background: none; 
+            border: none; 
+            font-size: 1.8rem; 
+            color: var(--nav-text); 
+            cursor: pointer; 
+            z-index: 1002; 
+            transition: 0.3s; 
         }
-        @media (max-width: 768px) {
-            .contact-header-row { flex-direction: column; align-items: flex-start; gap: 20px;}
-            .contact-heading { font-size: 2.2rem; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .map-box { min-height: 350px; }
-            .form-row { grid-template-columns: 1fr; }
-            .c-form-group.full { grid-column: span 1; }
-            .info-grid { grid-template-columns: 1fr; gap: 20px;}
+        
+        .mobile-connect-btn { 
+            display: none !important; /* Nakatago sa laptop */
+        }
+
+        /* =========================================
+           RESPONSIVE MEDIA QUERIES (MOBILE FIXES)
+           ========================================= */
+        @keyframes scroll-activities { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-320px * 5 - 100px)); } }
+        @keyframes scroll-partners { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Tablet View (768px to 1024px) */
+        @media (max-width: 1024px) {
+            .hero-nav { padding: 15px 5%; }
             
-            .footer-main { grid-template-columns: 1fr; text-align: center; }
-            .social-link { justify-content: center; }
-            .footer-bottom { flex-direction: column; gap: 20px; }
+            /* FIXED MOBILE MENU */
+            .nav-pills { 
+                position: absolute; top: 80px; left: 5%; width: 90%; 
+                background: var(--white); flex-direction: column; 
+                padding: 15px 15px 25px; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
+                opacity: 0; visibility: hidden; transform: translateY(-20px); 
+                transition: 0.3s ease-in-out; align-items: stretch; border: none; z-index: 999;
+            }
+            .nav-pills.show { opacity: 1; visibility: visible; transform: translateY(0); }
+            
+            .nav-pills > a, .dropdown > .dropbtn { 
+                color: var(--text-dark) !important; padding: 15px 20px !important; 
+                background: transparent !important; border-radius: 8px !important; 
+                text-align: left; font-size: 1rem !important; display: block; width: 100%;
+            }
+            .nav-pills > a:hover, .nav-pills > a.active { background: var(--bg-light) !important; color: var(--primary) !important; }
+            
+            /* DROPDOWN ACCORDION FIX FOR MOBILE */
+            .dropdown { width: 100%; flex-direction: column; align-items: stretch; }
+            .dropdown-content { 
+                position: static !important; width: 100% !important; box-shadow: none !important; border: none !important; 
+                background: var(--bg-light) !important; transform: none !important; display: none; 
+                opacity: 1 !important; visibility: visible !important; padding: 5px 0 !important; margin-top: 0 !important; border-radius: 8px !important;
+            }
+            .dropdown:hover .dropdown-content { display: block; }
+            .dropdown-content a { padding: 12px 20px 12px 40px !important; font-size: 0.95rem !important; }
+            
+            /* RED CONNECT BUTTON IN MOBILE MENU (PALABASIN SA MOBILE) */
+            .mobile-connect-btn { 
+                display: flex !important; align-items: center; gap: 10px; 
+                color: var(--accent-neon) !important; font-weight: 700 !important; 
+                padding: 20px 20px 0 !important; margin-top: 10px; 
+                border-top: 1px solid var(--border-light); border-radius: 0 !important;
+            }
+            .mobile-connect-btn:hover { background: transparent !important; }
+            
+            /* LALABAS ANG HAMBURGER MENU SA MOBILE */
+            .mobile-menu-btn { display: block; } 
+            
+            /* ITAGO ANG DESKTOP BOOKING BUTTON SA MOBILE */
+            .book-now-nav { display: none; } 
+
+            .hero-content { margin-top: -60px; }
+            .packages-grid { grid-template-columns: 1fr 1fr; }
+            .advisory-slide { grid-template-columns: 1fr; gap: 30px; text-align: center;}
+            .advisory-text { text-align: center; }
+            .advisory-list li { justify-content: center; }
+            .advisory-visual .new-pkg-card { max-width: 500px; margin: 0 auto; }
+            .footer-main { grid-template-columns: 1fr 1fr; gap: 40px;}
+        }
+
+        /* Mobile View (Under 768px) */
+        @media (max-width: 768px) {
+            .hero { padding-top: 130px; justify-content: flex-start; height: auto; min-height: 85vh; padding-bottom: 80px;}
+            .hero-content { margin-top: 20px; align-items: flex-start; text-align: left; max-width: 100%;}
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-content p { font-size: 1rem; max-width: 90%;}
+            
+            .packages-grid { grid-template-columns: minmax(250px, 1fr); }
+            .advisory-section { padding: 60px 5%; }
+            .advisory-text h3 { font-size: 1.6rem; }
+            .section-header-common h2 { font-size: 1.8rem; }
+            
+            .footer-wrapper { padding: 10px; } 
+            footer { border-radius: 30px; padding: 50px 20px 30px; }
+            .footer-main { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            .footer-main > div:first-child { grid-column: span 1; text-align: center; margin-bottom: 20px;}
             .footer-brand { justify-content: center; }
+            .social-link { justify-content: center; }
             .footer-main p { margin-inline: auto; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            
             .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
         }
     </style>
@@ -550,10 +646,14 @@
     <nav class="hero-nav">
         <a href="index.html" class="logo">
             <img src="logo.png" alt="Renan Tina Logo" class="logo-img">
-            RENAN TINA TRAVEL
+            RENAN TINA TRAVEL AND TOURS
         </a>
         
-        <div class="nav-pills">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="nav-pills" id="navLinks">
             <a href="index.html">Home</a>
             <a href="packages.html">Packages</a>
             <a href="services.html">Services</a>
@@ -564,16 +664,21 @@
                     <a href="packages.html#faq">FAQs</a>
                     <a href="team.html">Our Team</a>
                     <a href="reviews.html">Traveler Stories</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
                     <a href="licenses.html">Licenses</a>
-                    <a href="privacy-policy.html">Privacy and Policy</a>
                     <a href="contact.html">Contact Us</a>
                 </div>
             </div>
+             <a href="#" class="booking-trigger mobile-connect-btn" id="mobileConnectBtn">
+                <i class="fas fa-paper-plane"></i> Connect With Us
+            </a>
         </div>
 
-        <a href="#" class="book-now-nav" id="openBookingBtn">
-            Connect <span>↗</span>
+        <a href="#" class="book-now-nav booking-trigger" id="openBookingBtn">
+            Connect <span>🡵</span>
         </a>
+    </nav>
+
     </nav>
 
     <div class="contact-container">
@@ -679,18 +784,18 @@
             </div>
             <p>Explore the world with confidence, comfort &<br>crafted experiences.</p>
             <div class="footer-socials">
-                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
-                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://www.facebook.com/RenanTinaTravelandTours"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://www.instagram.com/renantinatravelandtours3/"><i class="fab fa-instagram"></i> Instagram</a>
             </div>
         </div>
 
-        <div class="footer-links-col">
+              <div class="footer-links-col">
             <h4>Main Pages</h4>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="packages.html">Packages</a></li>
-                <li><a href="packages.html#faqs">FAQ</a></li>
+                <li><a href="services.html">Our Services</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
@@ -698,24 +803,27 @@
         <div class="footer-links-col">
             <h4>More Pages</h4>
             <ul>
-                <li><a href="package-details.html">Package Single</a></li>
+                <li><a href="reviews.html">Traveler Stories</a></li>
                 <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="team.html">Our Team</a></li>
+                <li><a href="packages.html#faqs">FAQ</a></li>
             </ul>
         </div>
 
         <div class="footer-links-col">
             <h4>Utility Pages</h4>
             <ul>
-                <li><a href="#">Help Center</a></li>
+                <li><a href="contact.html">Help Center</a></li>
                 <li><a href="licenses.html">Licenses</a></li>
             </ul>
         </div>
         
     </div>
+        
 
     <div class="footer-bottom-bar">
         <p>&copy; 2026 Renan-Tina Travel and Tours</p>
-        <p>Designed with K</p>
+
     </div>
 </footer>
     </div>
@@ -793,6 +901,33 @@
             }
             lastScrollTop = scrollTop;
         });
+
+
+ 
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+        // --- Mobile Menu Toggle ---
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navPills = document.getElementById('navLinks');
+        if(mobileBtn) {
+            mobileBtn.addEventListener('click', () => {
+                navPills.style.display = navPills.style.display === 'flex' ? 'none' : 'flex';
+                navPills.style.flexDirection = 'column';
+                navPills.style.position = 'absolute';
+                navPills.style.top = '70px';
+                navPills.style.left = '0';
+                navPills.style.width = '100%';
+                navPills.style.background = 'white';
+                navPills.style.padding = '20px';
+                navPills.style.zIndex = '1000';
+                navPills.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+            });
+        }
 
         // --- Booking Sidebar Logic ---
         const openBtn = document.getElementById('openBookingBtn');
