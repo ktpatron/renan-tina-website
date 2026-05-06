@@ -537,7 +537,21 @@
             .hero-content h1 { font-size: 2.8rem; }
             .hero-content p { font-size: 1rem; max-width: 90%;}
             
-            .packages-grid { grid-template-columns: minmax(250px, 1fr); }
+            /* MOBILE FIX PARA MAY SPACE SA GILID ANG PACKAGES */
+            .packages-grid, .new-packages-grid { 
+                grid-template-columns: 1fr !important; 
+                padding: 0 15px !important; /* Ito yung magbibigay ng space sa gilid */
+                gap: 30px !important; 
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            /* Para hindi lumampas ang pictures */
+            .new-packages-grid > div, .new-pkg-card {
+                width: 100% !important;
+                box-sizing: border-box;
+                overflow: hidden; 
+            }
             .advisory-section { padding: 60px 5%; }
             .advisory-text h3 { font-size: 1.6rem; }
             .section-header-common h2 { font-size: 1.8rem; }
@@ -840,7 +854,7 @@
                                 <span class="new-pkg-price">${pkg.duration}</span>
                             </div>
                             <p class="new-pkg-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${pkg.description}</p>
-                            <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details ↗</a>
+                            <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details 🡵</a>
                         </div>
                     `;
                     container.innerHTML += cardHTML;
