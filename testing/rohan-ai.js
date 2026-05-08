@@ -1,6 +1,6 @@
 async function askRohanAI(userMessage) {
     // ⚠️ Siguraduhin na ito yung NEW URL galing sa "doPost" deployment mo
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzoBjtmF2e-HISSkNl9FmTiCPkCJBx16cgANnAcuKru5l5JYXKGiMxHI-YTTDvMAN1Q/exec'; 
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyhI8cINtm12librwc2iyIRuPRq0dIjj8YcDWHEFuuevuOd3hiygYA_uL3-i-t7pvcD/exec'; 
 
     try {
         const response = await fetch(scriptURL, {
