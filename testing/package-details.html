@@ -88,7 +88,7 @@
 
         .book-now-nav span { background: var(--primary); color: var(--white); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;}
 
-        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--primary); cursor: pointer; z-index: 1002; transition: 0.3s; }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.2rem; color: var(--primary); cursor: pointer; z-index: 1002; transition: 0.3s; }
 
         /* --- DROPDOWN HOVER LIST --- */
         .dropdown { position: relative; display: flex; align-items: center; }
@@ -413,7 +413,7 @@
            BASE DESKTOP STYLES (ITAGO ANG PANG-MOBILE)
            ========================================= */
         .mobile-menu-btn { 
-            display: none; /* Nakatago sa laptop */
+            display: none; 
             background: none; 
             border: none; 
             font-size: 1.8rem; 
@@ -424,7 +424,35 @@
         }
         
         .mobile-connect-btn { 
-            display: none !important; /* Nakatago sa laptop */
+            display: none !important; 
+        }
+
+        /* =========================================
+           🛠️ PACKAGE DETAILS LAYOUT (FORM NASA ILALIM NA LAGING) 🛠️
+           ========================================= */
+        .tour-content-split {
+            display: flex !important;
+            flex-direction: column !important; /* Pinagpatong ang Details (Taas) at Form (Baba) */
+            gap: 60px !important; /* Espasyo bago mag-umpisa yung form */
+            max-width: 1100px !important;
+            margin: 0 auto !important; /* Gitnang-gitna */
+        }
+
+        .tour-left {
+            width: 100% !important; /* Kukunin niya buong lapad para di masikip yung text */
+            padding-right: 0 !important;
+        }
+
+        .tour-right {
+            width: 100% !important;
+            display: flex;
+            justify-content: center; /* Ise-center natin yung form box */
+        }
+
+        .booking-widget {
+            width: 100% !important;
+            max-width: 600px !important; /* Limitahan ang lapad para di mukhang resibo sa laptop */
+            margin: 0 auto !important;
         }
 
         /* =========================================
@@ -464,7 +492,7 @@
             .dropdown:hover .dropdown-content { display: block; }
             .dropdown-content a { padding: 12px 20px 12px 40px !important; font-size: 0.95rem !important; }
             
-            /* RED CONNECT BUTTON IN MOBILE MENU (PALABASIN SA MOBILE) */
+            /* RED CONNECT BUTTON IN MOBILE MENU */
             .mobile-connect-btn { 
                 display: flex !important; align-items: center; gap: 10px; 
                 color: var(--accent-neon) !important; font-weight: 700 !important; 
@@ -473,10 +501,7 @@
             }
             .mobile-connect-btn:hover { background: transparent !important; }
             
-            /* LALABAS ANG HAMBURGER MENU SA MOBILE */
             .mobile-menu-btn { display: block; } 
-            
-            /* ITAGO ANG DESKTOP BOOKING BUTTON SA MOBILE */
             .book-now-nav { display: none; } 
 
             .hero-content { margin-top: -60px; }
@@ -612,6 +637,11 @@
             <div class="booking-widget" id="booking-form">
                 <form class="booking-form" id="packageBookingForm">
                     <input type="hidden" name="inquiry" id="hidden-pkg-name" value="Custom Tour">
+
+<div style="text-align: center;">
+    <h3>Want to know more about this package? Fill out the form below and we'll get back to you!</h3>
+</div>
+<br>                    
 
                     <div class="form-group">
                         <label>NAME</label>

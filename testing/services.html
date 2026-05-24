@@ -205,8 +205,35 @@
         .join-section { background: var(--bg-light); padding: 80px 5%; text-align: center; border-radius: 30px; border: 1px solid var(--border-light); }
         .join-section h2 { font-family: 'Inter', sans-serif; font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--primary); font-weight: 600; letter-spacing: -1px; margin-bottom: 20px; }
         .join-section p { font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; max-width: 700px; margin: 0 auto 35px; }
-        .btn-email { background: var(--primary); color: var(--white); padding: 16px 45px; border-radius: 50px; text-decoration: none; font-weight: 500; font-size: 1.01rem; transition: 0.3s; display: inline-block; }
-        .btn-email:hover { background: var(--accent-neon); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+.btn-email { 
+    /* --- Eto ang kulay dark blue --- */
+    background-color: #021930 !important; 
+    color: #ffffff !important; /* Puti ang text para lutang */
+    border: none;
+    
+    /* --- Pill shape magic --- */
+    border-radius: 50px; 
+    display: inline-block; 
+    
+    /* --- Existing styles mo --- */
+    font-size: 0.85rem !important; 
+    word-break: break-all; 
+    white-space: normal !important;
+    height: auto !important; 
+    padding: 12px 20px !important; 
+    line-height: 1.4;
+    text-align: center; 
+    transition: all 0.3s ease;
+    text-decoration: none; /* Para walang underline kung link ito */
+}
+
+.btn-email:hover { 
+    /* Mag-lighten nang konti pag nag-hover */
+    background-color: #720000 !important; 
+    color: #ffffff !important;
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+}  
 /* ==========================================
    CLASSIC ELEGANT FOOTER
    ========================================== */

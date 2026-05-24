@@ -727,12 +727,13 @@
                 <span class="filter-pill" data-filter="domestic">Domestic</span>
                 <span class="filter-pill" data-filter="asia">Asia</span>
                 <span class="filter-pill" data-filter="europe">Europe</span>
-                <span class="filter-pill" data-filter="historical">Historical</span>
+                <span class="filter-pill" data-filter="land-tours">Land Tours</span>
+                <span class="filter-pill" data-filter="exclusive-deals">Exclusive Deals</span>
             </div>
         </div>
         
         <div class="packages-grid" id="sanityIndexPackages">
-            <p style="text-align: center; width: 100%; color: var(--text-muted);">Loading featured packages from Sanity...</p>
+            <p style="text-align: center; width: 100%; color: var(--text-muted);">Please wait...</p>
         </div>
     </section>
 
@@ -914,7 +915,7 @@
             const DATASET = 'production';
             
             // 1. HIGUPIN ANG TOP 3 PACKAGES
-            const packagesQuery = encodeURIComponent('*[_type == "tourPackage"][0...3]{title, "slug": slug.current, category, duration, description, "imageUrl": mainImage.asset->url}');
+            const packagesQuery = encodeURIComponent('*[_type == "tourPackage"][0...9]{title, "slug": slug.current, category, duration, description, "imageUrl": mainImage.asset->url}');
             const packagesURL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${packagesQuery}`;
 
             // 2. HIGUPIN ANG LATEST 3 TRAVEL ADVISORIES 
@@ -931,23 +932,25 @@
                     pkgContainer.innerHTML = ''; 
                     pkgData.result.forEach((pkg, index) => {
                         const delayClass = `delay-${index + 1}`; 
-                        const pkgCategory = pkg.category ? pkg.category.toLowerCase() : 'all'; 
-                        
-                        const cardHTML = `
-                            <div class="new-pkg-card ${delayClass} reveal active" data-category="${pkgCategory}">
-                                <div class="new-pkg-img-wrap">
-                                    <img src="${pkg.imageUrl || 'https://via.placeholder.com/600x400'}" alt="${pkg.title}">
-                                    <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
-                                </div>
-                                <div class="new-pkg-header">
-                                    <h3 class="new-pkg-title">${pkg.title}</h3>
-                                    <span class="new-pkg-price">${pkg.duration}</span>
-                                </div>
-                                <p class="new-pkg-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${pkg.description}</p>
-                                <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details ↗</a>
-                                <a href="package-details.html?id=${pkg.slug}" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 10;"></a>
-                            </div>
-                        `;
+                        const pkgCategory = pkg.category ? pkg.category.toLowerCase().replace(/\s+/g, '-') : 'all';                        
+                      const cardHTML = `
+    <div class="new-pkg-card ${delayClass} reveal active" data-category="${pkgCategory}">
+        <div class="new-pkg-img-wrap">
+            <img src="${pkg.imageUrl || 'https://via.placeholder.com/600x400'}" alt="${pkg.title}">
+            <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
+        </div>
+        <div class="new-pkg-header">
+            <span style="display: block; font-size: 0.8rem; color: #003366; font-weight: bold; margin-bottom: 5px;">
+            </span>
+            
+            <h3 class="new-pkg-title">${pkg.title}</h3>
+            <span class="new-pkg-price">${pkg.duration}</span>
+        </div>
+        <p class="new-pkg-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${pkg.description}</p>
+        <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details ↗</a>
+        <a href="package-details.html?id=${pkg.slug}" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 10;"></a>
+    </div>
+`;
                         pkgContainer.innerHTML += cardHTML;
                     });
                 }

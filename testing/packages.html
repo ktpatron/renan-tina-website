@@ -90,7 +90,7 @@
         .book-now-nav:hover { border-color: var(--primary); }
         .book-now-nav span { background: var(--primary); color: var(--white); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; }
         
-        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.8rem; color: var(--nav-text); cursor: pointer; z-index: 1002; transition: 0.3s; }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.2rem; color: var(--nav-text); cursor: pointer; z-index: 1002; transition: 0.3s; }
         .mobile-connect-btn { display: none; }
         /* --- DROPDOWN HOVER LIST --- */
         .dropdown { position: relative; display: flex; align-items: center; height: 100%;}
@@ -612,15 +612,18 @@
         <h2 class="reveal delay-1">Discover travel packages to suit every type of explorer from solo wanderers to families</h2>
         
         <div class="new-filter-container reveal delay-2">
-            <span class="new-filter-pill active" data-filter="all">All</span>
-            <span class="new-filter-pill" data-filter="Domestic">Domestic</span>
-            <span class="new-filter-pill" data-filter="Asia">Asia</span>
-            <span class="new-filter-pill" data-filter="Europe">Europe</span>
-            <span class="new-filter-pill" data-filter="Limited Offers">Limited Offers</span>
+    <span class="new-filter-pill active" data-filter="all">All Packages</span>
+    <span class="new-filter-pill" data-filter="domestic">Domestic</span>
+    <span class="new-filter-pill" data-filter="asia">Asia</span>
+    <span class="new-filter-pill" data-filter="europe">Europe</span>
+    <span class="new-filter-pill" data-filter="land-tours">Land Tours</span>
+    <span class="new-filter-pill" data-filter="exclusive-deals">Exclusive Deals</span>
+</div>
+
         </div>
 
         <div class="new-packages-grid" id="sanityPackagesContainer">
-            <p style="text-align: center; width: 100%; grid-column: 1 / -1; color: var(--text-muted);">Loading live packages from Sanity CMS...</p>
+            <p style="text-align: center; width: 100%; grid-column: 1 / -1; color: var(--text-muted);">Loading packages...</p>
         </div>
     </section>
 
@@ -820,214 +823,168 @@
 </div>
 
     <script>
-        // ==========================================
-        // SANITY CMS FETCH API LOGIC (MGA DINAGDAG KO)
-        // ==========================================
-        async function loadSanityPackages() {
-            const PROJECT_ID = 'e4giu1sx'; 
-            const DATASET = 'production';
-            
-            const QUERY = encodeURIComponent('*[_type == "tourPackage"]{title, "slug": slug.current, duration, description, "imageUrl": mainImage.asset->url}');
-            const URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
-
-            try {
-                const response = await fetch(URL);
-                const data = await response.json();
-                const packages = data.result;
-
-                const container = document.getElementById('sanityPackagesContainer');
-                container.innerHTML = ''; 
-
-                packages.forEach((pkg, index) => {
-                    const imgSrc = pkg.imageUrl ? pkg.imageUrl : 'https://via.placeholder.com/800x600?text=No+Image';
-                    const delayClass = index % 2 === 0 ? 'delay-1' : 'delay-2'; 
-                    
-                    // Pansamantala, nilagay ko sa "all" category muna habang wala pang Category field sa Sanity mo
-                    const cardHTML = `
-                        <div class="new-pkg-card reveal active ${delayClass}" data-category="all">
-                            <div class="new-pkg-img-wrap">
-                                <img src="${imgSrc}" alt="${pkg.title}">
-                                <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
-                            </div>
-                            <div class="new-pkg-header">
-                                <h3 class="new-pkg-title">${pkg.title}</h3>
-                                <span class="new-pkg-price">${pkg.duration}</span>
-                            </div>
-                            <p class="new-pkg-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${pkg.description}</p>
-                            <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details 🡵</a>
-                        </div>
-                    `;
-                    container.innerHTML += cardHTML;
-                });
-
-                // Pagkatapos mag-load ng cards, buhayin natin yung Filter Buttons!
-                initFilterLogic();
-
-            } catch (error) {
-                console.error('Error fetching Sanity data:', error);
-                document.getElementById('sanityPackagesContainer').innerHTML = '<p style="text-align: center; width: 100%; color: red;">Failed to load packages. Please check your CORS settings or internet connection.</p>';
-            }
-        }
-
-
+    // ==========================================
+    // 1. SANITY CMS FETCH API LOGIC
+    // ==========================================
+    async function loadSanityPackages() {
+        const PROJECT_ID = 'e4giu1sx'; 
+        const DATASET = 'production';
         
-        // TATAWAGIN AGAD PAGKA-LOAD NG WEBSITE
-        document.addEventListener('DOMContentLoaded', loadSanityPackages);
+        const QUERY = encodeURIComponent('*[_type == "tourPackage"] | order(_createdAt desc){title, "slug": slug.current, category, duration, description, "imageUrl": mainImage.asset->url}');
+        const URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
 
-    
+        try {
+            const response = await fetch(URL);
+            const data = await response.json();
+            const packages = data.result;
 
-        // --- FILTER BUTTONS LOGIC (In-update ko para gumana sa mga nahigop sa Sanity) ---
-        function initFilterLogic() {
-            const filterPills = document.querySelectorAll('.new-filter-pill');
-            const packageCards = document.querySelectorAll('.new-pkg-card');
+            const container = document.getElementById('sanityPackagesContainer');
+            const loadingText = document.getElementById('loading-text');
+            if (loadingText) loadingText.style.display = 'none';
 
-            filterPills.forEach(pill => {
-                pill.addEventListener('click', () => {
-                    document.querySelector('.new-filter-pill.active').classList.remove('active');
-                    pill.classList.add('active');
+            container.innerHTML = ''; 
 
-                    const filterValue = pill.getAttribute('data-filter');
+            packages.forEach((pkg, index) => {
+                const imgSrc = pkg.imageUrl ? pkg.imageUrl : 'https://via.placeholder.com/800x600?text=No+Image';
+                const delayClass = index % 2 === 0 ? 'delay-1' : 'delay-2'; 
+                
+                const pkgCategory = pkg.category ? pkg.category.toLowerCase().replace(/\s+/g, '-') : 'all';                    
+                const cardHTML = `
+                    <div class="new-pkg-card reveal active ${delayClass}" data-category="${pkgCategory}">
+                        <div class="new-pkg-img-wrap">
+                            <img src="${imgSrc}" alt="${pkg.title}">
+                            <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
+                        </div>
+                        <div class="new-pkg-header">
+                            <h3 class="new-pkg-title">${pkg.title}</h3>
+                            <span class="new-pkg-price">${pkg.duration}</span>
+                        </div>
+                        <p class="new-pkg-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${pkg.description}</p>
+                        <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details 🡵</a>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
 
-                    packageCards.forEach(card => {
-                        if (filterValue === 'all') {
+            initFilterLogic();
+
+        } catch (error) {
+            console.error('Error fetching Sanity data:', error);
+            document.getElementById('sanityPackagesContainer').innerHTML = '<p style="text-align: center; width: 100%; color: red;">Failed to load packages. Please check your CORS settings or internet connection.</p>';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadSanityPackages);
+
+    // ==========================================
+    // 2. FILTER BUTTONS LOGIC
+    // ==========================================
+    function initFilterLogic() {
+        const filterPills = document.querySelectorAll('.new-filter-pill'); 
+        const packageCards = document.querySelectorAll('.new-pkg-card');
+
+        filterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                document.querySelector('.new-filter-pill.active')?.classList.remove('active');
+                pill.classList.add('active');
+
+                const filterValue = pill.getAttribute('data-filter');
+
+                packageCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (filterValue === 'all') {
+                        card.style.display = 'flex';
+                    } else {
+                        if (cardCategory === filterValue) {
                             card.style.display = 'flex';
                         } else {
-                            const categories = card.getAttribute('data-category').split(' ');
-                            if (categories.includes(filterValue)) {
-                                card.style.display = 'flex';
-                            } else {
-                                card.style.display = 'none';
-                            }
+                            card.style.display = 'none';
                         }
-                    });
+                    }
                 });
             });
-        }
-
-        // --- Smart Navbar Logic ---
-        let lastScrollTop = 0;
-        const navbar = document.querySelector('.hero-nav');
-        
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
-            if (scrollTop > lastScrollTop && scrollTop > 150) navbar.classList.add('hidden'); else navbar.classList.remove('hidden');
-            lastScrollTop = scrollTop;
         });
+    }
 
-        // Mobile Menu Logic
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
+    // ==========================================
+    // 3. UI ANIMATIONS & NAVBAR
+    // ==========================================
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.hero-nav');
+    
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
+        if (scrollTop > lastScrollTop && scrollTop > 150) navbar.classList.add('hidden'); else navbar.classList.remove('hidden');
+        lastScrollTop = scrollTop;
+    });
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if(mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('show');
         });
+    }
 
-        // --- FAQ Accordion Logic ---
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const isOpen = item.classList.contains('open');
-                faqItems.forEach(faq => {
-                    faq.classList.remove('open');
-                    faq.querySelector('.faq-icon').innerText = '+';
-                });
-                if (!isOpen) {
-                    item.classList.add('open');
-                    item.querySelector('.faq-icon').innerText = '×';
-                }
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+            faqItems.forEach(faq => {
+                faq.classList.remove('open');
+                faq.querySelector('.faq-icon').innerText = '+';
             });
+            if (!isOpen) {
+                item.classList.add('open');
+                item.querySelector('.faq-icon').innerText = '×';
+            }
         });
+    });
 
-        // --- Booking Sidebar Logic ---
-        const openBtn = document.getElementById('openBookingBtn');
-        const openExpertBtn = document.getElementById('openExpertBtn');
-        const closeSidebarBtn = document.getElementById('closeSidebar');
-        const sidebar = document.getElementById('bookingSidebar');
-        const overlay = document.getElementById('bookingOverlay');
+    // SCROLL REVEAL ANIMATION OBSERVER
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); 
+            }
+        });
+    }, { root: null, threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    revealElements.forEach(el => revealObserver.observe(el));
 
-        function openBooking(e) {
-            if(e) e.preventDefault();
-            sidebar.classList.add('active');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden'; 
-        }
-        function closeBooking() {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = 'auto'; 
-        }
-        
-        openBtn.addEventListener('click', openBooking);
-        if(openExpertBtn) openExpertBtn.addEventListener('click', openBooking);
-        closeSidebarBtn.addEventListener('click', closeBooking);
-        overlay.addEventListener('click', closeBooking);
+    // ==========================================
+    // 4. SIDEBAR BOOKING FORM & GOOGLE SHEETS
+    // ==========================================
+    const openBtn = document.getElementById('openBookingBtn');
+    const openExpertBtn = document.getElementById('openExpertBtn');
+    const closeSidebarBtn = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('bookingSidebar');
+    const overlay = document.getElementById('bookingOverlay');
 
-        // --- AI Chat Support Logic ---
-        const chatOpenBtn = document.getElementById('chatOpenBtn');
-        const chatCloseBtn = document.getElementById('chatCloseBtn');
-        const chatWindow = document.getElementById('chatWindow');
-        const chatBody = document.getElementById('chatBody');
-        const chatInput = document.getElementById('chatInput');
-        const typingIndicator = document.getElementById('typingIndicator');
+    function openBooking(e) {
+        if(e) e.preventDefault();
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; 
+    }
+    function closeBooking() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto'; 
+    }
+    
+    if(openBtn) openBtn.addEventListener('click', openBooking);
+    if(openExpertBtn) openExpertBtn.addEventListener('click', openBooking);
+    if(closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeBooking);
+    if(overlay) overlay.addEventListener('click', closeBooking);
 
-        chatOpenBtn.addEventListener('click', () => chatWindow.classList.add('active'));
-        chatCloseBtn.addEventListener('click', () => chatWindow.classList.remove('active'));
+    const gSheetForm = document.getElementById('bookingForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw6bELcksTQQDs_YSjcH9P9S_l1CvVfQG5yUlMrp4N-qkrc1-ZoAr2M6-_sX_3Ybu4UmQ/exec'; 
 
-        function handleChatEnter(event) {
-            if (event.key === 'Enter') sendChatMessage();
-        }
-
-        function sendChatMessage() {
-            const messageText = chatInput.value.trim();
-            if (!messageText) return;
-
-            appendMessage(messageText, 'user');
-            chatInput.value = '';
-
-            typingIndicator.style.display = 'block';
-            chatBody.scrollTop = chatBody.scrollHeight;
-
-            setTimeout(() => {
-                typingIndicator.style.display = 'none';
-                let aiResponse = "That sounds exciting! I'm still learning, but if you're ready to book, feel free to fill out the form or click on a package to connect with our human experts!";
-                
-                const lowerText = messageText.toLowerCase();
-                if (lowerText.includes('price') || lowerText.includes('how much')) {
-                    aiResponse = "Our prices vary per package. You can browse our available packages here and click 'View Details' to see the full pricing!";
-                } else if (lowerText.includes('hello') || lowerText.includes('hi')) {
-                    aiResponse = "Hi there! Looking for a beach getaway or an alpine adventure today?";
-                }
-
-                appendMessage(aiResponse, 'bot');
-            }, 1500); 
-        }
-
-        function appendMessage(text, sender) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `chat-msg ${sender}`;
-            msgDiv.innerText = text;
-            chatBody.insertBefore(msgDiv, typingIndicator);
-            chatBody.scrollTop = chatBody.scrollHeight; 
-        }
-
-        // --- SCROLL REVEAL ANIMATION OBSERVER ---
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target); 
-                }
-            });
-        }, { root: null, threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // --- GOOGLE APPS SCRIPT (GAS) FORM SUBMISSION ---
-        const gSheetForm = document.getElementById('bookingForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbw6bELcksTQQDs_YSjcH9P9S_l1CvVfQG5yUlMrp4N-qkrc1-ZoAr2M6-_sX_3Ybu4UmQ/exec'; 
-
+    if(gSheetForm){
         gSheetForm.addEventListener('submit', e => {
             e.preventDefault(); 
             
@@ -1042,7 +999,7 @@
                     submitBtn.innerText = 'Connect Now';
                     submitBtn.disabled = false;
                     gSheetForm.reset(); 
-                    document.getElementById('closeSidebar').click(); 
+                    if(document.getElementById('closeSidebar')) document.getElementById('closeSidebar').click(); 
                 })
                 .catch(error => {
                     alert('Error! Something went wrong. Please try again.');
@@ -1050,12 +1007,11 @@
                     submitBtn.disabled = false;
                 });
         });
-    </script>
-    <script src="rohan-ai.js"></script>
-    <script src="master.js"></script>
+    }
 
-<script>
-    // --- OPEN & CLOSE LOGIC ---
+    // ==========================================
+    // 5. ROHAN AI CHAT LOGIC
+    // ==========================================
     const btnOpen = document.getElementById('chatOpenBtn');
     const btnClose = document.getElementById('chatCloseBtn');
     const windowChat = document.getElementById('chatWindow');
@@ -1074,7 +1030,6 @@
         };
     }
 
-    // --- SENDING LOGIC ---
     function handleChatEnter(e) {
         if (e.key === 'Enter') sendChatMessage();
     }
@@ -1096,7 +1051,7 @@
         body.scrollTop = body.scrollHeight;
 
         try {
-            // Tatawag sa rohan-ai.js API connector
+
             const res = await askRohanAI(val); 
             typing.style.display = 'none';
             appendMsg(res, 'bot');
@@ -1107,7 +1062,6 @@
         }
     }
 
-    // --- APPEND MESSAGE LOGIC ---
     function appendMsg(text, sender) {
         const body = document.getElementById('chatBody');
         const typing = document.getElementById('typingIndicator');
@@ -1119,5 +1073,8 @@
         body.scrollTop = body.scrollHeight;
     }
 </script>
+
+<script src="rohan-ai.js"></script>
+<script src="master.js"></script>
 </body>
 </html>

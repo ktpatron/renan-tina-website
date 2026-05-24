@@ -25,11 +25,12 @@ export default defineType({
       title: 'Location / Category',
       type: 'string',
       options: {
-        list: [
-          { title: 'Domestic (Around PH)', value: 'Domestic' },
-          { title: 'Asia', value: 'Asia' },
-          { title: 'Europe', value: 'Europe' },
-          { title: 'Exclusive Deals', value: 'Exclusive Deals' }
+      list: [
+          { title: 'Domestic (Around PH)', value: 'domestic' },
+          { title: 'Asia', value: 'asia' },
+          { title: 'Europe', value: 'europe' },
+          { title: 'Land Tours', value: 'land-tours' }, // <-- PERFECT CODE VALUE
+          { title: 'Exclusive Deals', value: 'exclusive-deals' }
         ],
         layout: 'radio' // Para magandang buttons ang lalabas sa dashboard
       }
@@ -39,7 +40,7 @@ export default defineType({
       title: 'Duration (ex. 4 Days, 3 Nights)',
       type: 'string',
     }),
-defineField({
+    defineField({
       name: 'isFeatured',
       title: 'Featured Package?',
       type: 'boolean',
@@ -82,7 +83,7 @@ defineField({
         hotspot: true,
       },
     }),
-defineField({
+    defineField({
       name: 'gallery',
       title: 'Image Gallery (Multiple Pictures)',
       type: 'array',
@@ -103,5 +104,5 @@ defineField({
       type: 'array',
       of: [{ type: 'string' }],
     }),
-],
+  ],
 })
