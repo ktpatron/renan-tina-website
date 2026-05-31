@@ -423,7 +423,30 @@
         text-align: center;
         gap: 15px;
     }
-}  
+
+    /* 🛠️ DITO ISISINGIT ANG CONTACT PAGE FIX 🛠️ */
+    /* Tiyaking tugma ang class names na ito sa HTML mo */
+    .map-form-container { 
+        display: flex;
+        flex-direction: column; 
+        gap: 30px; 
+        width: 100%;
+    }
+    .form-wrapper, .map-wrapper {
+        width: 100%;
+    }
+    .info-cards-container {
+        display: flex;
+        flex-direction: column; 
+        align-items: center;
+        gap: 20px;
+    }
+    .info-card {
+        width: 100%;
+        max-width: 350px; 
+    }
+} 
+
         /* =========================================
            CONNECT POPUP SIDEBAR
            ========================================= */
@@ -644,7 +667,53 @@
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
             
             .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
-        }
+
+            .contact-header-row {
+                display: flex;
+                flex-direction: column;
+                text-align: left; /* 💅 Mas clean at modern look! */
+                gap: 25px;
+            }
+            
+           .header-right {
+                display: flex;
+                justify-content: flex-start; /* Ito ang nagtutulak sa kanya pakaliwa */
+                width: 100%;
+            }
+            .support-profile {
+                justify-content: flex-start; 
+                text-align: left;
+            }
+
+            /* 2. I-stack ang Map at ang Contact Form */
+            .contact-grid { 
+                display: flex;
+                flex-direction: column; 
+                gap: 40px; 
+                width: 100%;
+            }
+            .map-box, .main-contact-form {
+                width: 100%;
+            }
+
+            /* 3. I-stack ang input boxes (Name/Email at Phone/Guests) */
+            .form-row {
+                display: flex;
+                flex-direction: column;
+                gap: 0; 
+            }
+
+            /* 4. I-stack pababa ang 4 Info Cards */
+            .info-grid {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .info-card {
+                width: 100%;
+                max-width: 350px; 
+            }
     </style>
 </head>
 <body id="top">

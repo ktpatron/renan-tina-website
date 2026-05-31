@@ -632,7 +632,7 @@
             .footer-main { grid-template-columns: 1fr 1fr; gap: 40px;}
         }
 
-        /* Mobile View (Under 768px) */
+/* Mobile View (Under 768px) */
         @media (max-width: 768px) {
             .hero { padding-top: 130px; justify-content: flex-start; height: auto; min-height: 85vh; padding-bottom: 80px;}
             .hero-content { margin-top: 20px; align-items: flex-start; text-align: left; max-width: 100%;}
@@ -654,6 +654,41 @@
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
             
             .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
+
+            /* =========================================
+               SANITY CERTIFICATES "LIST VIEW" ULTIMATE FIX
+               ========================================= */
+            
+            /* 1. Force Flexbox Column para pumila pababa */
+            .cert-grid, 
+            #sanityCertGrid {
+                display: flex !important;
+                flex-direction: column !important; /* Ito ang pipigil sa pagtabi nila! */
+                align-items: center !important;
+                gap: 30px !important;
+                width: 100% !important;
+                padding: 0 15px !important;
+            }
+
+            /* 2. Targetin KAHIT ANO pang box ang i-inject ni Sanity */
+            .cert-grid > *,
+            #sanityCertGrid > * {
+                width: 100% !important;
+                max-width: 100% !important; 
+                flex: 0 0 100% !important; /* Flex override para hindi lumiit */
+                margin: 0 auto !important;
+                box-sizing: border-box !important;
+            }
+
+            /* 3. Ayusin ang image sa loob */
+            .cert-grid img,
+            #sanityCertGrid img {
+                width: 100% !important;
+                height: auto !important;
+                max-height: 350px !important; 
+                object-fit: contain !important;
+                padding: 10px !important;
+            }
         }
     </style>
 </head>
