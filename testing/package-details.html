@@ -542,6 +542,41 @@
             
             .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
         }
+/* =========================================
+   NUCLEAR OVERRIDE: FORCE DESKTOP 2-COLUMN GRID
+   ========================================= */
+@media (min-width: 1025px) {
+    .tour-content-split {
+        display: grid !important;
+        grid-template-columns: 1.5fr 1fr !important;
+        gap: 20px !important; /* <--- Pinantay natin sa 20px gap ng gallery mo! */
+        padding: 0 5% 100px !important; /* <--- Pinuwersa natin ang same margins */
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+        align-items: start !important;
+        flex-direction: row !important;
+    }
+    
+    .tour-left {
+        width: 100% !important;
+        display: block !important;
+        padding-right: 40px !important; /* <--- Dagdag breathing room sa text para di dumikit sa form */
+    }
+    
+    .tour-right {
+        width: 100% !important;
+        display: block !important;
+        position: relative !important;
+    }
+
+    .booking-widget {
+        position: sticky !important;
+        top: 120px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+}
     </style>
 </head>
 <body id="top">
@@ -549,7 +584,7 @@
     <nav class="hero-nav">
         <a href="index.html" class="logo">
             <img src="logo.png" alt="Renan Tina Logo" class="logo-img">
-            RENAN TINA TRAVEL AND <br> TOURS
+            RENAN TINA TRAVEL AND <br>TOURS
         </a>
         
         <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -609,8 +644,7 @@
             <div class="img-wrap"><img src="" id="img-sub2" class="gallery-img" alt="Tour Highlight 2" onload="this.classList.add('loaded')"></div>
         </div>
     </section>
-
-    <section class="tour-content-split">
+<section class="tour-content-split">
         
         <div class="tour-left">
             <h2>Tour Details</h2>
@@ -631,23 +665,22 @@
                 </div>
             </div>
 
-          <div class="review-card" id="pkg-review-container" style="display: none;">
+            <div class="review-card" id="pkg-review-container" style="display: none;">
                 <div class="stars" id="pkg-review-stars">★★★★★</div>
-                <h3 id="pkg-review-title" style="font-size: 1.2rem; margin-bottom: 10px; color: var(--star-gold);">"Amazing!"</h3>
-                <p id="pkg-review-text" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 15px;">"The team didn't just plan a trip..."</p>
+                <h3 id="pkg-review-title">"Amazing!"</h3>
+                <p id="pkg-review-text">"The team didn't just plan a trip..."</p>
                 <span id="pkg-review-author">- Happy Traveler</span>
             </div>
         </div>
-
         <div class="tour-right">
             <div class="booking-widget" id="booking-form">
                 <form class="booking-form" id="packageBookingForm">
                     <input type="hidden" name="inquiry" id="hidden-pkg-name" value="Custom Tour">
 
-<div style="text-align: center;">
-    <h3>Want to know more about this package? Fill out the form below and we'll get back to you!</h3>
-</div>
-<br>                    
+                    <div style="text-align: center;">
+                        <h3>Want to know more about this package? Fill out the form below and we'll get back to you!</h3>
+                    </div>
+                    <br>                    
 
                     <div class="form-group">
                         <label>NAME</label>
@@ -684,8 +717,7 @@
                 </form>
             </div>
         </div>
-
-    </section>
+        </section>
 
     <div class="footer-wrapper" id="contact">
        <footer class="classic-footer">
