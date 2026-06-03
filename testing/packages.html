@@ -117,7 +117,7 @@
         .dropdown-content a:hover { color: var(--accent-neon) !important; background-color: var(--bg-light) !important; padding-left: 25px !important; }
 
         /* =========================================
-           2. TRAVEL PACKAGES SECTION
+           2. TRAVEL PACKAGES SECTION (3-COLUMN UPDATE)
            ========================================= */
         .new-packages-section { padding: 160px 10% 100px; background: var(--white); max-width: 1600px; margin: 0 auto; text-align: center; }
         .sub-badge { border: 1px solid var(--border-light); padding: 8px 20px; border-radius: 50px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; margin-bottom: 25px; color: var(--text-dark); background: var(--white); font-family: 'Inter', sans-serif;}
@@ -128,12 +128,16 @@
         .new-filter-pill:hover { background: var(--bg-light); border-color: #d1d5db; }
         .new-filter-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        .new-packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 50px; text-align: left; }
+        /* MAGIC TRICK PARA MAGING 3 PER ROW: Binabaan ang minmax from 380px to 300px at gap from 50px to 30px */
+        .new-packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left; }
+        
         .new-pkg-card { background: var(--white); display: flex; flex-direction: column; transition: 0.4s ease; border-radius: 24px; }
         .new-pkg-card:hover { transform: translateY(-8px); }
         
         .new-pkg-img-wrap { position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 25px; }
-        .new-pkg-img-wrap img { width: 100%; height: 380px; object-fit: cover; transition: 0.7s ease; }
+        
+        /* INADJUST DIN ANG HEIGHT PARA BALANSE SA LAPAD: Binabaan from 380px to 300px */
+        .new-pkg-img-wrap img { width: 100%; height: 300px; object-fit: cover; transition: 0.7s ease; }
         .new-pkg-card:hover .new-pkg-img-wrap img { transform: scale(1.03); }
         
         .booking-badge { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 500; opacity: 0; transform: translateY(-10px); transition: 0.4s ease; text-decoration: none; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); font-family: 'Inter', sans-serif;}
@@ -148,7 +152,6 @@
         
         .btn-outline-new { margin-top: 25px; margin-left: 5px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border-light); color: var(--text-dark); padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: 0.3s; width: fit-content; font-family: 'Inter', sans-serif;}
         .btn-outline-new:hover { border-color: var(--primary); background: var(--bg-light); }
-
         /* =========================================
            3. FAQ SECTION
            ========================================= */
@@ -578,7 +581,7 @@
     <nav class="hero-nav">
         <a href="index.html" class="logo">
             <img src="logo.png" alt="Renan Tina Logo" class="logo-img">
-            RENAN TINA TRAVEL AND <br>TOURS
+            RENAN TINA TRAVEL AND TOURS
         </a>
         
         <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -834,14 +837,14 @@
         const PROJECT_ID = 'e4giu1sx'; 
         const DATASET = 'production';
         
-        const QUERY = encodeURIComponent('*[_type == "tourPackage"] | order(_createdAt desc){title, "slug": slug.current, category, duration, description, "imageUrl": mainImage.asset->url}');
+        const QUERY = encodeURIComponent('*[_type == "tourPackage" && !(_id in path("drafts.**"))] | order(_createdAt desc){title, "slug": slug.current, category, duration, description, "imageUrl": mainImage.asset->url}');
         const URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
 
         try {
             const response = await fetch(URL);
             const data = await response.json();
             const packages = data.result;
-
+          
             const container = document.getElementById('sanityPackagesContainer');
             const loadingText = document.getElementById('loading-text');
             if (loadingText) loadingText.style.display = 'none';
