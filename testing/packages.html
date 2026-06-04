@@ -52,11 +52,13 @@
         /* =========================================
            1. GLASSMORPHISM SMART NAVBAR
            ========================================= */
-        .hero-nav {
+      .hero-nav { 
             position: fixed; top: 0; left: 0; right: 0; width: 100%; 
             padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; 
-            z-index: 1000; transition: all 0.4s ease-in-out;
-            background: var(--nav-bg); border-bottom: 1px solid transparent;
+            z-index: 1000; background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.4s ease, padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; 
         }
         .hero-nav.scrolled { 
             padding: 12px 5%; background: rgba(255, 255, 255, 0.95); 
@@ -65,7 +67,7 @@
         .hero-nav.hidden { transform: translateY(-100%); }
         
         .logo { 
-            font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; 
+            font-size: 1rem; font-weight: 800; letter-spacing: -0.5px; 
             color: var(--primary); text-decoration: none; 
             display: flex; align-items: center; gap: 12px; white-space: nowrap;
         }
