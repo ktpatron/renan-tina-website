@@ -28,7 +28,7 @@ export default defineType({
       list: [
           { title: 'Domestic (Around PH)', value: 'domestic' },
           { title: 'Asia', value: 'asia' },
-          { title: 'Europe', value: 'europe' },
+          { title: 'International', value: 'international' },
           { title: 'Land Tours', value: 'land-tours' }, // <-- PERFECT CODE VALUE
           { title: 'Exclusive Deals', value: 'exclusive-deals' }
         ],

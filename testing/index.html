@@ -242,7 +242,7 @@
         .booking-badge:hover { background: var(--accent-neon); }
         .new-pkg-card:hover .booking-badge { opacity: 1; transform: translateY(0); }
 
-        .new-pkg-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; padding: 0 25px; }
+        .new-pkg-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; padding: 0 25px 0; }
         .new-pkg-title { font-family: 'Times New Roman', serif; font-size: 1.8rem; font-weight: 600; color: var(--primary); line-height: 1.2; letter-spacing: -0.5px; }
         .new-pkg-price { font-size: 1rem; font-weight: 600; color: var(--text-muted); border: 1px solid var(--border-light); padding: 8px 16px; border-radius: 50px; white-space: nowrap; }
         
@@ -732,7 +732,7 @@
                 <span class="filter-pill active" data-filter="all">All</span>
                 <span class="filter-pill" data-filter="domestic">Domestic</span>
                 <span class="filter-pill" data-filter="asia">Asia</span>
-                <span class="filter-pill" data-filter="europe">Europe</span>
+                <span class="filter-pill" data-filter="international">International</span>
                 <span class="filter-pill" data-filter="land-tours">Land Tours</span>
                 <span class="filter-pill" data-filter="exclusive-deals">Exclusive Deals</span>
             </div>
@@ -920,15 +920,13 @@
             const PROJECT_ID = 'e4giu1sx'; 
             const DATASET = 'production';
             
-            // 1. HIGUPIN ANG TOP 3 PACKAGES
-            const packagesQuery = encodeURIComponent('*[_type == "tourPackage"][0...9]{title, "slug": slug.current, category, duration, description, "imageUrl": mainImage.asset->url}');
+            const packagesQuery = encodeURIComponent('*[_type == "tourPackage"][0...25]{title, "slug": slug.current, category, duration, description, "imageUrl": mainImage.asset->url}');
             const packagesURL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${packagesQuery}`;
 
-            // 2. HIGUPIN ANG LATEST 3 TRAVEL ADVISORIES 
             const advisoryQuery = encodeURIComponent('*[_type == "travelAdvisory"] | order(_createdAt desc)[0...3]{title, badge, description, bullets, "imageUrl": image.asset->url}');
             const advisoryURL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${advisoryQuery}`;
 
-            try {
+           try {
                 // --- RENDER PACKAGES ---
                 const pkgRes = await fetch(packagesURL);
                 const pkgData = await pkgRes.json();
@@ -939,28 +937,55 @@
                     pkgData.result.forEach((pkg, index) => {
                         const delayClass = `delay-${index + 1}`; 
                         const pkgCategory = pkg.category ? pkg.category.toLowerCase().replace(/\s+/g, '-') : 'all';                        
-                      const cardHTML = `
-    <div class="new-pkg-card ${delayClass} reveal active" data-category="${pkgCategory}">
-        <div class="new-pkg-img-wrap">
-            <img src="${pkg.imageUrl || 'https://via.placeholder.com/600x400'}" alt="${pkg.title}">
-            <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
-        </div>
-        <div class="new-pkg-header">
-            <span style="display: block; font-size: 0.8rem; color: #003366; font-weight: bold; margin-bottom: 5px;">
-            </span>
-            
-            <h3 class="new-pkg-title">${pkg.title}</h3>
-            <span class="new-pkg-price">${pkg.duration}</span>
-        </div>
-        <p class="new-pkg-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${pkg.description}</p>
-        <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details ↗</a>
-        <a href="package-details.html?id=${pkg.slug}" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 10;"></a>
-    </div>
-`;
+                        
+                       const cardHTML = `
+                                <div class="new-pkg-card ${delayClass} reveal active" data-category="${pkgCategory}">
+                                    <div class="new-pkg-img-wrap">
+                                        <img src="${pkg.imageUrl || 'https://via.placeholder.com/600x400'}" alt="${pkg.title}">
+                                        <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
+                                    </div>
+                                    <div class="new-pkg-header">
+                                        <h3 class="new-pkg-title">${pkg.title}</h3>
+                                        <span class="new-pkg-price">${pkg.duration}</span>
+                                    </div>
+                                    <p class="new-pkg-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${pkg.description}</p>
+                                    <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details ↗</a>
+                                    <a href="package-details.html?id=${pkg.slug}" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 10;"></a>
+                                </div>
+
+                        `;
                         pkgContainer.innerHTML += cardHTML;
                     });
-                }
 
+                    // 👇👇👇 ITO YUNG NAWAWALA SA SINEND MO, BACCLA! 👇👇👇
+                    // ==========================================
+                    // BULLETPROOF FILTER LOGIC
+                    // ==========================================
+                    const filterPills = document.querySelectorAll('.new-filter-pill');
+                    const generatedCards = document.querySelectorAll('.new-pkg-card');
+
+                    filterPills.forEach(pill => {
+                        pill.addEventListener('click', function() {
+                            // Tanggalin ang active class sa lahat
+                            document.querySelectorAll('.new-filter-pill').forEach(p => p.classList.remove('active'));
+                            // I-active ang pinindot
+                            this.classList.add('active');
+
+                            const filterValue = this.getAttribute('data-filter');
+
+                            // I-filter ang mga cards
+                            generatedCards.forEach(card => {
+                                const cardCategory = card.getAttribute('data-category');
+                                if (filterValue === 'all' || cardCategory === filterValue) {
+                                    card.style.display = 'flex'; 
+                                } else {
+                                    card.style.display = 'none'; 
+                                }
+                            });
+                        });
+                    });
+                    // 👆👆👆 HANGGANG DITO YUNG DAGDAG 👆👆👆
+                }
                 // --- RENDER ADVISORIES & RESTART SLIDER ---
                 const advRes = await fetch(advisoryURL);
                 const advData = await advRes.json();
@@ -1001,6 +1026,7 @@
                                 </div>
                             </div>
                         `;
+                        
 
                         dotsContainer.innerHTML += `<div class="advisory-dot ${isActive}" data-slide="${index}"></div>`;
                     });

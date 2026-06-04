@@ -117,6 +117,29 @@
         .dropdown-content a:hover { color: var(--accent-neon) !important; background-color: var(--bg-light) !important; padding-left: 25px !important; }
 
         /* =========================================
+           SEARCH BAR STYLING
+           ========================================= */
+        .search-container { text-align: center; margin-bottom: 25px; }
+        .new-search-input {
+            padding: 14px 30px;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 50px;
+            border: 1px solid var(--border-light);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s ease;
+            color: var(--text-dark);
+            background: var(--white);
+        }
+        .new-search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
            2. TRAVEL PACKAGES SECTION (3-COLUMN UPDATE)
            ========================================= */
         .new-packages-section { padding: 160px 10% 100px; background: var(--white); max-width: 1600px; margin: 0 auto; text-align: center; }
@@ -544,6 +567,7 @@
             .hero-content h1 { font-size: 2.8rem; }
             .hero-content p { font-size: 1rem; max-width: 90%;}
             
+            
             /* MOBILE FIX PARA MAY SPACE SA GILID ANG PACKAGES */
             .packages-grid, .new-packages-grid { 
                 grid-template-columns: 1fr !important; 
@@ -622,11 +646,15 @@
     <span class="new-filter-pill active" data-filter="all">All Packages</span>
     <span class="new-filter-pill" data-filter="domestic">Domestic</span>
     <span class="new-filter-pill" data-filter="asia">Asia</span>
-    <span class="new-filter-pill" data-filter="europe">Europe</span>
+    <span class="filter-pill" data-filter="international">International</span>
     <span class="new-filter-pill" data-filter="land-tours">Land Tours</span>
     <span class="new-filter-pill" data-filter="exclusive-deals">Exclusive Deals</span>
 </div>
+<div class="search-container reveal delay-1">
+            <input type="text" id="packageSearch" placeholder="Search destinations, tours, or keywords..." class="new-search-input">
+        </div>
 
+        <div class="new-filter-container reveal delay-2">
         </div>
 
         <div class="new-packages-grid" id="sanityPackagesContainer">
@@ -872,8 +900,8 @@
                 `;
                 container.innerHTML += cardHTML;
             });
-
-            initFilterLogic();
+initFilterLogic();
+            initSearchLogic(); // 👉 ITO NA YUNG DINAGDAG NATIN PARA GUMANA!
 
         } catch (error) {
             console.error('Error fetching Sanity data:', error);
@@ -882,6 +910,48 @@
     }
 
     document.addEventListener('DOMContentLoaded', loadSanityPackages);
+
+    // ==========================================
+    // SEARCH BAR LOGIC (BULLETPROOF VERSION)
+    // ==========================================
+    function initSearchLogic() {
+        const searchInput = document.getElementById('packageSearch');
+
+        if (!searchInput) {
+            console.log("ERROR: no package available!");
+            return;
+        }
+
+        console.log("SUCCESS: package available!");
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            console.log("Search term:", searchTerm);
+
+            const packageCards = document.querySelectorAll('.new-pkg-card');
+
+            packageCards.forEach(card => {
+                const titleElement = card.querySelector('.new-pkg-title');
+                const descElement = card.querySelector('.new-pkg-desc');
+                
+                const title = titleElement ? titleElement.innerText.toLowerCase() : '';
+                const desc = descElement ? descElement.innerText.toLowerCase() : '';
+                
+                if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none'; 
+                }
+            });
+
+            // I-reset ang filter buttons pa-balik sa 'All'
+            const activeFilter = document.querySelector('.new-filter-pill.active');
+            if (activeFilter) activeFilter.classList.remove('active');
+            
+            const allFilter = document.querySelector('[data-filter="all"]');
+            if (allFilter) allFilter.classList.add('active');
+        });
+    }
 
     // ==========================================
     // 2. FILTER BUTTONS LOGIC
