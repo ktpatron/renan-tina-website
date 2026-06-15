@@ -621,15 +621,32 @@
             .advisory-visual .new-pkg-card { max-width: 500px; margin: 0 auto; }
             .footer-main { grid-template-columns: 1fr 1fr; gap: 40px;}
         }
-
-        /* Mobile View (Under 768px) */
+/* Mobile View (Under 768px) */
         @media (max-width: 768px) {
             .hero { padding-top: 130px; justify-content: flex-start; height: auto; min-height: 85vh; padding-bottom: 80px;}
             .hero-content { margin-top: 20px; align-items: flex-start; text-align: left; max-width: 100%;}
+            /* Nakita ko inayos mo na yung spacing sa 2.8rem, good job! */
             .hero-content h1 { font-size: 2.8rem; }
             .hero-content p { font-size: 1rem; max-width: 90%;}
             
-            .packages-grid { grid-template-columns: minmax(250px, 1fr); }
+            /* 👇 ITO YUNG FIX PARA LUMABAS ANG PACKAGES SA CELLPHONE 👇 */
+            .packages-grid, .new-packages-grid, #sanityIndexPackages {
+                display: grid !important;
+                grid-template-columns: 1fr !important; /* Isang hilera na lang siya pababa */
+                gap: 20px !important;
+                width: 100% !important;
+                padding: 0 15px !important;
+                box-sizing: border-box !important;
+            }
+
+            .new-pkg-card {
+                width: 100% !important; 
+                max-width: 100% !important; 
+                margin: 0 auto !important; 
+                box-sizing: border-box !important;
+            }
+            /* 👆 HANGGANG DITO YUNG DAGDAG 👆 */
+
             .advisory-section { padding: 60px 5%; }
             .advisory-text h3 { font-size: 1.6rem; }
             .section-header-common h2 { font-size: 1.8rem; }
@@ -645,7 +662,7 @@
             
             .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
         }
-    </style>
+        </style>
 </head>
 <body id="top">
 
