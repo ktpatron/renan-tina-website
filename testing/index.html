@@ -625,27 +625,30 @@
         @media (max-width: 768px) {
             .hero { padding-top: 130px; justify-content: flex-start; height: auto; min-height: 85vh; padding-bottom: 80px;}
             .hero-content { margin-top: 20px; align-items: flex-start; text-align: left; max-width: 100%;}
-            /* Nakita ko inayos mo na yung spacing sa 2.8rem, good job! */
             .hero-content h1 { font-size: 2.8rem; }
             .hero-content p { font-size: 1rem; max-width: 90%;}
             
             /* 👇 ITO YUNG FIX PARA LUMABAS ANG PACKAGES SA CELLPHONE 👇 */
             .packages-grid, .new-packages-grid, #sanityIndexPackages {
-                display: grid !important;
-                grid-template-columns: 1fr !important; /* Isang hilera na lang siya pababa */
+                display: flex !important;
+                flex-direction: column !important; /* Pinatong-patong pababa */
                 gap: 20px !important;
                 width: 100% !important;
                 padding: 0 15px !important;
                 box-sizing: border-box !important;
             }
 
-            .new-pkg-card {
+            /* 🚨 ANTI-TAGUAN GOD MODE FIX (KILL ANIMATION SA MOBILE) 🚨 */
+            .new-pkg-card, .tour-card, #sanityIndexPackages > div {
                 width: 100% !important; 
                 max-width: 100% !important; 
                 margin: 0 auto !important; 
                 box-sizing: border-box !important;
+                opacity: 1 !important; /* Pilit na pinapakita */
+                visibility: visible !important; /* Tanggal taguan */
+                transform: none !important; /* Walang aandar na animation */
+                display: block !important;
             }
-            /* 👆 HANGGANG DITO YUNG DAGDAG 👆 */
 
             .advisory-section { padding: 60px 5%; }
             .advisory-text h3 { font-size: 1.6rem; }
