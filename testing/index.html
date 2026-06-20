@@ -230,6 +230,24 @@
         .filter-pill:hover { background: var(--border-light); }
         .filter-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
 
+/* Styling para sa bagong Sub-Filters */
+.sub-filter-pill {
+    padding: 8px 16px;
+    border: 1px solid var(--border-light, #ccc);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-dark, #333);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sub-filter-pill:hover, .sub-filter-pill.active {
+    background: var(--primary, #001f3f);
+    color: #fff;
+    border-color: var(--primary, #001f3f);
+}
+
         .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; text-align: left; max-width: 1400px; margin: 0 auto;}
         .new-pkg-card { background: var(--white); display: flex; flex-direction: column; transition: 0.4s ease; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid var(--border-light);}
         .new-pkg-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); border-color: var(--primary); }
@@ -761,14 +779,42 @@
             <div class="sub-badge">✦ Travel Packages</div>
             <h2>Affordable Local & International Tour Packages</h2>
             
-            <div class="filter-container">
-                <span class="filter-pill active" data-filter="all">All</span>
-                <span class="filter-pill" data-filter="domestic">Domestic</span>
-                <span class="filter-pill" data-filter="asia">Asia</span>
-                <span class="filter-pill" data-filter="international">International</span>
-                <span class="filter-pill" data-filter="land-tours">Land Tours</span>
-                <span class="filter-pill" data-filter="exclusive-deals">Exclusive Deals</span>
-            </div>
+          <div class="filter-container" style="text-align: center; margin-bottom: 30px;">
+    <div class="main-filters" style="margin-bottom: 15px;">
+        <span class="filter-pill active" data-filter="all">All Packages</span>
+        <span class="filter-pill" data-filter="domestic">Domestic</span>
+        <span class="filter-pill" data-filter="international">International</span>
+        <span class="filter-pill" data-filter="exclusive-deals">Exclusive Deals</span>
+    </div>
+
+    <div class="sub-filters" id="subFiltersWrapper" style="display: none;">
+        
+        <div id="domestic-subs" style="display: none; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <span class="sub-filter-pill active" data-sub="all-domestic">All Domestic</span>
+            <span class="sub-filter-pill" data-sub="luzon">Luzon</span>
+            <span class="sub-filter-pill" data-sub="visayas">Visayas</span>
+            <span class="sub-filter-pill" data-sub="mindanao">Mindanao</span>
+        </div>
+
+        <div id="international-subs" style="display: none; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <span class="sub-filter-pill active" data-sub="all-international">All International</span>
+            
+            <span class="sub-filter-pill" data-sub="southeast-asia">Southeast Asia</span>
+            <span class="sub-filter-pill" data-sub="east-asia">East Asia</span>
+            <span class="sub-filter-pill" data-sub="middle-east">Middle East</span>
+            
+            <span class="sub-filter-pill" data-sub="western-europe">Western Europe</span>
+            <span class="sub-filter-pill" data-sub="eastern-europe">Eastern Europe</span>
+            <span class="sub-filter-pill" data-sub="schengen">Schengen</span>
+            
+            <span class="sub-filter-pill" data-sub="north-america">North America</span>
+            <span class="sub-filter-pill" data-sub="south-america">South America</span>
+            <span class="sub-filter-pill" data-sub="oceania">Oceania</span>
+            <span class="sub-filter-pill" data-sub="africa">Africa</span>
+        </div>
+        
+    </div>
+</div>
         </div>
         
         <div class="packages-grid" id="sanityIndexPackages">
@@ -952,8 +998,7 @@
         async function loadHomepageData() {
             const PROJECT_ID = 'e4giu1sx'; 
             const DATASET = 'production';
-            
-            const packagesQuery = encodeURIComponent('*[_type == "tourPackage"][0...25]{title, "slug": slug.current, category, duration, description, "imageUrl": mainImage.asset->url}');
+            const packagesQuery = encodeURIComponent('*[_type == "tourPackage"][0...25]{title, "slug": slug.current, category, subCategory, duration, description, "imageUrl": mainImage.asset->url}');
             const packagesURL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${packagesQuery}`;
 
             const advisoryQuery = encodeURIComponent('*[_type == "travelAdvisory"] | order(_createdAt desc)[0...3]{title, badge, description, bullets, "imageUrl": image.asset->url}');
@@ -970,10 +1015,11 @@
                     pkgData.result.forEach((pkg, index) => {
                         const delayClass = `delay-${index + 1}`; 
                         const pkgCategory = pkg.category ? pkg.category.toLowerCase().replace(/\s+/g, '-') : 'all';                        
-                        
+                        const pkgSubCategory = pkg.subCategory ? pkg.subCategory : 'none';
+
                        const cardHTML = `
-                                <div class="new-pkg-card ${delayClass} reveal active" data-category="${pkgCategory}">
-                                    <div class="new-pkg-img-wrap">
+                                <div class="new-pkg-card ${delayClass} reveal active" data-category="${pkgCategory}" data-sub="${pkgSubCategory}">
+            <div class="new-pkg-img-wrap">
                                         <img src="${pkg.imageUrl || 'https://via.placeholder.com/600x400'}" alt="${pkg.title}">
                                         <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
                                     </div>
@@ -990,29 +1036,87 @@
                         pkgContainer.innerHTML += cardHTML;
                     });
 
-                    // 👇👇👇 ITO YUNG NAWAWALA SA SINEND MO, BACCLA! 👇👇👇
+                    // 👇👇👇 ADVANCED BULLETPROOF FILTER LOGIC (WITH SUB-CATEGORIES) 👇👇👇
                     // ==========================================
-                    // BULLETPROOF FILTER LOGIC
-                    // ==========================================
-                    const filterPills = document.querySelectorAll('.new-filter-pill');
-                    const generatedCards = document.querySelectorAll('.new-pkg-card');
+                    const mainPills = document.querySelectorAll('.filter-pill');
+                    const subPills = document.querySelectorAll('.sub-filter-pill');
+                    const subWrapper = document.getElementById('subFiltersWrapper');
+                    const domSubs = document.getElementById('domestic-subs');
+                    const intSubs = document.getElementById('international-subs');
 
-                    filterPills.forEach(pill => {
+                    // 1. MAIN FILTER BUTTONS LOGIC
+                    mainPills.forEach(pill => {
                         pill.addEventListener('click', function() {
-                            // Tanggalin ang active class sa lahat
-                            document.querySelectorAll('.new-filter-pill').forEach(p => p.classList.remove('active'));
-                            // I-active ang pinindot
+                            // Tanggalin ang active class sa lahat ng main pills
+                            mainPills.forEach(p => p.classList.remove('active'));
                             this.classList.add('active');
 
                             const filterValue = this.getAttribute('data-filter');
+                            const generatedCards = document.querySelectorAll('#sanityIndexPackages .new-pkg-card');
 
-                            // I-filter ang mga cards
+                            // I-manage ang paglabas/pagtago ng Sub-filters
+                            if (subWrapper) {
+                                if (filterValue === 'all' || filterValue === 'exclusive-deals') {
+                                    subWrapper.style.display = 'none';
+                                } else if (filterValue === 'domestic') {
+                                    subWrapper.style.display = 'block';
+                                    if(domSubs) domSubs.style.display = 'flex';
+                                    if(intSubs) intSubs.style.display = 'none';
+                                    // Auto-select "All Domestic" kapag nag-switch
+                                    if(domSubs){
+                                        domSubs.querySelectorAll('.sub-filter-pill').forEach(s => s.classList.remove('active'));
+                                        const allDom = domSubs.querySelector('[data-sub="all-domestic"]');
+                                        if(allDom) allDom.classList.add('active');
+                                    }
+                                } else if (filterValue === 'international') {
+                                    subWrapper.style.display = 'block';
+                                    if(domSubs) domSubs.style.display = 'none';
+                                    if(intSubs) intSubs.style.display = 'flex';
+                                    // Auto-select "All International" kapag nag-switch
+                                    if(intSubs){
+                                        intSubs.querySelectorAll('.sub-filter-pill').forEach(s => s.classList.remove('active'));
+                                        const allInt = intSubs.querySelector('[data-sub="all-international"]');
+                                        if(allInt) allInt.classList.add('active');
+                                    }
+                                }
+                            }
+
+                            // I-filter ang mismong cards
                             generatedCards.forEach(card => {
                                 const cardCategory = card.getAttribute('data-category');
                                 if (filterValue === 'all' || cardCategory === filterValue) {
-                                    card.style.display = 'flex'; 
+                                    card.style.display = (window.innerWidth <= 768) ? 'block' : 'flex'; 
                                 } else {
                                     card.style.display = 'none'; 
+                                }
+                            });
+                        });
+                    });
+
+                    // 2. SUB-FILTER BUTTONS LOGIC
+                    subPills.forEach(subPill => {
+                        subPill.addEventListener('click', function() {
+                            const parentDiv = this.parentElement;
+                            // I-highlight ang pinindot
+                            parentDiv.querySelectorAll('.sub-filter-pill').forEach(s => s.classList.remove('active'));
+                            this.classList.add('active');
+
+                            const subFilterValue = this.getAttribute('data-sub');
+                            const activeMainFilter = document.querySelector('.filter-pill.active').getAttribute('data-filter');
+                            const generatedCards = document.querySelectorAll('#sanityIndexPackages .new-pkg-card');
+
+                            generatedCards.forEach(card => {
+                                const cardCategory = card.getAttribute('data-category');
+                                const cardSubCategory = card.getAttribute('data-sub');
+
+                                // Check kung nasa tamang main category yung card
+                                if (cardCategory === activeMainFilter) {
+                                    // Kung 'all' ang pinindot o nag-match sa specific region
+                                    if (subFilterValue.includes('all-') || cardSubCategory === subFilterValue) {
+                                        card.style.display = (window.innerWidth <= 768) ? 'block' : 'flex';
+                                    } else {
+                                        card.style.display = 'none';
+                                    }
                                 }
                             });
                         });

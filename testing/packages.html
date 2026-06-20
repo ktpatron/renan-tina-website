@@ -148,10 +148,46 @@
         .sub-badge { border: 1px solid var(--border-light); padding: 8px 20px; border-radius: 50px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; margin-bottom: 25px; color: var(--text-dark); background: var(--white); font-family: 'Inter', sans-serif;}
         .new-packages-section h2 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; line-height: 1.15; color: var(--primary); margin-bottom: 40px; letter-spacing: -1px; max-width: 850px; margin-inline: auto; font-family: 'Times New Roman', serif;}
         
-        .new-filter-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 70px; }
+.new-filter-container {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        display: block !important; 
+        text-align: center;
+        width: 100%;
+        margin-bottom: 30px;
+}
+.new-filter-container .main-filters {
+        display: flex !important;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px !important; /* Ito yung space para bumaba ang sub-filters */
+    }
         .new-filter-pill { padding: 12px 28px; border-radius: 50px; background: var(--white); border: 1px solid var(--border-light); font-size: 0.95rem; color: #333; cursor: pointer; transition: 0.3s; font-weight: 500; font-family: 'Inter', sans-serif;}
         .new-filter-pill:hover { background: var(--bg-light); border-color: #d1d5db; }
         .new-filter-pill.active { background: var(--primary); color: white; border-color: var(--primary); }
+        
+/* Styling para sa bagong Sub-Filters */
+.sub-filter-pill {
+        padding: 8px 18px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        background: transparent;
+        color: #333;
+        font-family: "Poppins", "Inter", "Montserrat", sans-serif; 
+        font-weight: 450; /* Para kumapal nang konti tulad nung sa taas */
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+.sub-filter-pill:hover, .sub-filter-pill.active {
+    background: var(--primary, #001f3f);
+    color: #fff;
+    border-color: var(--primary, #001f3f);
+}
 
         /* MAGIC TRICK PARA MAGING 3 PER ROW: Binabaan ang minmax from 380px to 300px at gap from 50px to 30px */
         .new-packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left; }
@@ -599,6 +635,7 @@
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
             
             .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
+    
         }
     </style>
 </head>
@@ -643,14 +680,43 @@
         
         <div class="sub-badge reveal"><i class="fas fa-sparkles" style="font-size:12px;"></i> Packages</div>
         <h2 class="reveal delay-1">Discover travel packages to suit every type of explorer from solo wanderers to families</h2>
+
         
-        <div class="new-filter-container reveal delay-2">
-    <span class="new-filter-pill active" data-filter="all">All Packages</span>
-    <span class="new-filter-pill" data-filter="domestic">Domestic</span>
-    <span class="new-filter-pill" data-filter="asia">Asia</span>
-    <span class="new-filter-pill" data-filter="international">International</span>
-    <span class="new-filter-pill" data-filter="land-tours">Land Tours</span>
-    <span class="new-filter-pill" data-filter="exclusive-deals">Exclusive Deals</span>
+<div class="new-filter-container" style="text-align: center; margin-bottom: 30px;">
+    
+    <div class="main-filters" style="margin-bottom: 15px;">
+        <span class="new-filter-pill active" data-filter="all">All Packages</span>
+        <span class="new-filter-pill" data-filter="domestic">Domestic</span>
+        <span class="new-filter-pill" data-filter="international">International</span>
+        <span class="new-filter-pill" data-filter="exclusive-deals">Exclusive Deals</span>
+    </div>
+
+    <div class="sub-filters" id="packagesSubFiltersWrapper" style="display: none;">
+        
+        <div id="packages-domestic-subs" style="display: none; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <span class="sub-filter-pill active" data-sub="all-domestic">All Domestic</span>
+            <span class="sub-filter-pill" data-sub="luzon">Luzon</span>
+            <span class="sub-filter-pill" data-sub="visayas">Visayas</span>
+            <span class="sub-filter-pill" data-sub="mindanao">Mindanao</span>
+        </div>
+
+        <div id="packages-international-subs" style="display: none; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <span class="sub-filter-pill active" data-sub="all-international">All International</span>
+            <span class="sub-filter-pill" data-sub="southeast-asia">Southeast Asia</span>
+            <span class="sub-filter-pill" data-sub="east-asia">East Asia</span>
+            <span class="sub-filter-pill" data-sub="middle-east">Middle East</span>
+            <span class="sub-filter-pill" data-sub="western-europe">Western Europe</span>
+            <span class="sub-filter-pill" data-sub="eastern-europe">Eastern Europe</span>
+            <span class="sub-filter-pill" data-sub="schengen">Schengen</span>
+            <span class="sub-filter-pill" data-sub="north-america">North America</span>
+            <span class="sub-filter-pill" data-sub="south-america">South America</span>
+            <span class="sub-filter-pill" data-sub="oceania">Oceania</span>
+            <span class="sub-filter-pill" data-sub="africa">Africa</span>
+        </div>
+        
+    </div>
+</div>
+
 </div>
 <div class="search-container reveal delay-1">
             <input type="text" id="packageSearch" placeholder="Search destinations, tours, or keywords..." class="new-search-input">
@@ -860,14 +926,15 @@
 </div>
 
     <script>
-    // ==========================================
+// ==========================================
     // 1. SANITY CMS FETCH API LOGIC
     // ==========================================
     async function loadSanityPackages() {
         const PROJECT_ID = 'e4giu1sx'; 
         const DATASET = 'production';
         
-        const QUERY = encodeURIComponent('*[_type == "tourPackage" && !(_id in path("drafts.**"))] | order(_createdAt desc){title, "slug": slug.current, category, duration, description, "imageUrl": mainImage.asset->url}');
+        // Kinukuha ang 'subCategory' sa database
+        const QUERY = encodeURIComponent('*[_type == "tourPackage" && !(_id in path("drafts.**"))] | order(_createdAt desc){title, "slug": slug.current, category, subCategory, duration, description, "imageUrl": mainImage.asset->url}');
         const URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
 
         try {
@@ -879,40 +946,179 @@
             const loadingText = document.getElementById('loading-text');
             if (loadingText) loadingText.style.display = 'none';
 
-            container.innerHTML = ''; 
+            if (container && packages.length > 0) {
+                container.innerHTML = ''; 
 
-            packages.forEach((pkg, index) => {
-                const imgSrc = pkg.imageUrl ? pkg.imageUrl : 'https://via.placeholder.com/800x600?text=No+Image';
-                const delayClass = index % 2 === 0 ? 'delay-1' : 'delay-2'; 
+                // A. BUUIN ANG MGA CARDS
+                packages.forEach((pkg, index) => {
+                    const imgSrc = pkg.imageUrl ? pkg.imageUrl : 'https://via.placeholder.com/800x600?text=No+Image';
+                    const delayClass = index % 2 === 0 ? 'delay-1' : 'delay-2'; 
+                    
+                    const pkgCategory = pkg.category ? pkg.category.toLowerCase().replace(/\s+/g, '-') : 'all';                    
+                    const pkgSubCategory = pkg.subCategory ? pkg.subCategory : 'none';
+
+                    const cardHTML = `
+                        <div class="new-pkg-card reveal active ${delayClass}" data-category="${pkgCategory}" data-sub="${pkgSubCategory}">
+                            <div class="new-pkg-img-wrap">
+                                <img src="${imgSrc}" alt="${pkg.title}">
+                                <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
+                            </div>
+                            <div class="new-pkg-header">
+                                <h3 class="new-pkg-title">${pkg.title}</h3>
+                                <span class="new-pkg-price">${pkg.duration}</span>
+                            </div>
+                            <p class="new-pkg-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${pkg.description}</p>
+                            <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details 🡵</a>
+                        </div>
+                    `;
+                    container.innerHTML += cardHTML;
+                });
+
+               // ==========================================
+                // B. ANG PROSESO NG FILTERING (KUMPLETO)
+                // ==========================================
+                const mainPills = document.querySelectorAll('.new-filter-pill'); 
+                const subPills = document.querySelectorAll('.sub-filter-pill');
+                const subWrapper = document.getElementById('packagesSubFiltersWrapper');
+                const domSubs = document.getElementById('packages-domestic-subs');
+                const intSubs = document.getElementById('packages-international-subs');
+
+                // ------------------------------------------
+                // LOGIC 1: KAPAG PININDOT ANG MAIN CATEGORIES
+                // ------------------------------------------
+                mainPills.forEach(pill => {
+                    pill.addEventListener('click', function() {
+                        mainPills.forEach(p => p.classList.remove('active'));
+                        this.classList.add('active');
+
+                        const filterValue = this.getAttribute('data-filter');
+                        const generatedCards = document.querySelectorAll('#sanityPackagesContainer .new-pkg-card');
+
+                        // 1. I-setup ang paglabas ng Sub-filters
+                        if (subWrapper) {
+                            if (filterValue === 'all' || filterValue === 'exclusive-deals') {
+                                subWrapper.style.display = 'none';
+                            } else if (filterValue === 'domestic') {
+                                subWrapper.style.display = 'block';
+                                if(domSubs) domSubs.style.display = 'flex';
+                                if(intSubs) intSubs.style.display = 'none';
+                                if(domSubs){
+                                    domSubs.querySelectorAll('.sub-filter-pill').forEach(s => s.classList.remove('active'));
+                                    const allDom = domSubs.querySelector('[data-sub="all-domestic"]');
+                                    if(allDom) allDom.classList.add('active');
+                                }
+                            } else if (filterValue === 'international') {
+                                subWrapper.style.display = 'block';
+                                if(domSubs) domSubs.style.display = 'none';
+                                if(intSubs) intSubs.style.display = 'flex';
+                                if(intSubs){
+                                    intSubs.querySelectorAll('.sub-filter-pill').forEach(s => s.classList.remove('active'));
+                                    const allInt = intSubs.querySelector('[data-sub="all-international"]');
+                                    if(allInt) allInt.classList.add('active');
+                                }
+                            }
+                        }
+
+                        // 2. I-filter ang mismong cards
+                        generatedCards.forEach(card => {
+                            const cardCategory = card.getAttribute('data-category');
+                            if (filterValue === 'all' || cardCategory === filterValue) {
+                                card.style.display = (window.innerWidth <= 768) ? 'block' : 'flex'; 
+                            } else {
+                                card.style.display = 'none'; 
+                            }
+                        });
+                    });
+                });
+
+                // ------------------------------------------
+                // LOGIC 2: KAPAG PININDOT ANG SUB-CATEGORIES
+                // ------------------------------------------
+                subPills.forEach(subPill => {
+                    subPill.addEventListener('click', function() {
+                        const parentDiv = this.parentElement;
+                        parentDiv.querySelectorAll('.sub-filter-pill').forEach(s => s.classList.remove('active'));
+                        this.classList.add('active');
+
+                        const subFilterValue = this.getAttribute('data-sub');
+                        const activeMainFilter = document.querySelector('.new-filter-pill.active').getAttribute('data-filter');
+                        const generatedCards = document.querySelectorAll('#sanityPackagesContainer .new-pkg-card');
+
+                        generatedCards.forEach(card => {
+                            const cardCategory = card.getAttribute('data-category');
+                            const cardSubCategory = card.getAttribute('data-sub');
+
+                            // Check kung nasa tamang main category yung card
+                            if (cardCategory === activeMainFilter) {
+                                // Kung 'all' ang pinindot o nag-match sa specific region
+                                if (subFilterValue.includes('all-') || cardSubCategory === subFilterValue) {
+                                    card.style.display = (window.innerWidth <= 768) ? 'block' : 'flex';
+                                } else {
+                                    card.style.display = 'none';
+                                }
+                            }
+                        });
                 
-                const pkgCategory = pkg.category ? pkg.category.toLowerCase().replace(/\s+/g, '-') : 'all';                    
-                const cardHTML = `
-                    <div class="new-pkg-card reveal active ${delayClass}" data-category="${pkgCategory}">
-                        <div class="new-pkg-img-wrap">
-                            <img src="${imgSrc}" alt="${pkg.title}">
-                            <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
-                        </div>
-                        <div class="new-pkg-header">
-                            <h3 class="new-pkg-title">${pkg.title}</h3>
-                            <span class="new-pkg-price">${pkg.duration}</span>
-                        </div>
-                        <p class="new-pkg-desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${pkg.description}</p>
-                        <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details 🡵</a>
-                    </div>
-                `;
-                container.innerHTML += cardHTML;
-            });
-initFilterLogic();
-            initSearchLogic(); // 👉 ITO NA YUNG DINAGDAG NATIN PARA GUMANA!
+
+                        generatedCards.forEach(card => {
+                            const cardCategory = card.getAttribute('data-category');
+                            if (filterValue === 'all' || cardCategory === filterValue) {
+                                card.style.display = (window.innerWidth <= 768) ? 'block' : 'flex'; 
+                            } else {
+                                card.style.display = 'none'; 
+                            }
+                        });
+                    });
+                });
+
+                subPills.forEach(subPill => {
+                    subPill.addEventListener('click', function() {
+                        const parentDiv = this.parentElement;
+                        parentDiv.querySelectorAll('.sub-filter-pill').forEach(s => s.classList.remove('active'));
+                        this.classList.add('active');
+
+                        const subFilterValue = this.getAttribute('data-sub');
+                        const activeMainFilter = document.querySelector('.new-filter-pill.active').getAttribute('data-filter');
+                        const generatedCards = document.querySelectorAll('#sanityPackagesContainer .new-pkg-card');
+
+                        generatedCards.forEach(card => {
+                            const cardCategory = card.getAttribute('data-category');
+                            const cardSubCategory = card.getAttribute('data-sub');
+
+                   if (cardCategory === activeMainFilter) {
+                                if (subFilterValue.includes('all-') || cardSubCategory === subFilterValue) {
+                                    card.style.display = (window.innerWidth <= 768) ? 'block' : 'flex';
+                                } else {
+                                    card.style.display = 'none';
+                                }
+                            }
+                        });
+                    });
+                });
+            }
 
         } catch (error) {
             console.error('Error fetching Sanity data:', error);
-            document.getElementById('sanityPackagesContainer').innerHTML = '<p style="text-align: center; width: 100%; color: red;">Failed to load packages. Please check your CORS settings or internet connection.</p>';
+            const container = document.getElementById('sanityPackagesContainer');
+            if (container) {
+                container.innerHTML = '<p style="text-align: center; width: 100%; color: red;">Failed to load packages. Please check your CORS settings or internet connection.</p>';
+            }
         }
-    }
+    } 
+    // 👆👆👆 DITO NAG-E-END YUNG BUONG loadSanityPackages() FUNCTION 👆👆👆
 
-    document.addEventListener('DOMContentLoaded', loadSanityPackages);
-
+    // ==========================================
+    // EXTERNAL LOGICS & INITIALIZATION
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', async () => {
+        // 1. Hintayin muna matapos i-load ni Sanity ang mga cards
+        await loadSanityPackages();
+        
+        // 2. Kapag nakalatag na ang cards, tsaka natin paganahin ang Search!
+        if (typeof initSearchLogic === 'function') {
+            initSearchLogic(); 
+        }
+    });
     // ==========================================
     // SEARCH BAR LOGIC (BULLETPROOF VERSION)
     // ==========================================

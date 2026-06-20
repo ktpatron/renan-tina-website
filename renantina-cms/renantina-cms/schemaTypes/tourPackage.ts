@@ -19,22 +19,59 @@ export default defineType({
         maxLength: 96,
       },
     }),
-    // ETO YUNG BAGONG DAGDAG BE! Lilitaw 'to as options sa dashboard mo.
+    
+    // ==========================================
+    // 1. MAIN CATEGORY (Ito yung main tabs mo)
+    // ==========================================
     defineField({
       name: 'category',
-      title: 'Location / Category',
+      title: 'Main Category',
       type: 'string',
       options: {
-      list: [
+        list: [
           { title: 'Domestic (Around PH)', value: 'domestic' },
-          { title: 'Asia', value: 'asia' },
           { title: 'International', value: 'international' },
-          { title: 'Land Tours', value: 'land-tours' }, // <-- PERFECT CODE VALUE
           { title: 'Exclusive Deals', value: 'exclusive-deals' }
         ],
         layout: 'radio' // Para magandang buttons ang lalabas sa dashboard
       }
     }),
+
+    // ==========================================
+    // 2. SUB-CATEGORY (Lilitaw lang kapag may piniling main category)
+    // ==========================================
+    defineField({
+      name: 'subCategory',
+      title: 'Location / Region',
+      description: 'Pumili ng specific na region para sa filter.',
+      type: 'string',
+      options: {
+        list: [
+          // Domestic Regions
+          { title: 'Luzon', value: 'luzon' },
+          { title: 'Visayas', value: 'visayas' },
+          { title: 'Mindanao', value: 'mindanao' },
+          
+          // International - Asia
+          { title: 'Southeast Asia (e.g. Singapore, Thailand)', value: 'southeast-asia' },
+          { title: 'East Asia (e.g. Japan, Korea)', value: 'east-asia' },
+          { title: 'Middle East (e.g. Dubai, Qatar)', value: 'middle-east' },
+          
+          // International - Europe
+          { title: 'Western Europe', value: 'western-europe' },
+          { title: 'Eastern Europe', value: 'eastern-europe' },
+          { title: 'Schengen Area', value: 'schengen' },
+          
+          // International - Others
+          { title: 'North America', value: 'north-america' },
+          { title: 'South America', value: 'south-america' },
+          { title: 'Oceania / Australasia', value: 'oceania' },
+          { title: 'Africa', value: 'africa' }
+        ],
+      },
+      // MAGIC: Lilitaw lang itong dropdown kapag Domestic o International ang Main Category!
+hidden: ({ document }) => document?.category !== 'domestic' && document?.category !== 'international',    }),
+
     defineField({
       name: 'duration',
       title: 'Duration (ex. 4 Days, 3 Nights)',
