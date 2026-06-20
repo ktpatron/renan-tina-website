@@ -622,7 +622,20 @@
             .footer-main { grid-template-columns: 1fr 1fr; gap: 40px;}
         }
 /* Mobile View (Under 768px) */
-        @media (max-width: 768px) {
+            @media (max-width: 768px) {
+    body .reveal, 
+    body [class*="delay-"], 
+    body .new-pkg-card,
+    body .tour-card,
+    body .hero-content h1,
+    body .hero-content p,
+    body .btn-main {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
             .hero { padding-top: 130px; justify-content: flex-start; height: auto; min-height: 85vh; padding-bottom: 80px;}
             .hero-content { margin-top: 20px; align-items: flex-start; text-align: left; max-width: 100%;}
             .hero-content h1 { font-size: 2.8rem; }
