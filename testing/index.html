@@ -640,7 +640,7 @@
             .footer-main { grid-template-columns: 1fr 1fr; gap: 40px;}
         }
 /* Mobile View (Under 768px) */
-            @media (max-width: 768px) {
+@media (max-width: 768px) {
     body .reveal, 
     body [class*="delay-"], 
     body .new-pkg-card,
@@ -654,62 +654,70 @@
         animation: none !important;
         transition: none !important;
     }
-            .hero { padding-top: 130px; justify-content: flex-start; height: auto; min-height: 85vh; padding-bottom: 80px;}
-            .hero-content { margin-top: 20px; align-items: flex-start; text-align: left; max-width: 100%;}
-            .hero-content h1 { font-size: 2.8rem; }
-            .hero-content p { font-size: 1rem; max-width: 90%;}
-            
-            /* 👇 ITO YUNG FIX PARA LUMABAS ANG PACKAGES SA CELLPHONE 👇 */
-            .packages-grid, .new-packages-grid, #sanityIndexPackages {
-                display: flex !important;
-                flex-direction: column !important; /* Pinatong-patong pababa */
-                gap: 20px !important;
-                width: 100% !important;
-                padding: 0 15px !important;
-                box-sizing: border-box !important;
-            }
 
-            /* 🚨 ANTI-TAGUAN GOD MODE FIX (KILL ANIMATION SA MOBILE) 🚨 */
-            .new-pkg-card, .tour-card, #sanityIndexPackages > div {
-                width: 100% !important; 
-                max-width: 100% !important; 
-                margin: 0 auto !important; 
-                box-sizing: border-box !important;
-                opacity: 1 !important; /* Pilit na pinapakita */
-                visibility: visible !important; /* Tanggal taguan */
-                transform: none !important; /* Walang aandar na animation */
-                display: block !important;
-            }
-
-            .advisory-section { padding: 60px 5%; }
-            .advisory-text h3 { font-size: 1.6rem; }
-            .section-header-common h2 { font-size: 1.8rem; }
-            
-            .footer-wrapper { padding: 10px; } 
-            footer { border-radius: 30px; padding: 50px 20px 30px; }
-            .footer-main { grid-template-columns: 1fr; gap: 30px; text-align: center; }
-            .footer-main > div:first-child { grid-column: span 1; text-align: center; margin-bottom: 20px;}
-            .footer-brand { justify-content: center; }
-            .social-link { justify-content: center; }
-            .footer-main p { margin-inline: auto; }
-            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
-            
-            .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
-        }
+    .hero { padding-top: 130px; justify-content: flex-start; height: auto; min-height: 85vh; padding-bottom: 80px;}
+    .hero-content { margin-top: 20px; align-items: flex-start; text-align: left; max-width: 100%;}
+    .hero-content h1 { font-size: 2.8rem; }
+    .hero-content p { font-size: 1rem; max-width: 90%;}
     
-    .main-filters {
+    /* 👇 ITO YUNG FIX PARA LUMABAS ANG PACKAGES SA CELLPHONE 👇 */
+    .packages-grid, .new-packages-grid, #sanityIndexPackages {
         display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 12px 10px !important; 
-        padding: 5px; 
+        flex-direction: column !important; /* Pinatong-patong pababa */
+        gap: 20px !important;
+        width: 100% !important;
+        padding: 0 15px !important;
+        box-sizing: border-box !important;
     }
 
-    .new-filter-pill, .filter-pill, .sub-filter-pill {
-        margin-bottom: 5px !important; /* Fallback spacing para sure na hindi magpatong */
-        white-space: nowrap !important; /* Para hindi maputol o bumaba yung text sa loob mismo ng button */
+    /* 🚨 ANTI-TAGUAN GOD MODE FIX (KILL ANIMATION SA MOBILE) 🚨 */
+    .new-pkg-card, .tour-card, #sanityIndexPackages > div {
+        width: 100% !important; 
+        max-width: 100% !important; 
+        margin: 0 auto !important; 
+        box-sizing: border-box !important;
+        opacity: 1 !important; /* Pilit na pinapakita */
+        visibility: visible !important; /* Tanggal taguan */
+        transform: none !important; /* Walang aandar na animation */
+        /* ❌ TINANGGAL NA NATIN YUNG DISPLAY: BLOCK !IMPORTANT DITO ❌ */
     }
-        </style>
+
+    .advisory-section { padding: 60px 5%; }
+    .advisory-text h3 { font-size: 1.6rem; }
+    .section-header-common h2 { font-size: 1.8rem; }
+    
+    .footer-wrapper { padding: 10px; } 
+    footer { border-radius: 30px; padding: 50px 20px 30px; }
+    .footer-main { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+    .footer-main > div:first-child { grid-column: span 1; text-align: center; margin-bottom: 20px;}
+    .footer-brand { justify-content: center; }
+    .social-link { justify-content: center; }
+    .footer-main p { margin-inline: auto; }
+    .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+    
+    .chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
+}
+
+.main-filters {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px 10px !important; 
+    padding: 5px; 
+}
+
+.new-filter-pill, .filter-pill, .sub-filter-pill {
+    margin-bottom: 5px !important; /* Fallback spacing para sure na hindi magpatong */
+    white-space: nowrap !important; /* Para hindi maputol o bumaba yung text sa loob mismo ng button */
+}
+
+/* 👇 ULTIMATE FILTER HIDER (MAXIMUM POWER) 👇 */
+#sanityIndexPackages .hidden-card,
+#sanityPackagesContainer .hidden-card,
+.hidden-card {
+    display: none !important;
+}
+</style>
 </head>
 <body id="top">
 
@@ -1005,19 +1013,21 @@
     <script src="rohan-ai.js"></script>
     <script>
         
-        // ==========================================
+    // ==========================================
         // SANITY CMS DYNAMIC FETCH PARA SA HOMEPAGE
         // ==========================================
         async function loadHomepageData() {
             const PROJECT_ID = 'e4giu1sx'; 
             const DATASET = 'production';
-            const packagesQuery = encodeURIComponent('*[_type == "tourPackage"][0...25]{title, "slug": slug.current, category, subCategory, duration, description, "imageUrl": mainImage.asset->url}');
+            
+            // 1. ANTI-DRAFT MAGIC
+            const packagesQuery = encodeURIComponent('*[_type == "tourPackage" && !(_id in path("drafts.**"))][0...25]{title, "slug": slug.current, category, subCategory, duration, description, "imageUrl": mainImage.asset->url}');
             const packagesURL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${packagesQuery}`;
 
             const advisoryQuery = encodeURIComponent('*[_type == "travelAdvisory"] | order(_createdAt desc)[0...3]{title, badge, description, bullets, "imageUrl": image.asset->url}');
             const advisoryURL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${advisoryQuery}`;
 
-           try {
+            try {
                 // --- RENDER PACKAGES ---
                 const pkgRes = await fetch(packagesURL);
                 const pkgData = await pkgRes.json();
@@ -1025,14 +1035,16 @@
                 
                 if (pkgContainer && pkgData.result.length > 0) {
                     pkgContainer.innerHTML = ''; 
+                    
+                    // A. BUUIN ANG MGA CARDS
                     pkgData.result.forEach((pkg, index) => {
                         const delayClass = `delay-${index + 1}`; 
                         const pkgCategory = pkg.category ? pkg.category.toLowerCase().replace(/\s+/g, '-') : 'all';                        
                         const pkgSubCategory = pkg.subCategory ? pkg.subCategory : 'none';
 
-                       const cardHTML = `
+                        const cardHTML = `
                                 <div class="new-pkg-card ${delayClass} reveal active" data-category="${pkgCategory}" data-sub="${pkgSubCategory}">
-            <div class="new-pkg-img-wrap">
+                                    <div class="new-pkg-img-wrap">
                                         <img src="${pkg.imageUrl || 'https://via.placeholder.com/600x400'}" alt="${pkg.title}">
                                         <a href="package-details.html?id=${pkg.slug}" class="booking-badge">Booking Open</a>
                                     </div>
@@ -1044,12 +1056,12 @@
                                     <a href="package-details.html?id=${pkg.slug}" class="btn-outline-new">View Details ↗</a>
                                     <a href="package-details.html?id=${pkg.slug}" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 10;"></a>
                                 </div>
-
                         `;
                         pkgContainer.innerHTML += cardHTML;
                     });
 
-                    // 👇👇👇 ADVANCED BULLETPROOF FILTER LOGIC (WITH SUB-CATEGORIES) 👇👇👇
+                    // ==========================================
+                    // B. CLEAN & BULLETPROOF FILTER LOGIC
                     // ==========================================
                     const mainPills = document.querySelectorAll('.filter-pill');
                     const subPills = document.querySelectorAll('.sub-filter-pill');
@@ -1060,14 +1072,13 @@
                     // 1. MAIN FILTER BUTTONS LOGIC
                     mainPills.forEach(pill => {
                         pill.addEventListener('click', function() {
-                            // Tanggalin ang active class sa lahat ng main pills
                             mainPills.forEach(p => p.classList.remove('active'));
                             this.classList.add('active');
 
                             const filterValue = this.getAttribute('data-filter');
                             const generatedCards = document.querySelectorAll('#sanityIndexPackages .new-pkg-card');
 
-                            // I-manage ang paglabas/pagtago ng Sub-filters
+                            // I-manage ang display ng sub-filters wrapper
                             if (subWrapper) {
                                 if (filterValue === 'all' || filterValue === 'exclusive-deals') {
                                     subWrapper.style.display = 'none';
@@ -1075,7 +1086,8 @@
                                     subWrapper.style.display = 'block';
                                     if(domSubs) domSubs.style.display = 'flex';
                                     if(intSubs) intSubs.style.display = 'none';
-                                    // Auto-select "All Domestic" kapag nag-switch
+                                    
+                                    // Reset active state sa sub-filters kapag nag-switch
                                     if(domSubs){
                                         domSubs.querySelectorAll('.sub-filter-pill').forEach(s => s.classList.remove('active'));
                                         const allDom = domSubs.querySelector('[data-sub="all-domestic"]');
@@ -1085,7 +1097,8 @@
                                     subWrapper.style.display = 'block';
                                     if(domSubs) domSubs.style.display = 'none';
                                     if(intSubs) intSubs.style.display = 'flex';
-                                    // Auto-select "All International" kapag nag-switch
+                                    
+                                    // Reset active state sa sub-filters kapag nag-switch
                                     if(intSubs){
                                         intSubs.querySelectorAll('.sub-filter-pill').forEach(s => s.classList.remove('active'));
                                         const allInt = intSubs.querySelector('[data-sub="all-international"]');
@@ -1094,13 +1107,12 @@
                                 }
                             }
 
-                            // I-filter ang mismong cards
-                            generatedCards.forEach(card => {
+                           generatedCards.forEach(card => {
                                 const cardCategory = card.getAttribute('data-category');
                                 if (filterValue === 'all' || cardCategory === filterValue) {
-                                    card.style.display = (window.innerWidth <= 768) ? 'block' : 'flex'; 
+                                    card.classList.remove('hidden-card'); // 👈 Papakita
                                 } else {
-                                    card.style.display = 'none'; 
+                                    card.classList.add('hidden-card'); // 👈 Itatago nang sapilitan!
                                 }
                             });
                         });
@@ -1110,32 +1122,33 @@
                     subPills.forEach(subPill => {
                         subPill.addEventListener('click', function() {
                             const parentDiv = this.parentElement;
-                            // I-highlight ang pinindot
+                            
                             parentDiv.querySelectorAll('.sub-filter-pill').forEach(s => s.classList.remove('active'));
                             this.classList.add('active');
 
                             const subFilterValue = this.getAttribute('data-sub');
-                            const activeMainFilter = document.querySelector('.filter-pill.active').getAttribute('data-filter');
+                            const activeMainNode = document.querySelector('.filter-pill.active');
+                            const activeMainFilter = activeMainNode ? activeMainNode.getAttribute('data-filter') : 'all';
+                            
                             const generatedCards = document.querySelectorAll('#sanityIndexPackages .new-pkg-card');
 
                             generatedCards.forEach(card => {
                                 const cardCategory = card.getAttribute('data-category');
                                 const cardSubCategory = card.getAttribute('data-sub');
 
-                                // Check kung nasa tamang main category yung card
                                 if (cardCategory === activeMainFilter) {
-                                    // Kung 'all' ang pinindot o nag-match sa specific region
                                     if (subFilterValue.includes('all-') || cardSubCategory === subFilterValue) {
-                                        card.style.display = (window.innerWidth <= 768) ? 'block' : 'flex';
+                                        card.classList.remove('hidden-card'); // 👈 Papakita
                                     } else {
-                                        card.style.display = 'none';
+                                        card.classList.add('hidden-card'); // 👈 Itatago nang sapilitan!
                                     }
                                 }
                             });
                         });
                     });
-                    // 👆👆👆 HANGGANG DITO YUNG DAGDAG 👆👆👆
                 }
+                
+                // (Dito magtutuloy yung Travel Advisory code mo...)
                 // --- RENDER ADVISORIES & RESTART SLIDER ---
                 const advRes = await fetch(advisoryURL);
                 const advData = await advRes.json();
